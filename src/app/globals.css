@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: 0 0% 100%;
+  --color-foreground: 0 0% 3.9%;
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 0 0% 3.9%;
+  --color-popover: 0 0% 100%;
+  --color-popover-foreground: 0 0% 3.9%;
+  --color-primary: 160 84% 39%;
+  --color-primary-foreground: 0 0% 100%;
+  --color-primary-shadow: 160 84 129;
+  --color-primary-gradient-from: 156 100 74;
+  --color-primary-gradient-to: 166 76 56;
+  --color-secondary: 0 0% 96.1%;
+  --color-secondary-foreground: 0 0% 9%;
+  --color-muted: 0 0% 96.1%;
+  --color-muted-foreground: 0 0% 45.1%;
+  --color-accent: 0 0% 96.1%;
+  --color-accent-foreground: 0 0% 9%;
+  --color-destructive: 0 84.2% 60.2%;
+  --color-destructive-foreground: 0 0% 98%;
+  --color-border: 0 0% 89.8%;
+  --color-input: 0 0% 89.8%;
+  --color-ring: 0 0% 3.9%;
+  --radius: 0.5rem;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-background: 0 0% 3.9%;
+    --color-foreground: 0 0% 98%;
+    --color-card: 0 0% 3.9%;
+    --color-card-foreground: 0 0% 98%;
+    --color-popover: 0 0% 3.9%;
+    --color-popover-foreground: 0 0% 98%;
+    --color-primary: 160 84% 39%;
+    --color-primary-foreground: 0 0% 100%;
+    --color-primary-shadow: 160 84 129;
+    --color-primary-gradient-from: 156 100 74;
+    --color-primary-gradient-to: 166 76 56;
+    --color-secondary: 0 0% 14.9%;
+    --color-secondary-foreground: 0 0% 98%;
+    --color-muted: 0 0% 14.9%;
+    --color-muted-foreground: 0 0% 63.9%;
+    --color-accent: 0 0% 14.9%;
+    --color-accent-foreground: 0 0% 98%;
+    --color-destructive: 0 62.8% 30.6%;
+    --color-destructive-foreground: 0 0% 98%;
+    --color-border: 0 0% 14.9%;
+    --color-input: 0 0% 14.9%;
+    --color-ring: 0 0% 83.1%;
+  }
+}
+
+* {
+  border-color: hsl(var(--color-border));
+}
+
+body {
+  background-color: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+}
+
+.bg-radial-green {
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(16, 185, 129, 0.25), transparent 70%),
+    #000000;
+}
+
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
+/* Custom gradient animation - Optimized for performance */
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease-in-out infinite;
+  /* GPU acceleration for smoother animation */
+  transform: translateZ(0);
+  will-change: background-position;
+}
