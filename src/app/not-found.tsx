@@ -15,7 +15,7 @@ export default function NotFound() {
         </p>
 
         <div className="space-y-4">
-          <Button asChild variant="primary" size="lg">
+          <Button asChild variant="secondary" size="lg">
             <Link href="/">Return Home</Link>
           </Button>
 

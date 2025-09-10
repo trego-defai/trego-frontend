@@ -1,4 +1,5 @@
-export const NAVIGATION_LINKS = {
+export const PATH = {
   home: "/",
   app: "/agent",
+  trade: "/trade",
 } as const;

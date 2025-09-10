@@ -23,7 +23,7 @@ const TweetCard = ({ tweet }: TweetCardProps) => {
 };
 
 const Avatar = ({ handle }: { handle: string }) => (
-  <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-lg ring-2 ring-primary/20">
+  <div className="w-12 h-12 bg-gradient-to-br from-secondary to-secondary/60 rounded-full flex items-center justify-center shadow-lg ring-2 ring-primary/20">
     <span className="text-primary-foreground font-bold text-base">{handle.charAt(0)}</span>
   </div>
 );
