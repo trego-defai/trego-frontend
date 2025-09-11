@@ -1,5 +1,6 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
+import { PATH } from "@/lib/constants";
+import Link from "next/link";
 
 function Hero() {
   return (
@@ -37,9 +38,11 @@ function Hero() {
         <p className="text-sm md:text-base text-gray-300 mb-8 font-medium">
           Harness real-time social sentiment from X to make smarter trading decisions with AI
         </p>
-        <Button variant="primary" size="lg">
-          TRADE NOW
-        </Button>
+        <Link href={PATH.trade}>
+          <Button variant="primary" size="lg">
+            TRADE NOW
+          </Button>
+        </Link>
       </div>
     </section>
   );

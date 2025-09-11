@@ -2,9 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { MenuIcon, TelegramIcon, XIcon } from "@/components/ui/icons";
-import { NAVIGATION_LINKS } from "@/lib/constants";
+import { PATH } from "@/lib/constants";
 import Link from "next/link";
 import { useState } from "react";
+import { usePrivy } from "@privy-io/react-auth";
+import AuthButton from "@/components/auth/AuthButton";
 import Logo from "../shared/Logo";
 
 const SOCIAL_LINKS = [
@@ -48,11 +50,17 @@ function AppButton({
   variant?: "primary" | "default";
   className?: string;
 }) {
-  return (
-    <Button asChild variant={variant} className={`px-4 py-2 rounded-lg font-medium ${className}`}>
-      <Link href={NAVIGATION_LINKS.app}>Open App</Link>
-    </Button>
-  );
+  const { authenticated } = usePrivy();
+
+  if (authenticated) {
+    return (
+      <Button asChild variant={variant} className={`px-4 py-2 rounded-lg font-medium ${className}`}>
+        <Link href={PATH.app}>Open App</Link>
+      </Button>
+    );
+  }
+
+  return null;
 }
 
 export function Navbar() {
@@ -67,6 +75,7 @@ export function Navbar() {
         <div className="hidden md:flex items-center space-x-5">
           <SocialLinks className="flex space-x-3" />
           <span className="text-4xl text-secondary pr-6 leading-none ">|</span>
+          <AuthButton className="text-sm" />
           <AppButton className="text-sm" />
         </div>
 
@@ -89,6 +98,7 @@ export function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-3 border-t border-gray-200">
+            <AuthButton variant="default" className="w-full text-base" />
             <AppButton variant="default" className="w-full text-base" />
             <SocialLinks className="flex space-x-3 justify-center" />
           </div>

@@ -1,17 +1,17 @@
 import React from "react";
 
 const Background = ({ children }: { children: React.ReactNode }) => {
-  return (
+  return (  
     <div className="min-h-screen w-full relative bg-gradient-to-br from-slate-900 via-black to-slate-800 overflow-hidden">
       {/* Animated gradient orbs */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-pulse" />
-        <div
-          className="absolute top-3/4 -right-20 w-96 h-96 bg-green-600/15 rounded-full blur-3xl animate-bounce"
+      <div className="absolute inset-0 z-0">  
+        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div  
+          className="absolute top-3/4 -right-20 w-96 h-96 bg-primary/15 rounded-full blur-3xl animate-bounce"
           style={{ animationDuration: "6s" }}
         />
         <div
-          className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl animate-pulse"
+          className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse"
           style={{ animationDelay: "2s" }}
         />
       </div>
@@ -21,7 +21,7 @@ const Background = ({ children }: { children: React.ReactNode }) => {
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-emerald-400/30 rounded-full animate-ping"
+            className="absolute w-2 h-2 bg-primary/30 rounded-full animate-ping"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
