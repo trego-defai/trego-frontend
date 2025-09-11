@@ -13,16 +13,7 @@ const PrivyAuthProvider = ({ children }: { children: React.ReactNode }) => {
           accentColor: "#676FFF",
           showWalletLoginFirst: false,
         },
-        loginMethods: ["twitter", "wallet"],
-        embeddedWallets: {
-          createOnLogin: "users-without-wallets",
-          requireUserPasswordOnCreate: false,
-        },
-        externalWallets: {
-          coinbaseWallet: {
-            connectionOptions: "all",
-          },
-        },
+        loginMethods: ["twitter", "google"],
       }}
     >
       {children}

@@ -29,9 +29,9 @@ export default function AuthButton({ variant = "primary", className = "" }: Auth
         <span className="text-sm text-gray-300">
           {user?.twitter?.username 
             ? `@${user.twitter.username}`
-            : user?.email?.address ||
-              (user?.wallet?.address && 
-                user.wallet.address.slice(0, 6) + "..." + user.wallet.address.slice(-4))
+            : user?.google?.email ||
+              user?.email?.address ||
+              "User"
           }
         </span>
         <Button
