@@ -1,5 +1,5 @@
 export const PATH = {
-  home: "/",
-  app: "/agent",
+  login: "/",
+  agent: "/agent",
   trade: "/trade",
 } as const;
