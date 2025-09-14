@@ -1,12 +1,12 @@
-import React from "react";
 import Navbar from "@/components/shared/Navbar";
+import React from "react";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-screen overflow-hidden">
-      <Navbar title="Trading" />
+    <main className="h-screen container mx-auto flex flex-col overflow-hidden">
+      <Navbar />
       {children}
-    </div>
+    </main>
   );
 };
 

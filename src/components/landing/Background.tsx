@@ -1,12 +1,13 @@
 import React from "react";
+import AnimatedChart from "./AnimatedChart";
 
 const Background = ({ children }: { children: React.ReactNode }) => {
-  return (  
+  return (
     <div className="min-h-screen w-full relative bg-gradient-to-br from-slate-900 via-black to-slate-800 overflow-hidden">
       {/* Animated gradient orbs */}
-      <div className="absolute inset-0 z-0">  
+      <div className="absolute inset-0 z-0">
         <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div  
+        <div
           className="absolute top-3/4 -right-20 w-96 h-96 bg-primary/15 rounded-full blur-3xl animate-bounce"
           style={{ animationDuration: "6s" }}
         />
@@ -45,6 +46,8 @@ const Background = ({ children }: { children: React.ReactNode }) => {
           }}
         />
       </div>
+
+      <AnimatedChart />
 
       {/* Radial gradient overlay */}
       <div className="absolute inset-0 z-0 bg-gradient-radial from-transparent via-transparent to-black/50" />

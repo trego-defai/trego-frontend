@@ -4,6 +4,7 @@ import AuthButton from "@/components/auth/AuthButton";
 import { Button } from "@/components/ui/button";
 import { MenuIcon, TelegramIcon, XIcon } from "@/components/ui/icons";
 import { PATH } from "@/lib/constants";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "../shared/Logo";
@@ -30,7 +31,7 @@ function SocialLinks({ className = "" }: { className?: string }) {
           asChild
           variant="ghost"
           size="icon"
-          className="w-6 h-6 rounded-full"
+          className="w-10 h-10 rounded-full"
           aria-label={label}
         >
           <Link href={href} target="_blank" rel="noopener noreferrer">
@@ -50,9 +51,15 @@ function AppButton({
   className?: string;
 }) {
   return (
-    <Button asChild variant={variant} className={`px-4 py-2 rounded-lg font-medium ${className}`}>
-      <Link href={PATH.agent}>Open App</Link>
-    </Button>
+    <Link href={PATH.agent} target="_blank" rel="noopener noreferrer">
+      <Button
+        variant={variant}
+        className={`px-4 py-2 flex items-center group gap-2 rounded-lg font-medium ${className}`}
+      >
+        Launch App
+        <ArrowUpRight className="w-4 h-4 group-hover:translate-x-[2px] group-hover:-translate-y-[2px] transition-transform duration-300" />
+      </Button>
+    </Link>
   );
 }
 

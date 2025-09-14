@@ -4,8 +4,8 @@ import Link from "next/link";
 
 function Hero() {
   return (
-    <section className="flex flex-col items-center justify-center min-h-[40vh] py-20 px-4 ">
-      <div className="text-center">
+    <section className="relative flex flex-col items-center justify-center min-h-[40vh] py-20 px-4 overflow-hidden">
+      <div className="relative z-10 text-center">
         <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-wide mb-3 drop-shadow-lg">
           AI TRADING BOT POWERED WITH{` `}
           <span className="relative inline-block align-middle">
@@ -36,10 +36,13 @@ function Hero() {
           </span>
         </h1>
         <p className="text-sm md:text-base text-gray-300 mb-8 font-medium">
-          Harness real-time social sentiment from X to make smarter trading decisions with AI
+          Trade faster and secure with AI Trading Assistant
         </p>
-        <Link href={PATH.trade}>
-          <Button variant="primary" size="lg">
+        <Link href={PATH.trade} target="_blank" rel="noopener noreferrer">
+          <Button variant="primary" size="lg" className="group">
+            <span className="group-hover:translate-x-[2px] group-hover:-translate-y-[2px] transition-transform duration-300">
+              🚀
+            </span>
             TRADE NOW
           </Button>
         </Link>

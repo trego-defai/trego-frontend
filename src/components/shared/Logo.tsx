@@ -4,7 +4,7 @@ import React from "react";
 
 function Logo() {
   return (
-    <Link href={PATH.login} className="flex items-center space-x-3 group">
+    <Link href={PATH.login} className="flex items-center space-x-3 group">  
       <div className="relative">
         {/* Gradient background with glow effect */}
         <div className="w-10 h-10 bg-gradient-to-br from-secondary via-secondary to-secondary/80 rounded-xl flex items-center justify-center shadow-lg ring-1 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300 relative overflow-hidden">

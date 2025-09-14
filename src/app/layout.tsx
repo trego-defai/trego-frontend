@@ -20,18 +20,6 @@ export const metadata: Metadata = {
     "AI-powered DeFi trading assistant with real-time market analysis, intelligent trading strategies, and seamless social integration.",
   keywords: ["DeFi", "AI", "trading", "cryptocurrency", "assistant", "blockchain", "analysis"],
   authors: [{ name: "Trego" }],
-  openGraph: {
-    title: "Trego - DeFi AI Assistant",
-    description:
-      "AI-powered DeFi trading assistant with real-time market analysis, intelligent trading strategies, and seamless social integration.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Trego - DeFi AI Assistant",
-    description:
-      "AI-powered DeFi trading assistant with real-time market analysis, intelligent trading strategies, and seamless social integration.",
-  },
   viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
 };

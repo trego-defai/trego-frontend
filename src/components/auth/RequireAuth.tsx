@@ -2,14 +2,27 @@
 
 import { useUser, SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface RequireAuthProps {
   children: React.ReactNode;
   message?: string;
 }
 
-export default function RequireAuth({ children, message = "Please sign in to use this feature" }: RequireAuthProps) {
+export default function RequireAuth({
+  children,
+  message = "Please sign in to use this feature",
+}: RequireAuthProps) {
   const { isLoaded, isSignedIn } = useUser();
+  const router = useRouter();
+
+  // Get current URL for redirect after sign in
+  const getCurrentUrl = () => {
+    if (typeof window !== "undefined") {
+      return window.location.href;
+    }
+    return "/";
+  };
 
   if (!isLoaded) {
     return (
@@ -23,10 +36,12 @@ export default function RequireAuth({ children, message = "Please sign in to use
     return (
       <div className="text-center p-6 bg-gray-900/50 border border-gray-800 rounded-lg">
         <p className="text-gray-300 mb-4">{message}</p>
-        <SignInButton mode="modal">
-          <Button className="bg-blue-600 hover:bg-blue-700">
-            Sign In to Continue
-          </Button>
+        <SignInButton
+          mode="modal"
+          forceRedirectUrl={getCurrentUrl()}
+          signUpForceRedirectUrl={getCurrentUrl()}
+        >
+          <Button className="bg-blue-600 hover:bg-blue-700">Sign In to Continue</Button>
         </SignInButton>
       </div>
     );

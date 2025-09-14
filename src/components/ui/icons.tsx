@@ -142,3 +142,64 @@ export const Loader2Icon = ({
     <path d="M12 22C6.477 22 2 17.523 2 12H0C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12H22C22 17.523 17.523 22 12 22ZM2 12C2 6.477 6.477 2 12 2C17.523 2 22 6.477 22 12H20C20 7.582 16.418 4 12 4C7.582 4 4 7.582 4 12H2Z" />
   </svg>
 );
+
+export const ArrowUpRightIcon = ({
+  width = 24,
+  height = 24,
+  color = "currentColor",
+  className = "w-6 h-6",
+  ...props
+}: IconProps) => (
+  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <path d="M12 2L2 22h20L12 2z" />
+  </svg>
+);
+
+
+export const ArrowDownRightIcon = ({
+  width = 24,
+  height = 24,
+  color = "currentColor",
+  className = "w-6 h-6",
+  ...props
+}: IconProps) => (
+  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <path d="M12 2L2 22h20L12 2z" />
+  </svg>
+);
+
+export const BTCIcon = ({
+  width = 24,
+  height = 24,
+  color = "currentColor",
+  className = "w-6 h-6",
+  ...props
+}: IconProps) => (
+  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <path d="M12 2L2 22h20L12 2z" />
+  </svg>
+);
+
+export const ETHIcon = ({
+  width = 24,
+  height = 24,
+  color = "currentColor",
+  className = "w-6 h-6",
+  ...props
+}: IconProps) => (
+  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <path d="M12 2L2 22h20L12 2z" />
+  </svg>
+);
+
+export const GoogleIcon = ({
+  width = 24,
+  height = 24,
+  color = "currentColor",
+  className = "w-6 h-6",
+  ...props
+}: IconProps) => (
+  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <path d="M12 2L2 22h20L12 2z" />
+  </svg>
+);
