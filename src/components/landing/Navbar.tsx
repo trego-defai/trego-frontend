@@ -30,7 +30,7 @@ function SocialLinks({ className = "" }: { className?: string }) {
           asChild
           variant="ghost"
           size="icon"
-          className="w-6 h-6 rounded-full"
+          className="w-10 h-10 rounded-full"
           aria-label={label}
         >
           <Link href={href} target="_blank" rel="noopener noreferrer">

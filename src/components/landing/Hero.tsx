@@ -1,11 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { PATH } from "@/lib/constants";
 import Link from "next/link";
+import AnimatedChart from "./AnimatedChart";
 
 function Hero() {
   return (
-    <section className="flex flex-col items-center justify-center min-h-[40vh] py-20 px-4 ">
-      <div className="text-center">
+    <section className="relative flex flex-col items-center justify-center min-h-[40vh] py-20 px-4 overflow-hidden">
+      {/* Animated Chart Background */}
+      <AnimatedChart />
+
+      {/* Gradient overlay to ensure text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/20 pointer-events-none" />
+
+      <div className="relative z-10 text-center">
         <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-wide mb-3 drop-shadow-lg">
           AI TRADING BOT POWERED WITH{` `}
           <span className="relative inline-block align-middle">
@@ -36,11 +43,11 @@ function Hero() {
           </span>
         </h1>
         <p className="text-sm md:text-base text-gray-300 mb-8 font-medium">
-          Harness real-time social sentiment from X to make smarter trading decisions with AI
+          Trade faster and secure with AI Trading Assistant
         </p>
         <Link href={PATH.trade}>
           <Button variant="primary" size="lg">
-            TRADE NOW
+            🚀 TRADE NOW
           </Button>
         </Link>
       </div>

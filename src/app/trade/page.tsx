@@ -1,72 +1,86 @@
 "use client";
 
-import RequireAuth from "@/components/auth/RequireAuth";
-import { Button } from "@/components/ui/button";
-import { useUser } from "@clerk/nextjs";
+import Navbar from "@/components/shared/Navbar";
+import { AssetsPanel } from "@/components/trade/AssetsPanel";
+import { Chart } from "@/components/trade/Chart";
+import { ChatbotPanel } from "@/components/trade/ChatbotPanel";
+import { HistoryTab } from "@/components/trade/HistoryTab";
+import { OrdersTab } from "@/components/trade/OrdersTab";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function AgentPage() {
-  const { isSignedIn, user } = useUser();
-
+export default function TradePage() {
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-white mb-4">Welcome to Trego AI Agent</h2>
-        <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-          Your AI-powered DeFi trading assistant is ready to help you navigate the world of
-          decentralized finance. Get real-time market analysis, intelligent trading strategies, and
-          seamless social integration.
-        </p>
+    <main className="h-screen flex flex-col overflow-hidden">
+      <Navbar />
+      {/* Mobile & Tablet Layout - Stack vertically */}
+      <div className="xl:hidden flex flex-col gap-3 sm:gap-4 p-3 sm:p-4 flex-1 overflow-y-auto w-full">
+        <Chart className="w-full flex-shrink-0 min-w-0 flex-1" />
+        <div className="bg-gray-900/50 border border-gray-800 rounded-lg flex-shrink-0">
+          <Tabs defaultValue="orders" className="flex flex-col">
+            <div className="p-3 sm:p-4 pb-0">
+              <TabsList className="w-full">
+                <TabsTrigger value="orders" className="flex-1 text-xs sm:text-sm">
+                  Orders
+                </TabsTrigger>
+                <TabsTrigger value="history" className="flex-1 text-xs sm:text-sm">
+                  History
+                </TabsTrigger>
+              </TabsList>
+            </div>
+            <div className="p-3 sm:p-4">
+              <TabsContent
+                value="orders"
+                className="max-h-[250px] sm:max-h-[300px] overflow-y-auto"
+              >
+                <OrdersTab />
+              </TabsContent>
+              <TabsContent
+                value="history"
+                className="max-h-[250px] sm:max-h-[300px] overflow-y-auto"
+              >
+                <HistoryTab />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </div>
+        <AssetsPanel className="w-full flex-shrink-0 min-w-0" />
+        <ChatbotPanel className="w-full min-h-[350px] sm:min-h-[400px] flex-shrink-0 min-w-0" />
+      </div>
 
-        {isSignedIn && (
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-8 mb-8">
-            <h3 className="text-xl font-semibold text-white mb-4">Connected Account</h3>
-            <p className="text-gray-300 mb-2">
-              <span className="font-medium">User:</span>{" "}
-              {user?.username || user?.firstName || "User"}
-            </p>
-            {user?.primaryEmailAddress && (
-              <p className="text-gray-300">
-                <span className="font-medium">Email:</span> {user.primaryEmailAddress.emailAddress}
-              </p>
-            )}
-          </div>
-        )}
-
-        <div className="grid md:grid-cols-3 gap-6 text-left">
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-6">
-            <h4 className="text-lg font-semibold text-white mb-3">Market Analysis</h4>
-            <p className="text-gray-300 text-sm">
-              Get real-time insights and analysis of DeFi markets, token performance, and trading
-              opportunities.
-            </p>
-          </div>
-
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-6">
-            <h4 className="text-lg font-semibold text-white mb-3">Smart Trading</h4>
-            <p className="text-gray-300 text-sm">
-              Execute intelligent trading strategies with AI-powered recommendations and risk
-              management.
-            </p>
-          </div>
-
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-6">
-            <h4 className="text-lg font-semibold text-white mb-3">Social Integration</h4>
-            <p className="text-gray-300 text-sm">
-              Connect with the DeFi community, share insights, and collaborate on trading
-              strategies.
-            </p>
+      {/* Desktop Layout - 70/30 split using grid */}
+      <div className="hidden xl:grid flex-1 w-full min-h-0 grid-cols-[minmax(0,70%)_minmax(300px,1fr)] gap-4 p-4">
+        {/* Left Column - 70% */}
+        <div className="flex flex-col gap-4 min-w-0 xl:min-w-[800px]">
+          <Chart className="flex-shrink-0" />
+          <div className="flex-1 flex gap-4 min-h-0">
+            <AssetsPanel className="flex-1 min-w-0 min-h-[300px]" />
+            <ChatbotPanel className="flex-1 min-w-0 min-h-[300px]" />
           </div>
         </div>
-
-        <div className="mt-8">
-          <RequireAuth message="Sign in to access the AI Agent">
-            <Button
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium"
-              disabled
-            >
-              AI Agent Coming Soon
-            </Button>
-          </RequireAuth>
+        {/* Right Column - 30% */}
+        <div className="min-w-[300px] xl:min-w-[350px] flex flex-col">
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg h-full flex flex-col">
+            <Tabs defaultValue="orders" className="flex flex-col h-full">
+              <div className="p-4 pb-0">
+                <TabsList className="w-full">
+                  <TabsTrigger value="orders" className="flex-1">
+                    Orders
+                  </TabsTrigger>
+                  <TabsTrigger value="history" className="flex-1">
+                    History
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+              <div className="flex-1 px-4 min-h-0 overflow-hidden">
+                <TabsContent value="orders" className="h-full overflow-y-auto">
+                  <OrdersTab />
+                </TabsContent>
+                <TabsContent value="history" className="h-full overflow-y-auto">
+                  <HistoryTab />
+                </TabsContent>
+              </div>
+            </Tabs>
+          </div>
         </div>
       </div>
     </main>
