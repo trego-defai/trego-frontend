@@ -1,6 +1,6 @@
 "use client";
 
-import { usePrivy } from "@privy-io/react-auth";
+import { useUser, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
 interface AuthButtonProps {
@@ -9,9 +9,9 @@ interface AuthButtonProps {
 }
 
 export default function AuthButton({ variant = "primary", className = "" }: AuthButtonProps) {
-  const { ready, authenticated, user, login, logout } = usePrivy();
+  const { isLoaded, isSignedIn, user } = useUser();
 
-  if (!ready) {
+  if (!isLoaded) {
     return (
       <Button
         variant={variant}
@@ -23,35 +23,34 @@ export default function AuthButton({ variant = "primary", className = "" }: Auth
     );
   }
 
-  if (authenticated) {
+  if (isSignedIn) {
     return (
       <div className="flex items-center space-x-3">
         <span className="text-sm text-gray-300">
-          {user?.twitter?.username 
-            ? `@${user.twitter.username}`
-            : user?.google?.email ||
-              user?.email?.address ||
-              "User"
-          }
+          {user?.username || 
+           user?.primaryEmailAddress?.emailAddress ||
+           user?.firstName ||
+           "User"}
         </span>
-        <Button
-          variant={variant}
-          className={`px-4 py-2 rounded-lg font-medium ${className}`}
-          onClick={logout}
-        >
-          Logout
-        </Button>
+        <UserButton 
+          appearance={{
+            elements: {
+              avatarBox: "w-8 h-8",
+            },
+          }}
+        />
       </div>
     );
   }
 
   return (
-    <Button
-      variant={variant}
-      className={`px-4 py-2 rounded-lg font-medium ${className}`}
-      onClick={login}
-    >
-      Connect
-    </Button>
+    <SignInButton mode="modal">
+      <Button
+        variant={variant}
+        className={`px-4 py-2 rounded-lg font-medium ${className}`}
+      >
+        Connect
+      </Button>
+    </SignInButton>
   );
 }

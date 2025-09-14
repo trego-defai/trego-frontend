@@ -1,12 +1,11 @@
 "use client";
 
+import AuthButton from "@/components/auth/AuthButton";
 import { Button } from "@/components/ui/button";
 import { MenuIcon, TelegramIcon, XIcon } from "@/components/ui/icons";
 import { PATH } from "@/lib/constants";
 import Link from "next/link";
 import { useState } from "react";
-import { usePrivy } from "@privy-io/react-auth";
-import AuthButton from "@/components/auth/AuthButton";
 import Logo from "../shared/Logo";
 
 const SOCIAL_LINKS = [
@@ -31,7 +30,7 @@ function SocialLinks({ className = "" }: { className?: string }) {
           asChild
           variant="ghost"
           size="icon"
-          className="w-9 h-9 rounded-full"
+          className="w-6 h-6 rounded-full"
           aria-label={label}
         >
           <Link href={href} target="_blank" rel="noopener noreferrer">
@@ -50,17 +49,11 @@ function AppButton({
   variant?: "primary" | "default";
   className?: string;
 }) {
-  const { authenticated } = usePrivy();
-
-  if (authenticated) {
-    return (
-      <Button asChild variant={variant} className={`px-4 py-2 rounded-lg font-medium ${className}`}>
-        <Link href={PATH.app}>Open App</Link>
-      </Button>
-    );
-  }
-
-  return null;
+  return (
+    <Button asChild variant={variant} className={`px-4 py-2 rounded-lg font-medium ${className}`}>
+      <Link href={PATH.agent}>Open App</Link>
+    </Button>
+  );
 }
 
 export function Navbar() {
@@ -75,7 +68,6 @@ export function Navbar() {
         <div className="hidden md:flex items-center space-x-5">
           <SocialLinks className="flex space-x-3" />
           <span className="text-4xl text-secondary pr-6 leading-none ">|</span>
-          <AuthButton className="text-sm" />
           <AppButton className="text-sm" />
         </div>
 

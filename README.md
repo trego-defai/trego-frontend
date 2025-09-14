@@ -5,10 +5,12 @@ Next.js 15 frontend application for Trego DeFi platform with AI chatbot interfac
 ## 🌟 Current Features
 
 ### 🤖 DeFi Agent Page
+
 - **AI Chat Interface**: Chat-bot UI with message components that render different action types from backend
 - **Backend Integration**: API connections to interact with AI backend services
 
 ### 📊 Trading Dashboard
+
 - **TradingView Integration**: Trading-view UI for chart analysis
 - **Trade History**: Transaction history display
 - **P&L Tracking**: Profit/loss monitoring interface
@@ -17,7 +19,7 @@ Next.js 15 frontend application for Trego DeFi platform with AI chatbot interfac
 ### 🏠 Landing Page
 - **Navigation**: Navbar component
 - **Features**: Feature showcase sections
-- **Social Integration**: X (Twitter) integration for user engagement
+- **Social Integration**: X (Twitter) | Google
 
 ## 🏗️ Detailed Project Structure
 
@@ -93,54 +95,32 @@ src/
 │   ├── useTradingData.ts        # Trading data management
 │   ├── usePairSelection.ts      # Pair selector hook
 │   └── useSSE.ts                # Server-Sent Events connection hook
-└── middleware                     
+└── middleware
 └── providers/
     ├── ApiProvider.tsx          # API context provider
     ├── ChatProvider.tsx         # Chat state management
     └── TradingProvider.tsx      # Trading data context
 ```
 
-## 📱 Current Pages
-
-### Landing Page (`/`)
-- **Navbar**: Navigation component
-- **Features**: Feature showcase sections  
-- **X Integration**: Social integration components
-
-### Agent Page (`/agent`)
-- **Chat Interface**: Chat-bot UI with message components
-- **Action Rendering**: Components that render different action types from backend
-
-### Dashboard Page (`/dashboard`)
-- **TradingView**: Trading-view UI integration
-- **History**: Trade history display
-- **P&L**: Profit/loss tracking interface
-- **Pair Selection**: Token pair selector
-
 ## 🔧 Technology Stack
 
 ### Frontend
+
 - **Framework**: Next.js 15 with App Router
 - **Styling**: Tailwind CSS v4
 - **Package Manager**: pnpm
 - **Build Tool**: Turbopack
 
-### Backend Integration
-- **API Gateway**: Centralized API gateway for backend communication with middleware
-- **API Routes**: Next.js API routes acting as proxy to backend services
-- **Chat Interface**: Components for AI chat interaction with SSE streaming responses
-- **Real-time Data**: Server-Sent Events (SSE) for streaming data integration
-- **Authentication**: API gateway handles auth tokens and request validation
-- **Rate Limiting**: Built-in rate limiting and request throttling
-
 ## 🚀 Development
 
 ### Available Commands
+
 - `pnpm dev` - Start development server with Turbopack
-- `pnpm build` - Build for production with Turbopack  
+- `pnpm build` - Build for production with Turbopack
 - `pnpm start` - Start production server
 
 ### Environment Variables
+
 ```env
 # Backend API Configuration
 NEXT_PUBLIC_API_URL=http://localhost:4000/api
@@ -157,6 +137,7 @@ SSE_HEARTBEAT_INTERVAL=30000
 ## 🔌 API Structure
 
 ### API Gateway Architecture
+
 The frontend uses a centralized API gateway pattern for backend communication:
 
 ```typescript
@@ -178,6 +159,7 @@ The frontend uses a centralized API gateway pattern for backend communication:
 ```
 
 ### API Client Structure
+
 ```typescript
 // lib/api/client.ts - Main API client
 // lib/api/gateway.ts - Gateway utilities & middleware
