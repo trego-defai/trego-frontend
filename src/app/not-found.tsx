@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { PATH } from "@/lib/constants";
 
 export default function NotFound() {
   return (
@@ -16,17 +17,29 @@ export default function NotFound() {
 
         <div className="space-y-4">
           <Button asChild variant="secondary" size="lg">
-            <Link href="/">Return Home</Link>
+            <Link href={PATH.login} target="_blank" rel="noopener noreferrer">
+              Return Home
+            </Link>
           </Button>
 
           <div className="text-sm text-gray-500">Or try navigating to:</div>
 
           <div className="flex justify-center space-x-4 text-sm">
-            <Link href="/agent" className="text-blue-400 hover:text-blue-300 transition-colors">
+            <Link
+              href={PATH.agent}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+            >
               AI Agent
             </Link>
             <span className="text-gray-600">•</span>
-            <Link href="/dashboard" className="text-blue-400 hover:text-blue-300 transition-colors">
+            <Link
+              href={PATH.trade}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+            >
               Dashboard
             </Link>
           </div>

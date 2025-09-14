@@ -10,6 +10,8 @@ const ClerkAuthProvider = ({ children }: { children: React.ReactNode }) => {
       appearance={{
         baseTheme: dark,
       }}
+      signInFallbackRedirectUrl={"/"}
+      signUpFallbackRedirectUrl={"/"}
     >
       {children}
     </ClerkProvider>

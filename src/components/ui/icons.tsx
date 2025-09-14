@@ -191,3 +191,15 @@ export const ETHIcon = ({
     <path d="M12 2L2 22h20L12 2z" />
   </svg>
 );
+
+export const GoogleIcon = ({
+  width = 24,
+  height = 24,
+  color = "currentColor",
+  className = "w-6 h-6",
+  ...props
+}: IconProps) => (
+  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <path d="M12 2L2 22h20L12 2z" />
+  </svg>
+);

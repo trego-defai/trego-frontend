@@ -19,7 +19,7 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="border-b border-gray-800 bg-black/50 backdrop-blur-sm">
+    <header className="border-b border-gray-800 bg-black/50 backdrop-blur-sm container mx-auto">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 relative">
           {/* Left: Logo and Title */}
