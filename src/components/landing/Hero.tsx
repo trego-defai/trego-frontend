@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { PATH } from "@/lib/constants";
 import Link from "next/link";
+import Image from "next/image";
 
 function Hero() {
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[40vh] py-20 px-4 overflow-hidden">
-      <div className="relative z-10 text-center">
+    <section className="relative flex flex-col min-h-[100vh] overflow-hidden">
+      {/* Text Content - Top */}
+      <div className="flex-1 flex flex-col items-center justify-center text-center py-20 px-4 relative z-10">
         <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-wide mb-3 drop-shadow-lg">
           AI TRADING BOT POWERED WITH{` `}
           <span className="relative inline-block align-middle">
@@ -39,7 +41,7 @@ function Hero() {
           Trade faster and secure with AI Trading Assistant
         </p>
         <Link href={PATH.trade} target="_blank" rel="noopener noreferrer">
-          <Button variant="primary" size="lg" className="group">
+          <Button variant="default" size="lg" className="group">
             <span className="group-hover:translate-x-[2px] group-hover:-translate-y-[2px] transition-transform duration-300">
               🚀
             </span>
@@ -47,6 +49,15 @@ function Hero() {
           </Button>
         </Link>
       </div>
+        <div className="w-full h-64 md:h-80">
+          <Image
+            src="/chart.svg"
+            alt="chart"
+            fill
+            className="object-cover object-bottom"
+            priority
+          />
+        </div>
     </section>
   );
 }

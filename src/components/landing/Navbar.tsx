@@ -1,108 +1,103 @@
 "use client";
 
-import AuthButton from "@/components/auth/AuthButton";
 import { Button } from "@/components/ui/button";
-import { MenuIcon, TelegramIcon, XIcon } from "@/components/ui/icons";
 import { PATH } from "@/lib/constants";
-import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Logo from "../shared/Logo";
+import AuthButton from "@/components/auth/AuthButton";
 
-const SOCIAL_LINKS = [
-  {
-    href: "https://x.com/trego_ai",
-    icon: XIcon,
-    label: "Follow on X",
-  },
-  {
-    href: "https://t.me/trego_ai",
-    icon: TelegramIcon,
-    label: "Join Telegram",
-  },
+const NAVIGATION_LINKS = [
+  { href: "#bots", label: "Bots" },
+  { href: "#markets", label: "Markets" },
+  { href: PATH.trade, label: "Trade" },
+  { href: "#token", label: "Token" },
+  { href: PATH.agent, label: "AI Assistant" },
 ] as const;
 
-function SocialLinks({ className = "" }: { className?: string }) {
+function NavigationLinks() {
+  const pathname = usePathname();
+
   return (
-    <div className={className}>
-      {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
-        <Button
-          key={href}
-          asChild
-          variant="ghost"
-          size="icon"
-          className="w-10 h-10 rounded-full"
-          aria-label={label}
-        >
-          <Link href={href} target="_blank" rel="noopener noreferrer">
-            <Icon />
-          </Link>
-        </Button>
-      ))}
+    <div className="relative flex items-center gap-6 text-sm">
+      {NAVIGATION_LINKS.map(({ href, label }) => {
+        const isActive = href === pathname || (href.startsWith("#") && false);
+        return (
+          <div key={href} className="relative">
+            {isActive && (
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-2 rounded-b-full bg-[#1FFFA9] shadow-[0_6px_12px_-6px_#1FFFA9]" />
+            )}
+            <Link
+              href={href}
+              className={`transition-colors duration-200 font-medium ${isActive ? "text-white" : "text-gray-300 hover:text-[#1FFFA9]"
+                }`}
+            >
+              {label}
+            </Link>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-function AppButton({
-  variant = "primary",
-  className = "",
-}: {
-  variant?: "primary" | "default";
-  className?: string;
-}) {
+function LeftIconButton() {
   return (
-    <Link href={PATH.agent} target="_blank" rel="noopener noreferrer">
-      <Button
-        variant={variant}
-        className={`px-4 py-2 flex items-center group gap-2 rounded-lg font-medium ${className}`}
-      >
-        Launch App
-        <ArrowUpRight className="w-4 h-4 group-hover:translate-x-[2px] group-hover:-translate-y-[2px] transition-transform duration-300" />
-      </Button>
-    </Link>
+    <Button
+      variant="ghost"
+      size="icon"
+      className="h-10 w-10 rounded-full bg-brand text-black hover:bg-brand/90"
+      aria-label="Open menu"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <rect x="3" y="3" width="8" height="8" rx="2" />
+        <rect x="13" y="3" width="8" height="8" rx="2" />
+        <rect x="3" y="13" width="8" height="8" rx="2" />
+        <rect x="13" y="13" width="8" height="8" rx="2" />
+      </svg>
+    </Button>
+  );
+}
+
+function RightArrowButton() {
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      className="h-10 w-10 rounded-full bg-brand text-black hover:bg-brand/90"
+      aria-label="Go"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="0" />
+        <path d="M5 12h14" />
+        <path d="M13 5l7 7-7 7" />
+      </svg>
+    </Button>
   );
 }
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
-    <nav className="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between h-16">
-        <Logo />
-
-        {/* Desktop navigation */}
-        <div className="hidden md:flex items-center space-x-5">
-          <SocialLinks className="flex space-x-3" />
-          <span className="text-4xl text-secondary pr-6 leading-none ">|</span>
-          <AppButton className="text-sm" />
-        </div>
-
-        {/* Mobile menu button */}
-        <div className="md:hidden">
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="p-2"
-            aria-label="Toggle menu"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <MenuIcon />
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-3 border-t border-gray-200">
-            <AuthButton variant="default" className="w-full text-base" />
-            <AppButton variant="default" className="w-full text-base" />
-            <SocialLinks className="flex space-x-3 justify-center" />
+    <nav className="w-full bg-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between gap-4">
+          <Logo />
+          <div className="flex-1 flex items-center justify-center">
+            <div className="flex items-center gap-2 rounded-full border border-emerald-400/30 bg-black/40 px-2 py-2 backdrop-blur-md shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] w-full max-w-3xl">
+              <LeftIconButton />
+              <div className="flex-1 overflow-x-auto">
+                <div className="flex items-center justify-center">
+                  <NavigationLinks />
+                </div>
+              </div>
+              <RightArrowButton />
+            </div>
+          </div>
+          <div className="min-w-[80px] flex items-center justify-end">
+            <AuthButton variant="default" className="bg-brand text-black hover:bg-brand/90 rounded-full px-4 py-2" />
           </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 }
