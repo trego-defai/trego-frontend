@@ -7,6 +7,8 @@
   --color-card-foreground: #0a0a0a;
   --color-popover: #ffffff;
   --color-popover-foreground: #0a0a0a;
+  --color-brand: #1FFFA9;
+  --color-brand-foreground: #0a0a0a;
   --color-primary: #10b981;
   --color-primary-foreground: #ffffff;
   --color-primary-shadow: #10b981;
@@ -36,6 +38,8 @@
     --color-card-foreground: #fafafa;
     --color-popover: #0a0a0a;
     --color-popover-foreground: #fafafa;
+    --color-brand: #1FFFA9;
+    --color-brand-foreground: #0a0a0a;
     --color-primary: #10b981;
     --color-primary-foreground: #ffffff;
     --color-primary-shadow: #10b981;
