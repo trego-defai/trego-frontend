@@ -131,3 +131,14 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--color-primary) var(--color-background);
 }
+
+/* Hide scrollbars while maintaining scroll functionality */
+.scrollbar-hide {
+  /* For WebKit browsers (Chrome, Safari, Edge) */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* WebKit browsers */
+}
