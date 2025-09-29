@@ -7,13 +7,13 @@ import { usePathname } from "next/navigation";
 import { GoogleIcon, XIcon } from "../ui/icons";
 
 interface AuthButtonProps {
-  variant?: "primary" | "default" | "ghost";
+  variant?: "default" | "ghost" | "secondary" | "link" | "destructive" | "outline" | null | undefined;
   className?: string;
   showOAuthOptions?: boolean;
 }
 
 export default function AuthButton({
-  variant = "primary",
+  variant = "default",
   className = "",
   showOAuthOptions = false,
 }: AuthButtonProps) {
