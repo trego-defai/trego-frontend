@@ -142,3 +142,12 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* WebKit browsers */
 }
+
+/* Hide TradingView watermark */
+.tv-lightweight-charts a[href*="tradingview"],
+.tv-lightweight-charts a[target="_blank"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
