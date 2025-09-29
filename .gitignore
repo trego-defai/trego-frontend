@@ -41,4 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 /clerk/
-/playwright-mcp/
+/.playwright-mcp/
+
+# clerk configuration (can include secrets)
+/.clerk/
