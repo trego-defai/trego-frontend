@@ -1,6 +1,7 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { createChart, ColorType, LineStyle, LineSeries } from 'lightweight-charts';
 
 interface MiniChartProps {
   data: number[];
@@ -9,76 +10,123 @@ interface MiniChartProps {
 }
 
 function MiniChart({ data, color, isPositive }: MiniChartProps) {
-  const maxValue = Math.max(...data);
-  const minValue = Math.min(...data);
-  const range = maxValue - minValue;
+  const chartContainerRef = useRef<HTMLDivElement>(null);
+  const [tooltipData, setTooltipData] = React.useState<{ value: string; visible: boolean }>({
+    value: '',
+    visible: false,
+  });
+
+  useEffect(() => {
+    if (!chartContainerRef.current) return;
+
+    const chart = createChart(chartContainerRef.current, {
+      layout: {
+        background: { type: ColorType.Solid, color: 'transparent' },
+        textColor: '#6B7280',
+      },
+      width: chartContainerRef.current.clientWidth,
+      height: 64,
+      grid: {
+        vertLines: { visible: false },
+        horzLines: { visible: false },
+      },
+      rightPriceScale: {
+        visible: false,
+      },
+      leftPriceScale: {
+        visible: false,
+      },
+      timeScale: {
+        visible: false,
+      },
+      crosshair: {
+        vertLine: {
+          visible: true,
+          width: 1,
+          color: color + '40',
+          style: LineStyle.Solid,
+        },
+        horzLine: {
+          visible: true,
+          width: 1,
+          color: color + '40',
+          style: LineStyle.Solid,
+        },
+      },
+      handleScroll: false,
+      handleScale: false,
+    });
+
+    const lineSeries = chart.addSeries(LineSeries, {
+      color: color,
+      lineWidth: 2,
+      lineStyle: LineStyle.Solid,
+      lastValueVisible: false,
+      priceLineVisible: false,
+      pointMarkersVisible: true,
+      lineType: 2, // 0 = simple line, 1 = step line, 2 = curved line
+    });
+
+    lineSeries.applyOptions({
+      lineWidth: 2,
+      color: color,
+      lineType: 2, // Smooth curved line
+    });
+
+    const chartData = data.map((value, index) => ({
+      time: index as any,
+      value: value,
+    }));
+
+    lineSeries.setData(chartData);
+
+    chart.timeScale().fitContent();
+
+    // Show tooltip and highlight point on hover
+    chart.subscribeCrosshairMove((param) => {
+      if (!param.time || !param.seriesData || !param.seriesData.get(lineSeries)) {
+        setTooltipData({ value: '', visible: false });
+        return;
+      }
+
+      const dataPoint = param.seriesData.get(lineSeries) as any;
+      if (dataPoint && dataPoint.value !== undefined) {
+        setTooltipData({
+          value: dataPoint.value.toFixed(2),
+          visible: true,
+        });
+      }
+    });
+
+    const handleResize = () => {
+      if (chartContainerRef.current) {
+        chart.applyOptions({
+          width: chartContainerRef.current.clientWidth,
+        });
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      chart.remove();
+    };
+  }, [data, color]);
 
   return (
     <div className="relative h-16 w-full">
-      <svg className="w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
-        {/* Chart Line */}
-        <polyline
-          fill="none"
-          stroke={color}
-          strokeWidth="1.5"
-          points={data
-            .map((value, index) => {
-              const x = (index / (data.length - 1)) * 100;
-              const y = range === 0 ? 20 : 40 - ((value - minValue) / range) * 40;
-              return `${x},${y}`;
-            })
-            .join(' ')}
-        />
+      <div ref={chartContainerRef} className="w-full h-full" />
 
-        {/* Gradient Fill */}
-        <defs>
-          <linearGradient id={`gradient-${color}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style={{ stopColor: color, stopOpacity: 0.3 }} />
-            <stop offset="100%" style={{ stopColor: color, stopOpacity: 0.05 }} />
-          </linearGradient>
-        </defs>
-
-        <polygon
-          fill={`url(#gradient-${color})`}
-          points={[
-            `0,40`,
-            ...data.map((value, index) => {
-              const x = (index / (data.length - 1)) * 100;
-              const y = range === 0 ? 20 : 40 - ((value - minValue) / range) * 40;
-              return `${x},${y}`;
-            }),
-            `100,40`
-          ].join(' ')}
-        />
-
-        {/* Data Points */}
-        {data.map((value, index) => {
-          const x = (index / (data.length - 1)) * 100;
-          const y = range === 0 ? 20 : 40 - ((value - minValue) / range) * 40;
-          return (
-            <circle
-              key={index}
-              cx={x}
-              cy={y}
-              r="1.5"
-              fill={color}
-            />
-          );
-        })}
-      </svg>
-
-      {/* Trend indicator */}
-      <div className="absolute top-2 right-2">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path
-            d={isPositive ? "M7 14l5-5 5 5" : "M7 10l5 5 5-5"}
-            stroke={color}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
+      {/* Tooltip */}
+      {tooltipData.visible && (
+        <div
+          className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-gray-900/90 text-white px-2 py-1 rounded text-xs font-medium whitespace-nowrap"
+          style={{ color: color }}
+        >
+          {tooltipData.value}
+        </div>
+      )}
     </div>
   );
 }
@@ -107,7 +155,7 @@ function BalanceCard({ title, amount, percentage, isPositive, chartData, chartCo
   };
 
   return (
-    <div className={`${getCardGradient(title)} w-[12rem] h-[13rem] border rounded-xl p-4 space-y-4 shadow-lg`}>
+    <div className={`${getCardGradient(title)} border rounded-xl p-4 space-y-4 shadow-lg`}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-gray-400 text-sm font-medium">{title}</h3>
@@ -128,10 +176,10 @@ function BalanceCard({ title, amount, percentage, isPositive, chartData, chartCo
 }
 
 export function BalanceCards() {
-  const tradingBalanceData = [42000, 43000, 42500, 43200, 43345.48];
-  const totalBalanceData = [42000, 42800, 43100, 43000, 43345.48];
-  const totalTokensData = [43000, 42800, 42900, 43100, 43345.48];
-  const checkingBalanceData = [43500, 43200, 43000, 43100, 43345.48];
+  const tradingBalanceData = [42000, 13000, 72500, 43200, 43345.48];
+  const totalBalanceData = [42000, 21800, 71100, 43000, 43345.48];
+  const totalTokensData = [43000, 32800, 72900, 43100, 43345.48];
+  const checkingBalanceData = [3500, 43200, 73000, 43100, 43345.48];
 
   return (
     <>
@@ -166,7 +214,6 @@ export function BalanceCards() {
       </div>
 
       {/* Other Balance Cards */}
-      <div className="flex flex-row justify-between">
         <BalanceCard
           title="Total Balance"
           amount="$43,345.48"
@@ -193,7 +240,6 @@ export function BalanceCards() {
           chartData={checkingBalanceData}
           chartColor="#ef4444"
         />
-      </div>
     </>
   );
 }

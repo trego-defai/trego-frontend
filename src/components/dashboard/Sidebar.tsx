@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-
+import Image from 'next/image';
 interface SidebarItemProps {
   icon: React.ReactNode;
   isActive?: boolean;
@@ -25,15 +25,8 @@ export function Sidebar() {
   return (
     <div className="w-16 bg-gradient-to-b from-[#1a1b1e] to-[#141517] border-r border-gray-800/50 flex flex-col items-center py-4 space-y-4 shadow-lg">
       {/* Logo */}
-      <div className="w-10 h-10 bg-brand rounded-lg flex items-center justify-center">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-black">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
-      </div>
-
-      {/* Balance indicator - shows "Balance" text from the image */}
-      <div className="text-brand text-xs font-medium transform -rotate-90 mt-8">
-        Balance
+      <div className="flex items-center justify-center">
+        <Image src="/logo.svg" alt="Trego Logo" width={100} height={100}/>
       </div>
 
       {/* Navigation Icons */}
