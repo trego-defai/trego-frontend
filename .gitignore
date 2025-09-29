@@ -15,7 +15,7 @@
 
 # next.js
 /.next/
-/out/
+/out/ 
 
 # production
 /build
@@ -40,5 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-./clerk/
-./playwright-mcp/
+/clerk/
+/playwright-mcp/
