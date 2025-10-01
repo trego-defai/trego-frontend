@@ -57,6 +57,8 @@
 
 * {
   border-color: var(--color-border);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) var(--color-background);
 }
 
 body {
@@ -121,9 +123,4 @@ body {
   100% {
     transform: translateX(100%);
   }
-}
-
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-primary) var(--color-background);
 }

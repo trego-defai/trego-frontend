@@ -1,4 +1,4 @@
-import { Tweet } from "@/types/x.type";
+import { Tweet } from "@/types/x";
 import { HeartIcon, RetweetIcon, XIcon } from "../ui/icons";
 
 interface TweetCardProps {

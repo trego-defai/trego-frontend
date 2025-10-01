@@ -2,12 +2,12 @@
 
 import { AssetsPanel } from "@/components/trade/AssetsPanel";
 import { Chart } from "@/components/trade/Chart";
-import { ChatbotPanel } from "@/components/trade/ChatbotPanel";
 import { HistoryTab } from "@/components/trade/HistoryTab";
 import { OrdersTab } from "@/components/trade/OrdersTab";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useResponsive } from "@/hooks/useResponsive";
+import { useResponsive } from "@/hooks";
 import { cn } from "@/lib/utils";
+import ChatPanel from "@/components/chat";
 
 interface TradingTabsProps {
   className?: string;
@@ -73,7 +73,7 @@ export function TradePage() {
         <Chart className="w-full flex-shrink-0 min-w-0 flex-1" />
         <TradingTabs className="flex-shrink-0" isDesktop={false} />
         <AssetsPanel className="w-full flex-shrink-0 min-w-0" />
-        <ChatbotPanel className="w-full min-h-[350px] sm:min-h-[400px] flex-shrink-0 min-w-0" />
+        <ChatPanel className="w-full min-h-[350px] sm:min-h-[400px] flex-shrink-0 min-w-0" />
       </div>
     );
   }
@@ -85,7 +85,7 @@ export function TradePage() {
           <Chart className="flex-shrink-0" />
           <div className="flex-1 flex gap-4 min-h-0">
             <AssetsPanel className="flex-1 min-w-0 min-h-[300px]" />
-            <ChatbotPanel className="flex-1 min-w-0 min-h-[300px]" />
+            <ChatPanel className="flex-1 min-w-0 min-h-[300px]" />
           </div>
         </div>
         <div className="min-w-[300px] xl:min-w-[350px] flex flex-col">
