@@ -25,7 +25,7 @@ const Agent = () => {
   };
 
   return (
-    <div className="h-full w-full max-w-[1400px] mx-auto flex gap-4 pt-2">
+    <div className="h-full w-full flex gap-4 p-4">
       {/* Left Panel - History */}
       <div className="w-80 flex-shrink-0">
         <PanelHistory
