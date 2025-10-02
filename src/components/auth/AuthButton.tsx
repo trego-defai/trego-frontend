@@ -45,7 +45,7 @@ export default function AuthButton({
     return (
       <div className="flex items-center space-x-3">
         <span className="text-sm text-gray-300">
-          {user?.username || user?.primaryEmailAddress?.emailAddress || user?.firstName || "User"}
+          {/* {user?.username || user?.primaryEmailAddress?.emailAddress || user?.firstName || "User"} */}
         </span>
         <UserButton
           afterSignOutUrl={pathname}
