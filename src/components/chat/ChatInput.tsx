@@ -47,7 +47,7 @@ function ChatInput({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleInputKeyDown}
-          placeholder="Leave feedback for the Build"
+          placeholder="Type your message..."
           className="w-full p-[16px] pr-[56px] h-[44px] max-md:h-[40px] max-md:p-[12px] max-md:pr-[48px] rounded-full bg-field-00 focus:border-blue-base"
           disabled={isLoading || disabled}
         />

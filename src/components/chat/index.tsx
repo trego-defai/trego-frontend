@@ -131,7 +131,7 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
             {
               id: `bot-${Date.now()}`,
               content: botReply,
-              type: intent?.actionType?.uppercase(),
+              type: intent?.actionType as ACTION_TYPE,
               timestamp: new Date().toISOString(),
               data,
             },
@@ -222,6 +222,19 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
           isLoading={isWaitingForResponse}
           disabled={isWaitingForResponse || !conversationId}
         />
+        {/* <PreSwap 
+          item={
+            {
+              fromToken: "USDC",
+              toToken: "USDT",
+              fromAmount: "100",
+              toAmount: "100",
+              fromAmountUsd: 100,
+              toAmountUsd: 100,
+            } as SwapEstimateItem
+          }
+          isLoading={isWaitingForResponse}
+        /> */}
       </div>
     </div>
   );

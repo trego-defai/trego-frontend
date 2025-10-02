@@ -4,6 +4,10 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    domains: ["assets.panora.exchange"],
+  },
+};
 
 module.exports = withBundleAnalyzer(nextConfig);

@@ -1,30 +1,24 @@
 import { BaseService } from "./baseService";
-
-interface SendMessageRequest {
-  user_address: string;
-  content: string;
-}
-
-interface SendMessageResponse {
-  message: string;
-  data?: any;
-  success?: boolean;
-  intent?: any;
-}
+import {
+  SwapEstimateRequest,
+  SwapEstimateResponse,
+  SwapExecuteRequest,
+  SwapExecuteResponse,
+} from "@/types/swap";
 
 class DefiService extends BaseService {
-  async swapEstimate(request: SendMessageRequest): Promise<SendMessageResponse> {
+  async swapEstimate(request: SwapEstimateRequest): Promise<SwapEstimateResponse> {
     try {
-      const response = await this.post<SendMessageResponse>("/api/chat/message", request);
+      const response = await this.post<SwapEstimateResponse>("/api/hyperion/pre-swap", request);
       return response;
     } catch (error) {
       console.error("Error sending message:", error);
       throw error;
     }
   }
-  async swapExecute(request: SendMessageRequest): Promise<SendMessageResponse> {
+  async swapExecute(request: SwapExecuteRequest): Promise<SwapExecuteResponse> {
     try {
-      const response = await this.post<SendMessageResponse>("/api/chat/message", request);
+      const response = await this.post<SwapExecuteResponse>("/api/hyperion/swap", request);
       return response;
     } catch (error) {
       console.error("Error sending message:", error);

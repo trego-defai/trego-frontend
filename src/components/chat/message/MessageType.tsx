@@ -1,7 +1,7 @@
 import { ACTION_TYPE, IMessage } from "@/types/chat";
 import BotMessage from "./BotMessage";
-import BotPreSwap from "./BotPreSwap";
 import UserMessage from "./UserMessage";
+import BotPreSwap from "./defi/swap/BotPreSwap";
 
 interface MessageTypeProps {
   message: IMessage;
@@ -15,7 +15,7 @@ export function MessageType({ message, isLoading, isLatestMessage }: MessageType
     [ACTION_TYPE.USER]: <UserMessage content={message.content} />,
     [ACTION_TYPE.STAKING]: <BotMessage content={message.content} />,
     [ACTION_TYPE.UNSTAKING]: <BotMessage content={message.content} />,
-    [ACTION_TYPE.PRE_SWAP]: <BotPreSwap message={message} isLatestMessage={isLatestMessage} />,
+    [ACTION_TYPE.SWAP]: <BotPreSwap message={message} isLatestMessage={isLatestMessage} />,
 
     // [ACTION_TYPE.BRIDGE]: (
     //   <BotBridge message={message} isLoading={isLoading} isLatestMessage={isLatestMessage} />
@@ -32,5 +32,8 @@ export function MessageType({ message, isLoading, isLatestMessage }: MessageType
     // [ACTION_TYPE.HELP]: <BotMessage message={message} isLoading={isLoading} />,
   };
 
-  return messageComponents[(message.type as keyof typeof messageComponents) || ACTION_TYPE.UNKNOWN];
+  return (
+    messageComponents[message.type as keyof typeof messageComponents] ||
+    messageComponents[ACTION_TYPE.UNKNOWN]
+  );
 }
