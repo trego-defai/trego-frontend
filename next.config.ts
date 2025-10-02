@@ -12,6 +12,7 @@ const nextConfig = {
         hostname: 'media.aptosfoundation.org',
       },
     ],
+    domains: ["assets.panora.exchange"],
   },
 };
 

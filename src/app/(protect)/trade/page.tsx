@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Sidebar } from "@/components/dashboard/Sidebar";
-import { Header } from "@/components/dashboard/Header";
-import { BalanceCards } from "@/components/dashboard/BalanceCards";
 import { AlgosOneTradesTable } from "@/components/dashboard/AlgosOneTradesTable";
+import { BalanceCards } from "@/components/dashboard/BalanceCards";
 import { BalanceHistorySection } from "@/components/dashboard/BalanceHistorySection";
+import { Sidebar } from "@/components/dashboard/Sidebar";
 import Background from "@/components/landing/Background";
+import { useState } from "react";
 import { DashboardContent } from "./dashboard";
 
 export function TradePage() {
