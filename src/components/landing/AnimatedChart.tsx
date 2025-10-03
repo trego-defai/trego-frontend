@@ -14,8 +14,8 @@ function AnimatedChart() {
     const svg = svgRef.current;
     if (!svg) return;
 
-    // Generate random chart data points
-    const generateChartData = (width: number, height: number): ChartPoint[] => {
+    // Generate deterministic chart data points (no Math.random to avoid hydration mismatch)
+    const generateChartData = (width: number, height: number, seed = 0): ChartPoint[] => {
       const points: ChartPoint[] = [];
       const numPoints = 50;
 
@@ -23,7 +23,7 @@ function AnimatedChart() {
         const x = (i / numPoints) * width;
         // Create a trending upward chart with some volatility
         const baseY = height * 0.8 - (i / numPoints) * height * 0.4;
-        const volatility = Math.sin(i * 0.3) * height * 0.1 + Math.random() * height * 0.05;
+        const volatility = Math.sin(i * 0.3 + seed) * height * 0.1 + Math.sin(i * 0.7 + seed) * height * 0.05;
         const y = Math.max(height * 0.1, Math.min(height * 0.9, baseY + volatility));
 
         points.push({ x, y });
@@ -52,12 +52,14 @@ function AnimatedChart() {
       return path;
     };
 
+    let animationSeed = 0;
+
     const updateChart = () => {
       const rect = svg.getBoundingClientRect();
       const width = rect.width || 800;
       const height = rect.height || 400;
 
-      const points = generateChartData(width, height);
+      const points = generateChartData(width, height, animationSeed);
       const pathData = pointsToPath(points);
 
       // Update the main line
@@ -72,6 +74,8 @@ function AnimatedChart() {
       if (fillArea) {
         fillArea.setAttribute("d", fillPath);
       }
+
+      animationSeed += 0.1; // Increment seed for animation
     };
 
     // Initial chart generation
@@ -96,7 +100,7 @@ function AnimatedChart() {
   }, []);
 
   return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+    <div className="w-full h-full">
       <svg
         ref={svgRef}
         className="w-full h-full opacity-20"

@@ -7,6 +7,8 @@
   --color-card-foreground: #0a0a0a;
   --color-popover: #ffffff;
   --color-popover-foreground: #0a0a0a;
+  --color-brand: #1FFFA9;
+  --color-brand-foreground: #0a0a0a;
   --color-primary: #10b981;
   --color-primary-foreground: #ffffff;
   --color-primary-shadow: #10b981;
@@ -36,6 +38,8 @@
     --color-card-foreground: #fafafa;
     --color-popover: #0a0a0a;
     --color-popover-foreground: #fafafa;
+    --color-brand: #1FFFA9;
+    --color-brand-foreground: #0a0a0a;
     --color-primary: #10b981;
     --color-primary-foreground: #ffffff;
     --color-primary-shadow: #10b981;
@@ -123,4 +127,29 @@ body {
   100% {
     transform: translateX(100%);
   }
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) var(--color-background);
+}
+
+/* Hide scrollbars while maintaining scroll functionality */
+.scrollbar-hide {
+  /* For WebKit browsers (Chrome, Safari, Edge) */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* WebKit browsers */
+}
+
+/* Hide TradingView watermark */
+.tv-lightweight-charts a[href*="tradingview"],
+.tv-lightweight-charts a[target="_blank"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
