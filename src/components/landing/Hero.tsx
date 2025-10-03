@@ -40,8 +40,8 @@ function Hero() {
         <p className="text-sm md:text-base text-gray-300 mb-8 font-medium">
           Trade faster and secure with AI Trading Assistant
         </p>
-        <Link href={PATH.trade} target="_blank" rel="noopener noreferrer">
-          <Button variant="default" size="lg" className="group">
+        <Link href={PATH.welcome} target="_blank" rel="noopener noreferrer">
+          <Button variant="default" size="lg" className="group font-mono tracking-wide">
             <span className="group-hover:translate-x-[2px] group-hover:-translate-y-[2px] transition-transform duration-300">
               🚀
             </span>

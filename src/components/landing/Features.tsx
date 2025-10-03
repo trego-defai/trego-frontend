@@ -10,22 +10,22 @@ interface FeatureItem {
 
 function FeatureCard({ item }: { item: FeatureItem }) {
   return (
-    <div className="group relative p-8 md:p-10">
-      <div className="relative flex flex-col items-start gap-4">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-400/20">
+    <div className="group relative flex flex-col p-4 sm:p-6 md:p-8 lg:p-10">
+      <div className="flex flex-col items-start gap-3 sm:gap-4 flex-1">
+        <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-400/20">
           {item.icon}
         </div>
         <div className="flex-1">
-          <h3 className="text-lg md:text-xl font-semibold text-white mb-1">{item.title}</h3>
-          <p className="text-xs md:text-sm text-gray-300 leading-relaxed line-clamp-3">
+          <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1">{item.title}</h3>
+          <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
             {item.description}
           </p>
         </div>
       </div>
-      <div className="relative mt-6">
-        <Button variant="ghost" className="px-0 text-emerald-300 hover:text-emerald-200 text-sm">
+      <div className="mt-6">
+        <Button variant="ghost" className="px-0 text-emerald-300 hover:text-emerald-200 text-xs sm:text-sm">
           {item.cta}
-          <svg className="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg className="ml-2 h-3 w-3 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <path d="M5 12h14" />
             <path d="M13 5l7 7-7 7" />
           </svg>
@@ -38,22 +38,24 @@ function FeatureCard({ item }: { item: FeatureItem }) {
 function Features() {
   const items: FeatureItem[] = [
     {
-      title: "Automation Bot",
+      title: "AI Agent",
       description:
-        "No matter the market conditions, create and run your own strategies with our AI Trading Assistant.",
-      cta: "Get Started",
+        "Leverage advanced AI algorithms to analyze market trends and execute trades automatically with intelligent decision-making.",
+      cta: "Start ChatBot",
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-300">
-          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-          <circle cx="12" cy="12" r="3" />
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          <circle cx="9" cy="10" r="1" />
+          <circle cx="15" cy="10" r="1" />
+          <path d="M9 14s1 1 3 1 3-1 3-1" />
         </svg>
       ),
     },
     {
-      title: "Multi-Exchange",
+      title: "Trading Automation",
       description:
-        "Trade on top exchanges from one interface with integrated TradingView charts.",
-      cta: "Get Started",
+        "Sophisticated trading automation that works 24/7 to maximize your profits across multiple cryptocurrency exchanges.",
+      cta: "Start Trading",
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-300">
           <rect x="3" y="3" width="7" height="7" rx="2" />
@@ -64,10 +66,10 @@ function Features() {
       ),
     },
     {
-      title: "Crypto Portfolio Tracking",
+      title: "Real-time Market Analysis",
       description:
-        "Manage your portfolio across wallets and exchanges with real-time insights.",
-      cta: "Get Started",
+        "Get instant market insights and analytics powered by AI to make informed trading decisions in volatile crypto markets.",
+      cta: "View Markets",
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-300">
           <path d="M3 3h18v6H3z" />
@@ -76,37 +78,40 @@ function Features() {
       ),
     },
     {
-      title: "Free Access for All",
+      title: "Secure & Fast Trading",
       description:
-        "Ahead of major updates, you are invited to use the platform at no cost.",
-      cta: "Get Started",
+        "Experience lightning-fast trade execution with bank-level security protocols protecting your digital assets.",
+      cta: "Learn More",
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-300">
-          <path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L5.5 20l2-7L2 9h7z" />
+          <path d="M9 12l2 2 4-4" />
+          <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" />
+          <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" />
+          <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3" />
+          <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3" />
         </svg>
       ),
     },
   ];
 
   return (
-    <section className="relative mx-auto w-full max-w-7xl px-4 md:px-6">
-      <div className="mx-auto mb-10 flex w-max items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 text-xs text-emerald-300">
+    <section className="relative mx-auto w-full max-w-7xl px-3 sm:px-4 md:px-6 py-10 sm:py-16 md:py-20">
+      <div className="mx-auto mb-6 sm:mb-10 flex w-max items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 text-xs text-emerald-300">
         <span>🚀</span>
         <span>Your Crypto</span>
       </div>
 
-      <h2 className="text-center text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
+      <h2 className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-3 sm:mb-4 px-4">
         Power Your Crypto
       </h2>
-      <p className="mx-auto max-w-3xl text-center text-xs md:text-base text-gray-300 mb-10">
+      <p className="mx-auto max-w-3xl text-center text-xs sm:text-sm md:text-base text-gray-300 mb-6 sm:mb-8 md:mb-10 px-4">
         An all-in-one crypto trading platform with a range of pro tools designed for traders of every skill level.
       </p>
 
-      <div className="relative rounded-3xl border border-emerald-400/10 bg-gradient-to-b from-emerald-400/5 to-transparent p-4 md:p-6 overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl opacity-60 [background:radial-gradient(1200px_500px_at_50%_-10%,rgba(16,185,129,0.18),transparent_60%)]" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 md:gap-2 lg:gap-3
-        max-md:[&>*:not(:first-child)]:border-t max-md:[&>*:not(:first-child)]:border-emerald-400/10 md:[&>*]:border-t-0
-        md:[&>*:not(:nth-child(2n+1))]:border-l md:[&>*:not(:nth-child(2n+1))]:border-emerald-400/15
+      <div className="relative rounded-2xl sm:rounded-3xl border border-emerald-400/10 bg-gradient-to-b from-emerald-400/5 to-transparent p-3 sm:p-4 md:p-6 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 -z-10 rounded-2xl sm:rounded-3xl opacity-60 [background:radial-gradient(1200px_500px_at_50%_-10%,rgba(16,185,129,0.18),transparent_60%)]" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-2 lg:gap-3
+        sm:[&>*:not(:nth-child(2n+1))]:border-l sm:[&>*:not(:nth-child(2n+1))]:border-emerald-400/15
         lg:[&>*:not(:nth-child(4n+1))]:border-l lg:[&>*:not(:nth-child(4n+1))]:border-emerald-400/15">
           {items.map((item) => (
             <FeatureCard key={item.title} item={item} />
@@ -114,8 +119,8 @@ function Features() {
         </div>
       </div>
 
-      <div className="mt-12 flex justify-center">
-        <Button variant="default" size="lg" className="group text-sm md:text-base">
+      <div className="mt-8 sm:mt-10 md:mt-12 flex justify-center">
+        <Button variant="default" size="lg" className="group text-xs sm:text-sm md:text-base px-6 sm:px-8 py-2 sm:py-3">
           Get Started
           <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
         </Button>

@@ -43,16 +43,16 @@ const NoneIcon = () => <span className="hidden" />;
 
 export default function BentoSection() {
   return (
-    <section className="py-20 px-4">
+    <section className="py-10 sm:py-16 md:py-20 px-3 sm:px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-emerald-300 text-xs mb-4">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-emerald-300 text-xs mb-3 sm:mb-4">
             <span>Premium Features for a Fair Price</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 px-4">
             Get More From Your Portfolio.
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-4">
             Discover the tools that make Trego the ultimate AI trading platform
           </p>
         </div>
@@ -64,9 +64,9 @@ export default function BentoSection() {
             background={
               <div className="absolute inset-0 rounded-xl overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1FFFA9]/12 via-[#1FFFA9]/8 to-transparent" />
-                {/* Coin illustration on right */}
-                <div className="absolute right-8 top-1/2 -translate-y-1/2 h-56 w-56 rounded-full bg-[#1FFFA9]/10 blur-2xl" />
-                <svg className="absolute right-8 top-1/2 -translate-y-1/2 h-56 w-56" viewBox="0 0 200 200">
+                {/* Coin illustration on right - responsive */}
+                <div className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 h-32 w-32 sm:h-48 sm:w-48 md:h-56 md:w-56 rounded-full bg-[#1FFFA9]/10 blur-2xl" />
+                <svg className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 h-32 w-32 sm:h-48 sm:w-48 md:h-56 md:w-56" viewBox="0 0 200 200">
                   <circle cx="100" cy="100" r="70" fill="#0b1210" stroke="#1FFFA9" strokeOpacity="0.6" strokeWidth="2" />
                   <circle cx="120" cy="100" r="70" fill="none" stroke="#1FFFA9" strokeOpacity="0.4" strokeWidth="2" />
                   <circle cx="140" cy="100" r="70" fill="none" stroke="#1FFFA9" strokeOpacity="0.25" strokeWidth="2" />
@@ -93,8 +93,8 @@ export default function BentoSection() {
             background={
               <div className="absolute inset-0 rounded-xl overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1FFFA9]/10 via-transparent to-transparent" />
-                {/* Tilted card bottom-left */}
-                <div className="absolute left-6 bottom-6 h-56 w-72 rotate-[-12deg] rounded-2xl bg-black/60 ring-1 ring-[#1FFFA9]/15 shadow-[0_0_80px_-20px_#1FFFA9]" />
+                {/* Tilted card bottom-left - responsive */}
+                <div className="absolute left-3 sm:left-6 bottom-3 sm:bottom-6 h-40 w-48 sm:h-48 sm:w-60 md:h-56 md:w-72 rotate-[-12deg] rounded-2xl bg-black/60 ring-1 ring-[#1FFFA9]/15 shadow-[0_0_80px_-20px_#1FFFA9]" />
                 <div className="absolute inset-0 rounded-xl ring-1 ring-[#1FFFA9]/20" />
               </div>
             }
@@ -112,8 +112,8 @@ export default function BentoSection() {
             background={
               <div className="absolute inset-0 rounded-xl overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1FFFA9]/10 via-transparent to-transparent" />
-                {/* Allocation gauge bottom-right */}
-                <div className="absolute right-6 bottom-6 h-56 w-72 rotate-[8deg] rounded-2xl bg-black/60 ring-1 ring-[#1FFFA9]/15 shadow-[0_0_80px_-20px_#1FFFA9]" />
+                {/* Allocation gauge bottom-right - responsive */}
+                <div className="absolute right-3 sm:right-6 bottom-3 sm:bottom-6 h-40 w-48 sm:h-48 sm:w-60 md:h-56 md:w-72 rotate-[8deg] rounded-2xl bg-black/60 ring-1 ring-[#1FFFA9]/15 shadow-[0_0_80px_-20px_#1FFFA9]" />
                 <div className="absolute inset-0 rounded-xl ring-1 ring-[#1FFFA9]/20" />
               </div>
             }
