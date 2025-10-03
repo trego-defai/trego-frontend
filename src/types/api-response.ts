@@ -22,6 +22,11 @@ export enum ErrorCode {
   TOKEN_INVALID = "TOKEN_INVALID",
 }
 
+export interface ApiSuccessResponse<T> {
+  data?: T;
+  message?: string;
+}
+
 export interface ApiError {
   error: {
     code?: ErrorCode;
