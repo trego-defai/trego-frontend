@@ -13,7 +13,6 @@ export default function LandingPage() {
       <Hero />
       <Features />
       <BentoSection />
-      {/* <TwitterSection /> */}
       <Footer />
     </Background>
   );
