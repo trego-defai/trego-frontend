@@ -1,4 +1,4 @@
-import { IconProps } from "@/types/icon.type";
+import { IconProps } from "@/types/icon";
 
 export function XIcon({
   width = 24,

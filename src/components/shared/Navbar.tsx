@@ -1,9 +1,11 @@
 "use client";
 
 import { PATH } from "@/lib/constants";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AuthButton from "../auth/AuthButton";
+import TregoWallet from "../wallet/TregoWallet";
 
 const NAV_LINKS = [
   { href: PATH.trade, label: "Trade" },
@@ -17,6 +19,7 @@ function isActiveNav(href: string, pathname: string): boolean {
 
 export function Navbar() {
   const pathname = usePathname();
+  const { user } = useUser();
 
   return (
     <header className="border-b border-gray-800 bg-black/50 backdrop-blur-sm container mx-auto">
@@ -59,6 +62,7 @@ export function Navbar() {
           </nav>
           {/* Right: Auth Button */}
           <div className="flex items-center space-x-4">
+            {user && <TregoWallet />}
             <AuthButton />
           </div>
         </div>

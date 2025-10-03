@@ -1,0 +1,6 @@
+onlyBuiltDependencies:
+  - '@clerk/shared'
+  - '@tailwindcss/oxide'
+  - bufferutil
+  - sharp
+  - utf-8-validate

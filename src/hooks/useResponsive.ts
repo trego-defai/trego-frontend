@@ -9,7 +9,7 @@ interface UseResponsiveReturn {
   width: number;
 }
 
-export function useResponsive(): UseResponsiveReturn {
+export default function useResponsive(): UseResponsiveReturn {
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== "undefined" ? window.innerWidth : 1200,
   });
