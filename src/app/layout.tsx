@@ -1,5 +1,5 @@
 import AppProviders from "@/providers";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope, Poppins } from "next/font/google";
 import "./globals.css";
 
@@ -20,8 +20,12 @@ export const metadata: Metadata = {
     "AI-powered DeFi trading assistant with real-time market analysis, intelligent trading strategies, and seamless social integration.",
   keywords: ["DeFi", "AI", "trading", "cryptocurrency", "assistant", "blockchain", "analysis"],
   authors: [{ name: "Trego" }],
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -30,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body className={`${poppins.variable} ${manrope.variable} antialiased dark`}>
         <AppProviders>{children}</AppProviders>
       </body>

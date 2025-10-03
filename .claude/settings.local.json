@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//f/Trego Project/trego-server/src/wallet/**)",
+      "Bash(pnpm add:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "context7",
+    "playwright"
+  ]
+}

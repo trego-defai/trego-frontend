@@ -1,6 +1,6 @@
 import { Marquee } from "@/components/ui/marquee";
 import TweetCard from "./TweetCard";
-import { Tweet } from "@/types/x.type";
+import { Tweet } from "@/types/x";
 
 const tweets: Tweet[] = [
   {
