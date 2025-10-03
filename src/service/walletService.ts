@@ -1,14 +1,11 @@
+import { GenerateWalletResponse, WalletResponse } from "@/types/wallet";
 import { BaseService } from "./baseService";
-
-export interface GenerateWalletResponse {
-  appAddress: string;
-  privateKey: string;
-}
+import { ApiSuccessResponse } from "@/types/api-response";
 
 class WalletService extends BaseService {
   async getWallet() {
     try {
-      const response = await this.get<{ appAddress: string }>(`/api/wallet`);
+      const response = await this.get<ApiSuccessResponse<WalletResponse>>(`/api/wallet`);
       return response;
     } catch (error) {
       console.error("Error getting wallet:", error);
@@ -18,7 +15,9 @@ class WalletService extends BaseService {
 
   async generateAppWallet() {
     try {
-      const response = await this.post<GenerateWalletResponse>(`/api/wallet/generate-app-wallet`);
+      const response = await this.post<ApiSuccessResponse<GenerateWalletResponse>>(
+        `/api/wallet/generate-app-wallet`
+      );
       return response;
     } catch (error) {
       console.error("Error generating app wallet:", error);

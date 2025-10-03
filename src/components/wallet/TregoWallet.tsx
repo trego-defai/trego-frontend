@@ -15,15 +15,15 @@ const TregoWallet = () => {
   if (isLoading) {
     return (
       <Button variant="primary" size="icon" disabled className="min-w-[200px]">
-        Loading...
+        Loading...                  
       </Button>
     );
   }
 
-  if (wallet?.appAddress) {
+  if (wallet?.data?.appAddress) {
     return (
       <Button variant="primary" size="icon" className="min-w-[200px]">
-        {getShortAddress(wallet.appAddress)}
+        {getShortAddress(wallet?.data?.appAddress)}
       </Button>
     );
   }
@@ -31,4 +31,4 @@ const TregoWallet = () => {
   return <GenerateWalletButton />;
 };
 
-export default TregoWallet;
+export default TregoWallet; 
