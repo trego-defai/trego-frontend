@@ -1,3 +1,5 @@
+import { ApiSuccessResponse } from "@/types/api-response";
+import { WalletResponse } from "@/types/wallet";
 import { BaseService } from "./baseService";
 
 export interface WalletAccount {
@@ -44,7 +46,9 @@ export interface SendTokenResponse {
 class WalletService extends BaseService {
   async getWallet() {
     try {
-      const response = await this.get<GetWalletResponse>(`/api/wallet`);
+      const response = await this.get<ApiSuccessResponse<WalletResponse>>(
+        `/api/wallet`
+      );
       return response;
     } catch (error) {
       console.error("Error getting wallet:", error);
@@ -54,7 +58,9 @@ class WalletService extends BaseService {
 
   async generateAppWallet() {
     try {
-      const response = await this.post<GenerateWalletResponse>(`/api/wallet/generate-app-wallet`);
+      const response = await this.post<
+        ApiSuccessResponse<GenerateWalletResponse>
+      >(`/api/wallet/generate-app-wallet`);
       return response;
     } catch (error) {
       console.error("Error generating app wallet:", error);
@@ -64,7 +70,9 @@ class WalletService extends BaseService {
 
   async getBalance(address: string) {
     try {
-      const response = await this.post<BalanceResponse>(`/api/wallet/balance`, { address });
+      const response = await this.post<BalanceResponse>(`/api/wallet/balance`, {
+        address,
+      });
       return response;
     } catch (error) {
       console.error("Error getting balance:", error);
@@ -74,7 +82,10 @@ class WalletService extends BaseService {
 
   async sendToken(data: SendTokenRequest) {
     try {
-      const response = await this.post<SendTokenResponse>(`/api/wallet/send`, data);
+      const response = await this.post<SendTokenResponse>(
+        `/api/wallet/send`,
+        data
+      );
       return response;
     } catch (error) {
       console.error("Error sending token:", error);
