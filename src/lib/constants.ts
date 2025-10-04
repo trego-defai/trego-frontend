@@ -4,6 +4,7 @@ export const PATH = {
   agent: "/agent",
   trade: "/trading",
   wallet: "/wallet",
+  docs: "/docs",
 } as const;
 
 export const JWT_TEMPLATES = {
