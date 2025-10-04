@@ -21,7 +21,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
   const [swapData, setSwapData] = useState<SwapEstimateItem>(item);
   const [hasSwapped, setHasSwapped] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
-  const [isPolling, setIsPolling] = useState(false);
+  const [isPolling, _setIsPolling] = useState(false);
   const [isRetrying, setIsRetrying] = useState(false);
   const [hasError, setHasError] = useState<string | null>(null);
   const [permanentFailure, setPermanentFailure] = useState(false);

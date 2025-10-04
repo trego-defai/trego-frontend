@@ -2,7 +2,6 @@
 
 import { useUser, SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 
 interface RequireAuthProps {
   children: React.ReactNode;
@@ -11,7 +10,6 @@ interface RequireAuthProps {
 
 export default function RequireAuth({ children, message = "Please sign in to use this feature" }: RequireAuthProps) {
   const { isLoaded, isSignedIn } = useUser();
-  const router = useRouter();
 
   // Get current URL for redirect after sign in
   const getCurrentUrl = () => {

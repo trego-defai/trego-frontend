@@ -9,7 +9,7 @@ interface MessageTypeProps {
   isLatestMessage?: boolean;
 }
 
-export function MessageType({ message, isLoading, isLatestMessage }: MessageTypeProps) {
+export function MessageType({ message, isLoading: _isLoading, isLatestMessage }: MessageTypeProps) {
   const messageComponents = {
     [ACTION_TYPE.UNKNOWN]: <BotMessage content={message.content} />,
     [ACTION_TYPE.USER]: <UserMessage content={message.content} />,

@@ -44,7 +44,7 @@ function AnimatedChart() {
 
         // Create smooth curves using quadratic bezier
         const cpx = (prev.x + curr.x) / 2;
-        const cpy = (prev.y + curr.y) / 2;
+        const _cpy = (prev.y + curr.y) / 2;
 
         path += ` Q ${cpx} ${prev.y} ${curr.x} ${curr.y}`;
       }

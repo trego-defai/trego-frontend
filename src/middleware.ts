@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 //   "/api/webhooks(.*)",
 // ]);
 
-export default clerkMiddleware(async (auth, request) => {
+export default clerkMiddleware(async (_auth, _request) => {
   // const { userId, sessionClaims, redirectToSignIn } = await auth();
 
   // if (userId && !isPublicRoute(request)) {

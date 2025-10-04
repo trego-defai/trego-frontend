@@ -9,7 +9,7 @@ interface MiniChartProps {
   isPositive: boolean;
 }
 
-function MiniChart({ data, color, isPositive }: MiniChartProps) {
+function MiniChart({ data, color, isPositive: _isPositive }: MiniChartProps) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [tooltipData, setTooltipData] = React.useState<{
     value: string;
@@ -175,7 +175,7 @@ function BalanceCard({ title, amount, percentage, isPositive, chartData, chartCo
 }
 
 export function BalanceCards() {
-  const tradingBalanceData = [42000, 13000, 72500, 43200, 43345.48];
+  const _tradingBalanceData = [42000, 13000, 72500, 43200, 43345.48];
   const totalBalanceData = [42000, 21800, 71100, 43000, 43345.48];
   const totalTokensData = [43000, 32800, 72900, 43100, 43345.48];
   const checkingBalanceData = [3500, 43200, 73000, 43100, 43345.48];

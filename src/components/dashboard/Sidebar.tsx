@@ -109,7 +109,7 @@ function SidebarItem({ icon, label, isActive, onClick }: SidebarItemProps) {
   );
 }
 
-export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
+export function Sidebar({ activeTab: _activeTab, onTabChange }: SidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
 

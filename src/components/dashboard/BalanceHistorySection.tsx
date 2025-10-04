@@ -125,7 +125,7 @@ export function BalanceHistorySection() {
               {/* Type */}
               <div className="flex items-center">
                 <span
-                  className={`text-sm px-2 py-1 rounded-full text-xs font-medium ${
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${
                     item.type === "In" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
                   }`}
                 >

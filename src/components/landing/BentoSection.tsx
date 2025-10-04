@@ -9,7 +9,7 @@ const TradingIcon = () => (
   </svg>
 );
 
-const BotIcon = () => (
+const _BotIcon = () => (
   <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
       strokeLinecap="round"
@@ -31,7 +31,7 @@ const AIIcon = () => (
   </svg>
 );
 
-const SecurityIcon = () => (
+const _SecurityIcon = () => (
   <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
       strokeLinecap="round"
@@ -42,7 +42,7 @@ const SecurityIcon = () => (
   </svg>
 );
 
-const AnalyticsIcon = () => (
+const _AnalyticsIcon = () => (
   <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
       strokeLinecap="round"
@@ -65,7 +65,7 @@ const PortfolioIcon = () => (
 );
 
 // Helper to hide default icon area when using custom visuals in background
-const NoneIcon = () => <span className="hidden" />;
+const _NoneIcon = () => <span className="hidden" />;
 
 export default function BentoSection() {
   return (

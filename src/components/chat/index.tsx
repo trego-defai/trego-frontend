@@ -17,7 +17,7 @@ interface ChatPanelProps {
 
 const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPanelProps) => {
   // Initialize with default assistant if none provided
-  const [currentAssistant, setCurrentAssistant] = useState<AssistantInfo>(
+  const [_currentAssistant, setCurrentAssistant] = useState<AssistantInfo>(
     assistantInfo || {
       id: DEFAULT_ASSISTANT.id,
       name: DEFAULT_ASSISTANT.name,
@@ -30,12 +30,12 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [conversationId, setConversationId] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
+  const [isLoading, _setIsLoading] = useState(false);
+  const [hasMore, _setHasMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
 
-  const handleAssistantSelect = useCallback((newAssistant: AssistantInfo) => {
+  const _handleAssistantSelect = useCallback((newAssistant: AssistantInfo) => {
     setCurrentAssistant(newAssistant);
     // Optionally clear messages when switching assistants
     setMessages([]);
@@ -52,7 +52,7 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
     }
   }, [selectedConversationId, conversationId]);
 
-  const loadConversationMessages = async (convId: string) => {
+  const loadConversationMessages = async (_convId: string) => {
     // try {
     //   setIsLoading(true);
     //   const response = await chatService.getMessages(convId, 1, 50);

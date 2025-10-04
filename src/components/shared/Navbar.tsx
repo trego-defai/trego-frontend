@@ -5,7 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AuthButton from "../auth/AuthButton";
-import TregoWallet from "../wallet/TregoWallet";
+import { TregoWallet } from "../wallet";
 
 const NAV_LINKS = [
   { href: PATH.trade, label: "Trade" },

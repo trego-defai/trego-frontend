@@ -47,7 +47,7 @@ interface AuthButtonProps {
 }
 
 export default function AuthButton({ variant = "default", className = "", showOAuthOptions = false }: AuthButtonProps) {
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
   const [showDropdown, setShowDropdown] = useState(false);
   const pathname = usePathname();
 
