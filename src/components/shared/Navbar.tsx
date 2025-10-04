@@ -22,12 +22,12 @@ export function Navbar() {
   const { user } = useUser();
 
   return (
-    <header className="border-b border-gray-800 bg-black/50 backdrop-blur-sm container mx-auto">
+    <header className="border-b border-[var(--color-border)] bg-[color:var(--color-navbar-bg)] backdrop-blur-sm container mx-auto">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 relative">
           {/* Left: Logo and Title */}
           <div className="flex items-center space-x-4">
-            <Link href={PATH.landing} className="text-xl font-bold text-white">
+            <Link href={PATH.landing} className="text-xl font-bold text-[color:var(--color-navbar-text)]">
               Trego
             </Link>
           </div>
@@ -47,8 +47,8 @@ export function Navbar() {
                     data-nav-link
                     className={`relative text-sm font-semibold transition-all duration-300 px-3 py-2 rounded-lg ${
                       isActive
-                        ? "text-white bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-500/30 shadow-lg shadow-blue-500/20"
-                        : "text-gray-300 hover:text-white hover:bg-gray-800/50 hover:scale-105"
+                        ? "text-[color:var(--color-navbar-link-active)] bg-[color:var(--color-navbar-link-active-bg)] border border-[color:var(--color-navbar-link-active-border)] shadow-lg shadow-[color:var(--color-navbar-link-active-shadow)]"
+                        : "text-[color:var(--color-navbar-link)] hover:text-[color:var(--color-navbar-link-hover)] hover:bg-[color:var(--color-navbar-link-hover-bg)] hover:scale-105"
                     }`}
                   >
                     {label}

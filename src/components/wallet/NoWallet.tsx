@@ -2,16 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { walletService } from "@/service/walletService";
+import { useWalletStore } from "@/store/useWalletStore";
+import { WalletAccount } from "@/types/wallet";
 import { useMutation } from "@tanstack/react-query";
 import { RefreshCw, Wallet } from "lucide-react";
-import { walletService } from "@/service/walletService";
-import { WalletAccount } from "@/types/wallet";
 import { toast } from "sonner";
-import { useWalletStore } from "@/store/useWalletStore";
 
 export function NoWallet() {
   const { setAccount } = useWalletStore();
-  const { mutate: generateWalletMutation, isPending: isLoading } = useMutation({
+  const { mutate: generateWalletMutation, isPending: isLoadingGenerateWallet } = useMutation({
     mutationFn: async () => {
       const response = await walletService.generateAppWallet();
       return response.data;
@@ -41,8 +41,8 @@ export function NoWallet() {
               <h2 className="text-2xl font-bold mb-2">No Wallet Found</h2>
               <p className="text-muted-foreground text-sm">Create a wallet to manage your APT tokens</p>
             </div>
-            <Button onClick={() => generateWalletMutation()} disabled={isLoading} className="w-full">
-              {isLoading ? (
+            <Button onClick={() => generateWalletMutation()} disabled={isLoadingGenerateWallet} className="w-full">
+              {isLoadingGenerateWallet ? (
                 <>
                   <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
                   Creating...

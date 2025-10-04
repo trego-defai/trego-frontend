@@ -14,7 +14,7 @@ import {
 import AuthContent from "@/components/wallet/AuthContent";
 import { walletService } from "@/service/walletService";
 import { useWalletStore } from "@/store/useWalletStore";
-import { TokenBalance, WalletAccount, Transaction as WalletTransaction } from "@/types/wallet";
+import { TokenBalance, Transaction as WalletTransaction } from "@/types/wallet";
 import { useUser } from "@clerk/nextjs";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -22,21 +22,11 @@ import { toast } from "sonner";
 
 export default function WalletPage() {
   const { user } = useUser();
-  const { account, setAccount } = useWalletStore();
+  const { account } = useWalletStore();
   const queryClient = useQueryClient();
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
   const [selectedToken, setSelectedToken] = useState<Token | null>(null);
-
-  // Query to get wallet with details
-  const { data: walletData, isLoading: isLoadingWallet } = useQuery({
-    queryKey: ["wallet"],
-    queryFn: async () => {
-      const response = await walletService.getWallet();
-      return response.data;
-    },
-    enabled: !!user,
-  });
 
   // Query to get balance (only if not already in wallet data)
   const { data: walletDetailsData, isLoading: isLoadingWalletDetails } = useQuery({
@@ -69,18 +59,6 @@ export default function WalletPage() {
       console.error("Error sending:", error);
     },
   });
-
-  // Set account when wallet data is loaded
-  useEffect(() => {
-    if (walletData && walletData.appAddress) {
-      const walletAccount: WalletAccount = {
-        address: walletData.appAddress,
-      };
-      setAccount(walletAccount);
-    } else if (walletData === null) {
-      setAccount(null);
-    }
-  }, [walletData, setAccount]);
 
   const handleSendToken = async () => {
     if (!account || !recipient || !amount) {
@@ -115,7 +93,7 @@ export default function WalletPage() {
   // Use balance from wallet data if available, otherwise fallback to balance query
   const balance = walletDetailsData?.balance ? (parseFloat(walletDetailsData.balance) / 10 ** 8).toString() : "0";
 
-  const isLoading = isLoadingWallet || sendTokenMutation.isPending || isLoadingWalletDetails;
+  const isLoading = sendTokenMutation.isPending || isLoadingWalletDetails;
 
   // Convert API tokens to component tokens format
   const tokens: Token[] = walletDetailsData?.tokens?.map((token: TokenBalance) => ({
@@ -151,7 +129,7 @@ export default function WalletPage() {
     }
   }, [tokens, selectedToken]);
 
-  if (isLoadingWallet) {
+  if (isLoadingWalletDetails) {
     return <WalletLoading />;
   }
 

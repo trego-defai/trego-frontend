@@ -2,11 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { PATH } from "@/lib/constants";
+import { walletService } from "@/service/walletService";
 import { useWalletStore } from "@/store/useWalletStore";
+import { WalletAccount } from "@/types/wallet";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { ConnectIcon, Loading03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { GoogleIcon, XIcon } from "../ui/icons";
@@ -36,6 +38,28 @@ export function AuthButton({
     return PATH.landing;
   }, []);
 
+  // Query to get wallet with details
+  const { data: walletData } = useQuery({
+    queryKey: ["wallet"],
+    queryFn: async () => {
+      const response = await walletService.getWallet();
+      return response.data;
+    },
+    enabled: !!user,
+  });
+
+  // Set account when wallet data is loaded
+  useEffect(() => {
+    if (walletData && walletData.appAddress) {
+      const walletAccount: WalletAccount = {
+        address: walletData.appAddress,
+      };
+      setAccount(walletAccount);
+    } else if (walletData === null) {
+      setAccount(null);
+    }
+  }, [walletData, setAccount]);
+
   // Refetch data when account is disconnected
   useEffect(() => {
     if (!user) {
@@ -61,7 +85,7 @@ export function AuthButton({
         <span>{title}</span>
       </Button>
     ) : (
-      <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted text-muted-foreground text-foreground">
+      <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted text-brand-foreground">
         <HugeiconsIcon icon={Loading03Icon} className="animate-spin" />
       </div>
     );
@@ -71,7 +95,7 @@ export function AuthButton({
       const displayName =
         user?.fullName || user?.firstName || user?.username || user?.primaryEmailAddress?.emailAddress || "Account";
       return (
-        <div className={`flex items-center gap-3 ${className} text-foreground`}>
+        <div className={`flex items-center gap-3 ${className} text-brand-foreground`}>
           <UserButton
             afterSignOutUrl={pathname}
             appearance={{
@@ -80,7 +104,7 @@ export function AuthButton({
               },
             }}
           />
-          <span className="text-sm font-medium text-foreground truncate max-w-[10rem]" title={displayName}>
+          <span className="text-sm font-medium text-brand-foreground truncate max-w-[10rem]" title={displayName}>
             {displayName}
           </span>
         </div>
@@ -100,10 +124,10 @@ export function AuthButton({
 
   if (showOAuthOptions)
     return (
-      <div className="relative text-foreground">
+      <div className="relative text-brand-foreground">
         <Button
           variant={variant}
-          className={`px-4 py-2 rounded-lg font-medium cursor-pointer ${className} text-foreground`}
+          className={`px-4 py-2 rounded-lg font-medium cursor-pointer ${className} text-brand-foreground`}
           onClick={() => setShowDropdown((prev) => !prev)}
         >
           {title ? (
@@ -116,16 +140,16 @@ export function AuthButton({
           )}
         </Button>
         {showDropdown && (
-          <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-card ring-1 ring-border/50 text-foreground">
+          <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-card ring-1 ring-border/50 text-brand-foreground">
             <div className="py-1">
               <SignInButton mode="modal" forceRedirectUrl={getCurrentUrl()} signUpForceRedirectUrl={getCurrentUrl()}>
-                <button className="flex items-center w-full px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer">
+                <button className="flex items-center w-full px-4 py-2 text-sm text-brand-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer">
                   <GoogleIcon className="mr-3" />
                   Continue with Google
                 </button>
               </SignInButton>
               <SignInButton mode="modal" forceRedirectUrl={getCurrentUrl()} signUpForceRedirectUrl={getCurrentUrl()}>
-                <button className="flex items-center w-full px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer">
+                <button className="flex items-center w-full px-4 py-2 text-sm text-brand-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer">
                   <XIcon className="mr-3" />
                   Continue with X
                 </button>
@@ -140,7 +164,7 @@ export function AuthButton({
     return (
       <SignInButton mode="modal" forceRedirectUrl={getCurrentUrl()} signUpForceRedirectUrl={getCurrentUrl()}>
         <button
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground shadow-lg shadow-brand/50 hover:shadow-brand/70 transition-all cursor-pointer ${className} text-foreground`}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground shadow-lg shadow-brand/50 hover:shadow-brand/70 transition-all cursor-pointer ${className} text-brand-foreground`}
           aria-label={title}
         >
           <HugeiconsIcon icon={ConnectIcon} />
@@ -151,13 +175,13 @@ export function AuthButton({
 
   return (
     <div
-      className="relative text-foreground"
+      className="relative text-brand-foreground"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <SignInButton mode="modal" forceRedirectUrl={getCurrentUrl()} signUpForceRedirectUrl={getCurrentUrl()}>
         <button
-          className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-brand via-brand to-brand/90 shadow-lg shadow-brand/50 hover:shadow-brand/70 transition-all cursor-pointer text-foreground"
+          className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-brand via-brand to-brand/90 shadow-lg shadow-brand/50 hover:shadow-brand/70 transition-all cursor-pointer text-brand-foreground"
           aria-label="Connect"
         >
           <HugeiconsIcon icon={ConnectIcon} />
@@ -165,7 +189,7 @@ export function AuthButton({
       </SignInButton>
       {isHovered && (
         <div className="absolute left-12 top-1/2 -translate-y-1/2 z-50 pointer-events-none animate-in fade-in slide-in-from-left-2 duration-200">
-          <div className="bg-gradient-to-br from-card via-card to-popover text-foreground px-4 py-2.5 rounded-lg shadow-xl backdrop-blur-md border border-border/30 whitespace-nowrap text-sm font-medium">
+          <div className="bg-gradient-to-br from-card via-card to-popover text-brand-foreground px-4 py-2.5 rounded-lg shadow-xl backdrop-blur-md border border-border/30 whitespace-nowrap text-sm font-medium">
             Connect
           </div>
         </div>

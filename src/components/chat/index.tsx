@@ -135,32 +135,30 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
   // Auth not loaded yet
   if (!isLoaded) {
     return (
-      <div
-        className={cn(
-          "flex flex-col h-full items-center justify-center bg-gradient-to-br from-slate-900/50 to-slate-950/50",
-          className,
-        )}
-      >
-        <span className="text-slate-400 text-sm">Loading...</span>
+      <div className={cn("flex flex-col h-full items-center justify-center bg-background", className)}>
+        <div className="flex flex-col gap-4 w-full max-w-md">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-muted animate-pulse" />
+            <div className="flex-1 h-4 bg-muted rounded animate-pulse" />
+          </div>
+          <div className="h-4 bg-muted rounded w-3/4 animate-pulse" />
+          <div className="h-4 bg-muted rounded w-1/2 animate-pulse" />
+          <div className="h-4 bg-muted rounded w-2/3 animate-pulse" />
+        </div>
       </div>
     );
   }
 
   return (
-    <div
-      className={cn(
-        "flex flex-col h-full bg-gradient-to-br from-slate-900/50 to-slate-950/50 backdrop-blur-sm border border-slate-700/50 rounded-lg overflow-hidden",
-        className,
-      )}
-    >
-      <div className="flex items-center justify-between p-4 border-b border-slate-700/50 bg-slate-800/30">Ai agent</div>
+    <div className={cn("flex flex-col h-full bg-card border border-border rounded-lg overflow-hidden", className)}>
+      <div className="flex items-center justify-between p-4 border-b border-border bg-muted/30">Ai agent</div>
 
       {error && (
-        <div className="p-4 bg-red-500/10 border-b border-red-500/20">
-          <div className="flex items-center gap-2 text-red-500 text-sm">
+        <div className="p-4 bg-destructive/10 border-b border-destructive/20">
+          <div className="flex items-center gap-2 text-destructive text-sm">
             <span>⚠️</span>
             <span>{error}</span>
-            <button onClick={() => setError(null)} className="ml-auto text-red-500 hover:text-red-400">
+            <button onClick={() => setError(null)} className="ml-auto text-destructive hover:text-destructive/80">
               ✕
             </button>
           </div>
@@ -176,21 +174,19 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
           <div className="flex h-full w-full items-center justify-center">
             <NoWallet />
           </div>
-        ) : !conversationId ? (
-          <div className="flex flex-col items-center justify-center h-full px-4 pb-2">
-            <p className="text-xs text-slate-400 text-center">Setting up chat...</p>
-          </div>
         ) : messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-            <div className="w-16 h-16 rounded-full bg-slate-800/60 flex items-center justify-center mb-4">
+            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
               <span className="text-2xl">💬</span>
             </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Start your DeFi AI chat</h3>
-            <p className="text-slate-400 max-w-md">
+            <h3 className="text-lg font-semibold text-foreground mb-2">Start your DeFi AI chat</h3>
+            <p className="text-muted-foreground max-w-md">
               Ask about swap, staking, unstaking, on-chain analytics, or get AI-powered insights for your crypto
               portfolio.
             </p>
-            {!conversationId && <p className="text-sm text-slate-400 mt-2">Connecting to your DeFi AI assistant...</p>}
+            {!conversationId && (
+              <p className="text-sm text-muted-foreground mt-2">Connecting to your DeFi AI assistant...</p>
+            )}
           </div>
         ) : (
           <ChatContainer
@@ -203,7 +199,7 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
         )}
       </div>
 
-      <div className="border-t border-slate-700/50">
+      <div className="border-t border-border">
         <ChatInput
           onSend={handleSendMessage}
           value={inputValue}
