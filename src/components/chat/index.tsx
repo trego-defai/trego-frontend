@@ -6,7 +6,6 @@ import { chatService } from "@/service/chatService";
 import type { AssistantInfo, IMessage } from "@/types/chat";
 import { ACTION_TYPE } from "@/types/chat";
 import { useCallback, useEffect, useState } from "react";
-import { AssistantSelector } from "./AIAssistantModal";
 import ChatInput from "./ChatInput";
 import ChatContainer from "./message/ChatContainer";
 
@@ -158,10 +157,7 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
     >
       {/* Chat Header */}
       <div className="flex items-center justify-between p-4 border-b border-slate-700/50 bg-slate-800/30">
-        <AssistantSelector
-          currentAssistant={currentAssistant}
-          onAssistantSelect={handleAssistantSelect}
-        />
+        Ai agent
       </div>
 
       {/* Error Display */}

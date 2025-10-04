@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Lint check
+echo "🔍 Checking linting..."
+pnpm run lint:fix
+
+# Format check
+echo "✨ Formatting code..."
+pnpm run format
+
+# Type check and build
+echo "🏗️  Building project..."
+pnpm run build

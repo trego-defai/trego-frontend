@@ -1,29 +1,22 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import { toast } from "sonner";
-import { QRCodeSVG } from "qrcode.react";
-import {
-  Copy,
-  Send,
-  Download,
-  Wallet,
-  RefreshCw,
-  ExternalLink,
-} from "lucide-react";
-import { walletService, WalletAccount } from "@/service/walletService";
-import { useUser } from "@clerk/nextjs";
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { WalletAccount, walletService } from '@/service/walletService';
+import { useUser } from '@clerk/nextjs';
+import { Copy, Download, ExternalLink, RefreshCw, Send, Wallet } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function WalletPage() {
   const { user } = useUser();
   const [account, setAccount] = useState<WalletAccount | null>(null);
-  const [balance, setBalance] = useState<string>("0");
+  const [balance, setBalance] = useState<string>('0');
   const [loading, setLoading] = useState(false);
-  const [recipient, setRecipient] = useState("");
-  const [amount, setAmount] = useState("");
+  const [recipient, setRecipient] = useState('');
+  const [amount, setAmount] = useState('');
 
   useEffect(() => {
     checkUserAccount();
@@ -46,7 +39,7 @@ export default function WalletPage() {
         setAccount(null);
       }
     } catch (error) {
-      console.error("Error checking account:", error);
+      console.error('Error checking account:', error);
       setAccount(null);
     } finally {
       setLoading(false);
@@ -64,11 +57,11 @@ export default function WalletPage() {
         };
         setAccount(walletAccount);
         await fetchBalance(response.data.appAddress);
-        toast.success("Wallet created successfully!");
+        toast.success('Wallet created successfully!');
       }
     } catch (error) {
-      toast.error("Failed to create wallet");
-      console.error("Error generating wallet:", error);
+      toast.error('Failed to create wallet');
+      console.error('Error generating wallet:', error);
     } finally {
       setLoading(false);
     }
@@ -79,24 +72,24 @@ export default function WalletPage() {
       const response = await walletService.getBalance(address);
 
       if (response.data) {
-        const convertedBalance = parseFloat(response.data) / 10**8;
-        console.log("convertedBalance>>>>>", convertedBalance);
+        const convertedBalance = parseFloat(response.data) / 10 ** 8;
+        console.log('convertedBalance>>>>>', convertedBalance);
         setBalance(convertedBalance.toString());
       }
     } catch (error) {
-      console.error("Error fetching balance:", error);
-      setBalance("0.00000000");
+      console.error('Error fetching balance:', error);
+      setBalance('0.00000000');
     }
   };
 
   const handleSendToken = async () => {
     if (!account || !recipient || !amount) {
-      toast.error("Please fill in all fields");
+      toast.error('Please fill in all fields');
       return;
     }
 
     if (!user?.id) {
-      toast.error("User not authenticated");
+      toast.error('User not authenticated');
       return;
     }
 
@@ -106,18 +99,18 @@ export default function WalletPage() {
       const response = await walletService.sendToken({
         id: user.id,
         recipient,
-        amount: parseFloat(amount) * 10**8,
+        amount: parseFloat(amount) * 10 ** 8,
       });
 
       if (response.data) {
-        toast.success("Transaction sent successfully!");
-        setRecipient("");
-        setAmount("");
+        toast.success('Transaction sent successfully!');
+        setRecipient('');
+        setAmount('');
         await fetchBalance(account.address);
       }
     } catch (error) {
-      toast.error("Failed to send transaction");
-      console.error("Error sending:", error);
+      toast.error('Failed to send transaction');
+      console.error('Error sending:', error);
     } finally {
       setLoading(false);
     }
@@ -125,13 +118,13 @@ export default function WalletPage() {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success("Copied to clipboard!");
+    toast.success('Copied to clipboard!');
   };
 
   const refreshBalance = () => {
     if (account) {
       fetchBalance(account.address);
-      toast.success("Balance refreshed!");
+      toast.success('Balance refreshed!');
     }
   };
 
@@ -157,7 +150,7 @@ export default function WalletPage() {
                     Creating Wallet...
                   </>
                 ) : (
-                  "Create Wallet"
+                  'Create Wallet'
                 )}
               </Button>
             </div>
@@ -173,9 +166,7 @@ export default function WalletPage() {
         {/* Balance Card */}
         <Card className="p-6 bg-gradient-to-br from-blue-900/50 to-purple-900/50 border-slate-800">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-slate-300">
-              Wallet Balance
-            </h2>
+            <h2 className="text-lg font-semibold text-slate-300">Wallet Balance</h2>
             <Button
               variant="ghost"
               size="sm"
@@ -188,9 +179,7 @@ export default function WalletPage() {
 
           <div className="space-y-4">
             <div>
-              <div className="text-4xl font-bold text-white mb-2">
-                {balance} APT
-              </div>
+              <div className="text-4xl font-bold text-white mb-2">{balance} APT</div>
               <div className="text-sm text-slate-400">Aptos Mainnet</div>
             </div>
 
@@ -198,9 +187,7 @@ export default function WalletPage() {
               <div className="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg">
                 <div className="flex-1 mr-2">
                   <div className="text-xs text-slate-400 mb-1">Address</div>
-                  <div className="text-sm text-white font-mono break-all">
-                    {account.address}
-                  </div>
+                  <div className="text-sm text-white font-mono break-all">{account.address}</div>
                 </div>
                 <div className="flex gap-2">
                   <Button
@@ -231,9 +218,7 @@ export default function WalletPage() {
               {account.publicKey && (
                 <div className="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg">
                   <div className="flex-1 mr-2">
-                    <div className="text-xs text-slate-400 mb-1">
-                      Public Key
-                    </div>
+                    <div className="text-xs text-slate-400 mb-1">Public Key</div>
                     <div className="text-sm text-white font-mono break-all">
                       {account.publicKey}
                     </div>
@@ -263,9 +248,7 @@ export default function WalletPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="text-sm text-slate-400 mb-2 block">
-                  Recipient Address
-                </label>
+                <label className="text-sm text-slate-400 mb-2 block">Recipient Address</label>
                 <Input
                   placeholder="0x..."
                   value={recipient}
@@ -275,9 +258,7 @@ export default function WalletPage() {
               </div>
 
               <div>
-                <label className="text-sm text-slate-400 mb-2 block">
-                  Amount (APT)
-                </label>
+                <label className="text-sm text-slate-400 mb-2 block">Amount (APT)</label>
                 <Input
                   type="number"
                   placeholder="0.00"
