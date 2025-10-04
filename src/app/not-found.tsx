@@ -17,7 +17,7 @@ export default function NotFound() {
 
         <div className="space-y-4">
           <Button asChild variant="secondary" size="lg">
-            <Link href={PATH.login} target="_blank" rel="noopener noreferrer">
+            <Link href={PATH.landing} target="_blank" rel="noopener noreferrer">
               Return Home
             </Link>
           </Button>
