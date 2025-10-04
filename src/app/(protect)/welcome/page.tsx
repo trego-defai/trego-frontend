@@ -15,11 +15,11 @@ interface AgentCardProps {
   onClick?: () => void;
 }
 
-interface StatRowProps {
-  count: string;
-  label: string;
-  icons: { color: string; symbol: string }[];
-}
+// interface StatRowProps {
+//   count: string;
+//   label: string;
+//   icons: { color: string; symbol: string }[];
+// }
 
 function AgentCard({ title, author, description, avatars, href, onClick }: AgentCardProps) {
   const router = useRouter();
@@ -70,26 +70,26 @@ function AgentCard({ title, author, description, avatars, href, onClick }: Agent
   );
 }
 
-function StatRow({ count, label, icons }: StatRowProps) {
-  return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 lg:gap-8">
-      <div className="text-left min-w-[120px] sm:min-w-[150px] lg:min-w-[200px]">
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">{count}</h2>
-        <p className="text-slate-400 text-sm sm:text-base lg:text-lg">{label}</p>
-      </div>
-      <div className="flex flex-wrap gap-2 sm:gap-3">
-        {icons.map((icon, index) => (
-          <div
-            key={index}
-            className={`w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-lg ${icon.color} flex items-center justify-center`}
-          >
-            <span className="text-white text-sm sm:text-base">{icon.symbol}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+// function StatRow({ count, label, icons }: StatRowProps) {
+//   return (
+//     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 lg:gap-8">
+//       <div className="text-left min-w-[120px] sm:min-w-[150px] lg:min-w-[200px]">
+//         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">{count}</h2>
+//         <p className="text-slate-400 text-sm sm:text-base lg:text-lg">{label}</p>
+//       </div>
+//       <div className="flex flex-wrap gap-2 sm:gap-3">
+//         {icons.map((icon, index) => (
+//           <div
+//             key={index}
+//             className={`w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-lg ${icon.color} flex items-center justify-center`}
+//           >
+//             <span className="text-white text-sm sm:text-base">{icon.symbol}</span>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
 
 const agentCards = [
   {
@@ -116,45 +116,45 @@ const agentCards = [
   },
 ];
 
-const stats = [
-  {
-    count: "10+",
-    label: "Chains",
-    icons: [
-      { color: "bg-orange-500", symbol: "A" },
-      { color: "bg-blue-600", symbol: "B" },
-      { color: "bg-green-500", symbol: "C" },
-      { color: "bg-yellow-500", symbol: "K" },
-      { color: "bg-amber-600", symbol: "D" },
-      { color: "bg-cyan-600", symbol: "E" },
-      { color: "bg-purple-600", symbol: "F" },
-    ],
-  },
-  {
-    count: "100+",
-    label: "MCPs",
-    icons: [
-      { color: "bg-red-500", symbol: "G" },
-      { color: "bg-blue-500", symbol: "H" },
-      { color: "bg-indigo-600", symbol: "D" },
-      { color: "bg-gray-800", symbol: "I" },
-      { color: "bg-red-600", symbol: "M" },
-    ],
-  },
-  {
-    count: "30+",
-    label: "dApps",
-    icons: [
-      { color: "bg-green-600", symbol: "J" },
-      { color: "bg-pink-500", symbol: "K" },
-      { color: "bg-purple-600", symbol: "L" },
-      { color: "bg-cyan-500", symbol: "M" },
-      { color: "bg-blue-600", symbol: "Y" },
-      { color: "bg-cyan-600", symbol: "N" },
-      { color: "bg-green-500", symbol: "O" },
-    ],
-  },
-];
+// const stats = [
+//   {
+//     count: "10+",
+//     label: "Chains",
+//     icons: [
+//       { color: "bg-orange-500", symbol: "A" },
+//       { color: "bg-blue-600", symbol: "B" },
+//       { color: "bg-green-500", symbol: "C" },
+//       { color: "bg-yellow-500", symbol: "K" },
+//       { color: "bg-amber-600", symbol: "D" },
+//       { color: "bg-cyan-600", symbol: "E" },
+//       { color: "bg-purple-600", symbol: "F" },
+//     ],
+//   },
+//   {
+//     count: "100+",
+//     label: "MCPs",
+//     icons: [
+//       { color: "bg-red-500", symbol: "G" },
+//       { color: "bg-blue-500", symbol: "H" },
+//       { color: "bg-indigo-600", symbol: "D" },
+//       { color: "bg-gray-800", symbol: "I" },
+//       { color: "bg-red-600", symbol: "M" },
+//     ],
+//   },
+//   {
+//     count: "30+",
+//     label: "dApps",
+//     icons: [
+//       { color: "bg-green-600", symbol: "J" },
+//       { color: "bg-pink-500", symbol: "K" },
+//       { color: "bg-purple-600", symbol: "L" },
+//       { color: "bg-cyan-500", symbol: "M" },
+//       { color: "bg-blue-600", symbol: "Y" },
+//       { color: "bg-cyan-600", symbol: "N" },
+//       { color: "bg-green-500", symbol: "O" },
+//     ],
+//   },
+// ];
 
 export default function WelcomePage() {
   const { user } = useUser();

@@ -23,8 +23,8 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [conversationId, setConversationId] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
+  const [isLoading] = useState(false);
+  const [hasMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
 
@@ -38,7 +38,7 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
     }
   }, [selectedConversationId, conversationId, user]);
 
-  async function loadConversationMessages(convId: string) {
+  async function loadConversationMessages(_convId: string) {
     // try {
     //   setIsLoading(true);
     //   const response = await chatService.getMessages(convId, 1, 50);
