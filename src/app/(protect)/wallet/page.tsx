@@ -11,6 +11,7 @@ import {
   WalletBalance,
   WalletLoading,
 } from "@/components/wallet";
+import AuthContent from "@/components/wallet/AuthContent";
 import { walletService } from "@/service/walletService";
 import { useWalletStore } from "@/store/useWalletStore";
 import { TokenBalance, WalletAccount, Transaction as WalletTransaction } from "@/types/wallet";
@@ -34,6 +35,7 @@ export default function WalletPage() {
       const response = await walletService.getWallet();
       return response.data;
     },
+    enabled: !!user,
   });
 
   // Query to get balance (only if not already in wallet data)
@@ -46,27 +48,6 @@ export default function WalletPage() {
     },
     enabled: !!account?.address,
     refetchInterval: 20000, // Refetch every 20 seconds
-  });
-
-  // Mutation to generate wallet
-  const generateWalletMutation = useMutation({
-    mutationFn: async () => {
-      const response = await walletService.generateAppWallet();
-      return response.data;
-    },
-    onSuccess: (data) => {
-      if (data && data.appAddress) {
-        const walletAccount: WalletAccount = {
-          address: data.appAddress,
-        };
-        setAccount(walletAccount);
-        toast.success("Wallet created successfully!");
-      }
-    },
-    onError: (error) => {
-      toast.error("Failed to create wallet");
-      console.error("Error generating wallet:", error);
-    },
   });
 
   // Mutation to send token
@@ -134,8 +115,7 @@ export default function WalletPage() {
   // Use balance from wallet data if available, otherwise fallback to balance query
   const balance = walletDetailsData?.balance ? (parseFloat(walletDetailsData.balance) / 10 ** 8).toString() : "0";
 
-  const isLoading =
-    isLoadingWallet || generateWalletMutation.isPending || sendTokenMutation.isPending || isLoadingWalletDetails;
+  const isLoading = isLoadingWallet || sendTokenMutation.isPending || isLoadingWalletDetails;
 
   // Convert API tokens to component tokens format
   const tokens: Token[] = walletDetailsData?.tokens?.map((token: TokenBalance) => ({
@@ -175,8 +155,16 @@ export default function WalletPage() {
     return <WalletLoading />;
   }
 
+  if (!user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <AuthContent />
+      </div>
+    );
+  }
+
   if (!account) {
-    return <NoWallet onCreateWallet={() => generateWalletMutation.mutate()} isLoading={isLoading} />;
+    return <NoWallet />;
   }
 
   return (

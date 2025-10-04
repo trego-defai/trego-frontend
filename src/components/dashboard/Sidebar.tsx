@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AuthButton } from "../auth";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 // Icons
 const DashboardIcon = () => (
@@ -45,7 +46,7 @@ interface SidebarItemProps {
   id: string;
   href: string;
   isActive: boolean;
-  onClick: () => void;
+  onTabChange?: (tab: string) => void;
 }
 
 interface SidebarProps {
@@ -81,23 +82,29 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
-function SidebarItem({ icon, label, isActive, onClick }: SidebarItemProps) {
+function SidebarItem({ icon, label, id, href, isActive, onTabChange }: SidebarItemProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const buttonClasses = isActive
     ? "bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground shadow-lg shadow-brand/50"
     : "hover:bg-muted text-muted-foreground hover:text-foreground hover:shadow-md";
 
+  function handleClick() {
+    onTabChange?.(id);
+  }
+
   return (
     <div className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-      <button
-        onClick={onClick}
-        className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 ${buttonClasses}`}
-        aria-label={label}
-      >
-        {icon}
-      </button>
-
+      <Link href={href} scroll={false} tabIndex={-1} aria-label={label}>
+        <button
+          type="button"
+          onClick={handleClick}
+          className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 ${buttonClasses}`}
+          aria-label={label}
+        >
+          {icon}
+        </button>
+      </Link>
       {isHovered && (
         <div className="absolute left-12 top-1/2 -translate-y-1/2 z-50 pointer-events-none animate-in fade-in slide-in-from-left-2 duration-200">
           <div className="bg-gradient-to-br from-card via-card to-popover text-foreground px-4 py-2.5 rounded-lg shadow-xl backdrop-blur-md border border-border/30 whitespace-nowrap text-sm font-medium">
@@ -110,13 +117,7 @@ function SidebarItem({ icon, label, isActive, onClick }: SidebarItemProps) {
 }
 
 export function Sidebar({ activeTab: _activeTab, onTabChange }: SidebarProps) {
-  const router = useRouter();
   const pathname = usePathname();
-
-  const handleNavigation = (id: string, href: string) => {
-    onTabChange?.(id);
-    router.push(href);
-  };
 
   return (
     <div className="w-16 bg-gradient-to-b from-card via-background to-background border-r border-border/40 flex flex-col items-center pt-4 pb-6 shadow-2xl">
@@ -138,7 +139,7 @@ export function Sidebar({ activeTab: _activeTab, onTabChange }: SidebarProps) {
             id={item.id}
             href={item.href}
             isActive={pathname === item.href}
-            onClick={() => handleNavigation(item.id, item.href)}
+            onTabChange={onTabChange}
             icon={item.icon}
           />
         ))}

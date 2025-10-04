@@ -1,4 +1,8 @@
 "use client";
+
+import AuthContent from "@/components/wallet/AuthContent";
+import { PATH } from "@/lib/constants";
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -153,6 +157,7 @@ const stats = [
 ];
 
 export default function WelcomePage() {
+  const { user } = useUser();
   return (
     <div className="flex-1 flex items-center justify-center p-3 sm:p-4 md:p-6">
       <div className="flex flex-col lg:flex-row w-full max-w-8xl min-h-[80vh] lg:h-[90vh] bg-gradient-to-br from-slate-900/50 to-slate-950/50 backdrop-blur-sm rounded-2xl lg:rounded-3xl border border-slate-700/50 overflow-hidden shadow-2xl">
@@ -173,11 +178,32 @@ export default function WelcomePage() {
         </div>
 
         <div className="w-full lg:w-[55%] flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
-          <div className="space-y-4 sm:space-y-6 lg:space-y-8 w-full max-w-5xl">
+          {user ? (
+            <div className="w-full flex flex-col items-center justify-center">
+              <a
+                href={PATH.agent}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground font-semibold text-lg shadow-lg shadow-brand/40 hover:shadow-brand/60 transition-all"
+              >
+                <span>Open Chat Agent</span>
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="text-brand-foreground">
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          ) : (
+            <AuthContent />
+          )}
+          {/* <div className="space-y-4 sm:space-y-6 lg:space-y-8 w-full max-w-5xl">
             {stats.map((stat, index) => (
               <StatRow key={index} {...stat} />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

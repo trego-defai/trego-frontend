@@ -1,58 +1,44 @@
 "use client";
 
-import { DEFAULT_ASSISTANT } from "@/lib/constants/assistants";
+import AuthContent from "@/components/wallet/AuthContent";
 import { cn } from "@/lib/utils";
 import { chatService } from "@/service/chatService";
-import type { AssistantInfo, IMessage } from "@/types/chat";
+import { useWalletStore } from "@/store/useWalletStore";
+import type { IMessage } from "@/types/chat";
 import { ACTION_TYPE } from "@/types/chat";
+import { useUser } from "@clerk/nextjs";
 import { useCallback, useEffect, useState } from "react";
+import { NoWallet } from "../wallet/NoWallet";
 import ChatInput from "./ChatInput";
 import ChatContainer from "./message/ChatContainer";
 
 interface ChatPanelProps {
   className?: string;
-  assistantInfo?: AssistantInfo;
   selectedConversationId?: string;
 }
 
-const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPanelProps) => {
-  // Initialize with default assistant if none provided
-  const [_currentAssistant, setCurrentAssistant] = useState<AssistantInfo>(
-    assistantInfo || {
-      id: DEFAULT_ASSISTANT.id,
-      name: DEFAULT_ASSISTANT.name,
-      logo: DEFAULT_ASSISTANT.icon,
-      description: DEFAULT_ASSISTANT.description,
-      capabilities: DEFAULT_ASSISTANT.capabilities,
-      color: DEFAULT_ASSISTANT.color,
-    },
-  );
+export function ChatPanel({ className, selectedConversationId }: ChatPanelProps) {
+  const { user, isLoaded } = useUser();
+  const { account } = useWalletStore();
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [conversationId, setConversationId] = useState<string | undefined>();
-  const [isLoading, _setIsLoading] = useState(false);
-  const [hasMore, _setHasMore] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
 
-  const _handleAssistantSelect = useCallback((newAssistant: AssistantInfo) => {
-    setCurrentAssistant(newAssistant);
-    // Optionally clear messages when switching assistants
-    setMessages([]);
-    setError(null);
-  }, []);
-
   useEffect(() => {
+    if (!user || !account) return;
     if (selectedConversationId) {
-      // Load selected conversation
       setConversationId(selectedConversationId);
       loadConversationMessages(selectedConversationId);
     } else if (!conversationId) {
       initializeConversation();
     }
-  }, [selectedConversationId, conversationId]);
+  }, [selectedConversationId, conversationId, user]);
 
-  const loadConversationMessages = async (_convId: string) => {
+  async function loadConversationMessages(convId: string) {
     // try {
     //   setIsLoading(true);
     //   const response = await chatService.getMessages(convId, 1, 50);
@@ -66,9 +52,9 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
     // } finally {
     //   setIsLoading(false);
     // }
-  };
+  }
 
-  const initializeConversation = async () => {
+  async function initializeConversation() {
     // try {
     //   const response = await chatService.createConversation();
     //   if (response.success) {
@@ -78,11 +64,10 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
     //   console.error("Failed to create conversation:", error);
     //   setError("Failed to initialize chat");
     // }
-  };
+  }
 
   const loadMoreMessages = useCallback(async () => {
     if (!conversationId || isLoading) return;
-
     // setIsLoading(true);
     // try {
     //   const response = await chatService.getMessages(conversationId, 1, 20);
@@ -120,7 +105,7 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
           data,
           intent,
         } = await chatService.sendMessage({
-          user_address: "0x1",
+          user_address: account?.address ?? "0x1",
           content: message.trim(),
         });
 
@@ -139,14 +124,27 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
       } catch (error) {
         console.error("Failed to send message:", error);
         setError("Failed to send message. Please try again.");
-        // Remove user message if sending failed
         setMessages((prev) => prev.filter((msg) => msg.id !== userMessage.id));
       } finally {
         setIsWaitingForResponse(false);
       }
     },
-    [conversationId, isWaitingForResponse],
+    [conversationId, isWaitingForResponse, account?.address],
   );
+
+  // Auth not loaded yet
+  if (!isLoaded) {
+    return (
+      <div
+        className={cn(
+          "flex flex-col h-full items-center justify-center bg-gradient-to-br from-slate-900/50 to-slate-950/50",
+          className,
+        )}
+      >
+        <span className="text-slate-400 text-sm">Loading...</span>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -155,10 +153,8 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
         className,
       )}
     >
-      {/* Chat Header */}
       <div className="flex items-center justify-between p-4 border-b border-slate-700/50 bg-slate-800/30">Ai agent</div>
 
-      {/* Error Display */}
       {error && (
         <div className="p-4 bg-red-500/10 border-b border-red-500/20">
           <div className="flex items-center gap-2 text-red-500 text-sm">
@@ -171,9 +167,16 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
         </div>
       )}
 
-      {/* Chat Messages Container */}
       <div className="flex-1 min-h-0">
-        {!conversationId ? (
+        {!user ? (
+          <div className="flex h-full w-full items-center justify-center">
+            <AuthContent />
+          </div>
+        ) : !account ? (
+          <div className="flex h-full w-full items-center justify-center">
+            <NoWallet />
+          </div>
+        ) : !conversationId ? (
           <div className="flex flex-col items-center justify-center h-full px-4 pb-2">
             <p className="text-xs text-slate-400 text-center">Setting up chat...</p>
           </div>
@@ -200,31 +203,17 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
         )}
       </div>
 
-      {/* Chat Input */}
       <div className="border-t border-slate-700/50">
         <ChatInput
           onSend={handleSendMessage}
           value={inputValue}
           setValue={setInputValue}
           isLoading={isWaitingForResponse}
-          disabled={isWaitingForResponse || !conversationId}
+          disabled={isWaitingForResponse || !conversationId || !account}
         />
-        {/* <PreSwap 
-          item={
-            {
-              fromToken: "USDC",
-              toToken: "USDT",
-              fromAmount: "100",
-              toAmount: "100",
-              fromAmountUsd: 100,
-              toAmountUsd: 100,
-            } as SwapEstimateItem
-          }
-          isLoading={isWaitingForResponse}
-        /> */}
       </div>
     </div>
   );
-};
+}
 
 export default ChatPanel;
