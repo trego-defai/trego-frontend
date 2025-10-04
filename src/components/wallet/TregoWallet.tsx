@@ -1,44 +1,22 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { getShortAddress } from "@/lib/utils";
-import { walletService } from "@/service/walletService";
-import { useWalletStore } from "@/store/useWalletStore";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import GenerateWalletButton from "./GenerateWalletButton";
+import { useWalletStore } from '@/store/useWalletStore';
+import { Button } from '@/components/ui/button';
+import { Wallet } from 'lucide-react';
 
-const TregoWallet = () => {
-  const { setAddress } = useWalletStore();
+export default function TregoWallet() {
+  const { account } = useWalletStore();
 
-  const { data: wallet, isLoading } = useQuery({
-    queryKey: ["wallet"],
-    queryFn: () => walletService.getWallet(),
-  });
-
-  useEffect(() => {
-    if (wallet?.data?.appAddress) {
-      setAddress(wallet?.data?.appAddress || "");
-    }
-  }, [wallet?.data?.appAddress]);
-
-  if (isLoading) {
-    return (
-      <Button variant="default" size="icon" disabled className="min-w-[200px]">
-        Loading...
-      </Button>
-    );
+  if (!account) {
+    return null;
   }
 
-  if (wallet?.data?.appAddress) {
-    return (
-      <Button variant="default" size="icon" className="min-w-[200px]">
-        {getShortAddress(wallet?.data?.appAddress)}
-      </Button>
-    );
-  }
+  const shortAddress = `${account.address.slice(0, 6)}...${account.address.slice(-4)}`;
 
-  return <GenerateWalletButton />;
-};
-
-export default TregoWallet;
+  return (
+    <Button variant="outline" size="sm" className="flex items-center gap-2 text-sm">
+      <Wallet className="h-4 w-4" />
+      <span className="hidden sm:inline">{shortAddress}</span>
+    </Button>
+  );
+}

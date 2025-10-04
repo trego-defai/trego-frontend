@@ -1,21 +1,12 @@
-import { ApiSuccessResponse } from "@/types/api-response";
-import { WalletResponse, GenerateWalletResponse } from "@/types/wallet";
-import { BaseService } from "./baseService";
-
-export interface WalletAccount {
-  address: string;
-  publicKey?: string;
-}
-
-export interface SendTokenRequest {
-  id: string;
-  recipient: string;
-  amount: number;
-}
-
-export interface SendTokenResponse {
-  transactionHash: string;
-}
+import { ApiSuccessResponse } from '@/types/api-response';
+import {
+  WalletResponse,
+  GenerateWalletResponse,
+  SendTokenRequest,
+  SendTokenResponse,
+  WalletDetailsResponse,
+} from '@/types/wallet';
+import { BaseService } from './baseService';
 
 class WalletService extends BaseService {
   async getWallet() {
@@ -23,7 +14,7 @@ class WalletService extends BaseService {
       const response = await this.get<ApiSuccessResponse<WalletResponse>>(`/api/wallet`);
       return response;
     } catch (error) {
-      console.error("Error getting wallet:", error);
+      console.error('Error getting wallet:', error);
       throw error;
     }
   }
@@ -35,19 +26,37 @@ class WalletService extends BaseService {
       );
       return response;
     } catch (error) {
-      console.error("Error generating app wallet:", error);
+      console.error('Error generating app wallet:', error);
       throw error;
     }
   }
 
   async getBalance(address: string) {
     try {
-      const response = await this.post<ApiSuccessResponse<string>>(`/api/wallet/balance`, {
-        address,
-      });
+      const response = await this.post<ApiSuccessResponse<{ balance: string }>>(
+        `/api/wallet/balance`,
+        {
+          address,
+        }
+      );
       return response;
     } catch (error) {
-      console.error("Error getting balance:", error);
+      console.error('Error getting balance:', error);
+      throw error;
+    }
+  }
+
+  async getWalletDetails(address: string) {
+    try {
+      const response = await this.get<ApiSuccessResponse<WalletDetailsResponse>>(
+        `/api/wallet/details`,
+        {
+          address,
+        }
+      );
+      return response;
+    } catch (error) {
+      console.error('Error getting wallet details:', error);
       throw error;
     }
   }
@@ -60,7 +69,7 @@ class WalletService extends BaseService {
       );
       return response;
     } catch (error) {
-      console.error("Error sending token:", error);
+      console.error('Error sending token:', error);
       throw error;
     }
   }

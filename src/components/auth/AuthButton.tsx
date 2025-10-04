@@ -6,6 +6,21 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { GoogleIcon, XIcon } from "../ui/icons";
 
+const ConnectIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
+const LoadingIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
+    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+  </svg>
+);
+
 interface AuthButtonProps {
   variant?: "default" | "ghost" | "secondary" | "link" | "destructive" | "outline" | null | undefined;
   className?: string;
@@ -31,31 +46,22 @@ export default function AuthButton({
 
   if (!isLoaded) {
     return (
-      <Button
-        variant={variant}
-        className={`px-4 py-2 rounded-lg font-medium ${className}`}
-        disabled
-      >
-        Loading...
-      </Button>
+      <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted text-muted-foreground">
+        <LoadingIcon />
+      </div>
     );
   }
 
   if (isSignedIn) {
     return (
-      <div className="flex items-center space-x-3">
-        <span className="text-sm text-gray-300">
-          {/* {user?.username || user?.primaryEmailAddress?.emailAddress || user?.firstName || "User"} */}
-        </span>
-        <UserButton
-          afterSignOutUrl={pathname}
-          appearance={{
-            elements: {
-              avatarBox: "w-8 h-8",
-            },
-          }}
-        />
-      </div>
+      <UserButton
+        afterSignOutUrl={pathname}
+        appearance={{
+          elements: {
+            avatarBox: "w-8 h-8 ring-2 ring-brand/20 hover:ring-brand/40 transition-all",
+          },
+        }}
+      />
     );
   }
 
@@ -71,14 +77,14 @@ export default function AuthButton({
         </Button>
 
         {showDropdown && (
-          <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
+          <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-card ring-1 ring-border/50">
             <div className="py-1">
               <SignInButton
                 mode="modal"
                 forceRedirectUrl={getCurrentUrl()}
                 signUpForceRedirectUrl={getCurrentUrl()}
               >
-                <button className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">
+                <button className="flex items-center w-full px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
                   <GoogleIcon className="mr-3" />
                   Continue with Google
                 </button>
@@ -89,7 +95,7 @@ export default function AuthButton({
                 forceRedirectUrl={getCurrentUrl()}
                 signUpForceRedirectUrl={getCurrentUrl()}
               >
-                <button className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">
+                <button className="flex items-center w-full px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
                   <XIcon className="mr-3" />
                   Continue with X
                 </button>
@@ -101,15 +107,34 @@ export default function AuthButton({
     );
   }
 
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <SignInButton
-      mode="modal"
-      forceRedirectUrl={getCurrentUrl()}
-      signUpForceRedirectUrl={getCurrentUrl()}
+    <div
+      className="relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <Button variant={variant} className={`px-4 py-2 rounded-lg font-medium ${className}`}>
-        Connect
-      </Button>
-    </SignInButton>
+      <SignInButton
+        mode="modal"
+        forceRedirectUrl={getCurrentUrl()}
+        signUpForceRedirectUrl={getCurrentUrl()}
+      >
+        <button
+          className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground shadow-lg shadow-brand/50 hover:shadow-brand/70 transition-all"
+          aria-label="Connect"
+        >
+          <ConnectIcon />
+        </button>
+      </SignInButton>
+
+      {isHovered && (
+        <div className="absolute left-12 top-1/2 -translate-y-1/2 z-50 pointer-events-none animate-in fade-in slide-in-from-left-2 duration-200">
+          <div className="bg-gradient-to-br from-card via-card to-popover text-foreground px-4 py-2.5 rounded-lg shadow-xl backdrop-blur-md border border-border/30 whitespace-nowrap text-sm font-medium">
+            Connect
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
