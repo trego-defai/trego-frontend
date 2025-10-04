@@ -29,7 +29,7 @@
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "prefer-const": "error",
     "no-var": "error",
-    "prettier/prettier":[
+    "prettier/prettier": [
       "error",
       {
         "endOfLine": "auto"
