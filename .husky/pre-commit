@@ -1,15 +1,15 @@
 #!/bin/sh
 
-# Auto-fix and format code before commit
-echo "🔍 Auto-fixing linting issues..."
-pnpm run lint:fix || echo "⚠️  Some linting issues remain but continuing..."
+# # Auto-fix and format code before commit
+# echo "🔍 Auto-fixing linting issues..."
+# pnpm run lint:fix || echo "⚠️  Some linting issues remain but continuing..."
 
-echo "✨ Auto-formatting code..."
-pnpm run format || echo "⚠️  Formatting failed but continuing..."
+# echo "✨ Auto-formatting code..."
+# pnpm run format || echo "⚠️  Formatting failed but continuing..."
 
-# Add the fixed files to git
-echo "📝 Adding formatted files to git..."
-git add .
+# # Add the fixed files to git
+# echo "📝 Adding formatted files to git..."
+# git add .
 
 # Run tests
 echo "🧪 Running tests..."
