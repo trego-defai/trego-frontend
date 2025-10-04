@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import AnimatedChart from "./AnimatedChart";
 
 // Predefined particle positions to avoid hydration mismatch
 const PARTICLE_POSITIONS = [
@@ -82,9 +81,7 @@ const Background = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* Background chart layer (does not affect layout) */}
-      <div className="absolute z-50">
-        {/* <AnimatedChart /> */}
-      </div>
+      <div className="absolute z-50">{/* <AnimatedChart /> */}</div>
 
       {/* Radial gradient overlay */}
       {/* <div className="absolute inset-0 z-0 bg-gradient-radial from-transparent via-transparent to-black/50 pointer-events-none" /> */}

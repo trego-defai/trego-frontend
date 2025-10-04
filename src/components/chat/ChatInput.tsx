@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { Navigation03Icon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { Navigation03Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -14,34 +14,23 @@ interface ChatInputProps {
   disabled?: boolean;
 }
 
-function ChatInput({
-  onSend,
-  value,
-  setValue,
-  isLoading,
-  disabled,
-}: ChatInputProps) {
+function ChatInput({ onSend, value, setValue, isLoading, disabled }: ChatInputProps) {
   function handleSubmit(event?: React.FormEvent | React.KeyboardEvent) {
     if (event) event.preventDefault?.();
     const message = value.trim();
     if (!message || isLoading || disabled) return;
     onSend(message);
-    setValue('');
+    setValue("");
   }
 
   function handleInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter' && !event.shiftKey && !disabled) {
+    if (event.key === "Enter" && !event.shiftKey && !disabled) {
       handleSubmit(event);
     }
   }
 
   return (
-    <form
-      className={cn('p-4 max-md:p-3 w-full')}
-      onSubmit={handleSubmit}
-      autoComplete="off"
-      role="search"
-    >
+    <form className={cn("p-4 max-md:p-3 w-full")} onSubmit={handleSubmit} autoComplete="off" role="search">
       <div className="relative w-full">
         <Input
           value={value}

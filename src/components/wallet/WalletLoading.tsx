@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Card } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function WalletLoading() {
   return (
@@ -28,10 +28,7 @@ export function WalletLoading() {
               <Skeleton className="h-5 w-24 mb-4 bg-muted/60" />
               <div className="space-y-2">
                 {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="flex items-center justify-between p-4 rounded-lg bg-muted/30"
-                  >
+                  <div key={i} className="flex items-center justify-between p-4 rounded-lg bg-muted/30">
                     <div className="flex items-center gap-4">
                       <Skeleton className="h-10 w-10 rounded-full bg-muted/60" />
                       <div className="space-y-2">
@@ -53,10 +50,7 @@ export function WalletLoading() {
               <Skeleton className="h-5 w-36 mb-4 bg-muted/60" />
               <div className="space-y-3">
                 {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="flex items-center justify-between p-3 rounded-lg bg-muted/30"
-                  >
+                  <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
                     <div className="flex items-center gap-3">
                       <Skeleton className="h-10 w-10 rounded-full bg-muted/60" />
                       <div className="space-y-2">

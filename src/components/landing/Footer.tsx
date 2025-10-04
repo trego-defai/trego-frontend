@@ -2,8 +2,7 @@ import { PATH } from "@/lib/constants";
 import Link from "next/link";
 import Logo from "../shared/Logo";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { NewTwitterIcon, TelegramIcon, DiscordIcon } from "@hugeicons/core-free-icons"
-
+import { NewTwitterIcon, TelegramIcon, DiscordIcon } from "@hugeicons/core-free-icons";
 
 const NAVIGATION_LINKS = [
   { href: PATH.trade, label: "Trade" },
@@ -13,7 +12,11 @@ const NAVIGATION_LINKS = [
 ] as const;
 
 const SOCIAL_LINKS = [
-  { href: "https://x.com/TregoDefai", label: "Twitter", icon: <HugeiconsIcon icon={NewTwitterIcon} /> },
+  {
+    href: "https://x.com/TregoDefai",
+    label: "Twitter",
+    icon: <HugeiconsIcon icon={NewTwitterIcon} />,
+  },
   { href: "#", label: "Telegram", icon: <HugeiconsIcon icon={TelegramIcon} /> },
   { href: "#", label: "Discord", icon: <HugeiconsIcon icon={DiscordIcon} /> },
 ] as const;

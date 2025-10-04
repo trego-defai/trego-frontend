@@ -32,11 +32,15 @@ function AgentCard({ title, author, description, avatars, href, onClick }: Agent
   return (
     <div
       onClick={handleClick}
-      className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-lg sm:rounded-xl border border-slate-700/50 p-3 sm:p-4 hover:border-slate-600/50 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]">
+      className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-lg sm:rounded-xl border border-slate-700/50 p-3 sm:p-4 hover:border-slate-600/50 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+    >
       <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
         <div className="flex items-center gap-1">
           {avatars.map((avatar, index) => (
-            <div key={index} className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full overflow-hidden ${index > 0 ? '-ml-2 sm:-ml-3' : ''}`}>
+            <div
+              key={index}
+              className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full overflow-hidden ${index > 0 ? "-ml-2 sm:-ml-3" : ""}`}
+            >
               <Image src={avatar} alt="avatar" width={30} height={30} className="w-full h-full object-cover" />
             </div>
           ))}
@@ -44,7 +48,13 @@ function AgentCard({ title, author, description, avatars, href, onClick }: Agent
         <div className="flex-1 min-w-0">
           <h4 className="text-white font-medium flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
             <span className="truncate">{title}</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-slate-500 flex-shrink-0 sm:w-4 sm:h-4">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="text-slate-500 flex-shrink-0 sm:w-4 sm:h-4"
+            >
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
             </svg>
           </h4>
@@ -65,7 +75,10 @@ function StatRow({ count, label, icons }: StatRowProps) {
       </div>
       <div className="flex flex-wrap gap-2 sm:gap-3">
         {icons.map((icon, index) => (
-          <div key={index} className={`w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-lg ${icon.color} flex items-center justify-center`}>
+          <div
+            key={index}
+            className={`w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-lg ${icon.color} flex items-center justify-center`}
+          >
             <span className="text-white text-sm sm:text-base">{icon.symbol}</span>
           </div>
         ))}
@@ -78,22 +91,24 @@ const agentCards = [
   {
     title: "Trego Chat",
     author: "@tregodefai",
-    description: "Ask and engage with Trego for everything onchain—request wallet details, swapping, bridging, and more.",
+    description:
+      "Ask and engage with Trego for everything onchain—request wallet details, swapping, bridging, and more.",
     avatars: [
       "https://media.aptosfoundation.org/1710268412-photo_2024-03-12_11-32-47.jpg?auto=format&fit=crop&h=344&w=344",
       "https://media.aptosfoundation.org/1745520865-project-icon_hyperion.png?auto=format&fit=crop&h=344&w=344",
       "https://media.aptosfoundation.org/1749513649-8be1e546e317-tapp_exchange.png?auto=format&fit=crop&h=344&w=344",
     ],
-    href: "/agent"
+    href: "/agent",
   },
   {
     title: "Trading Bot",
     author: "@tregodefai",
-    description: "Automated trading bot that monitors social media and market signals to execute trades on Aptos chain.",
+    description:
+      "Automated trading bot that monitors social media and market signals to execute trades on Aptos chain.",
     avatars: [
       "https://media.aptosfoundation.org/1690445358-e55899f0b363-kanalabs_logo.png?auto=format&fit=crop&h=344&w=344",
     ],
-    href: "/trading"
+    href: "/trading",
   },
 ];
 

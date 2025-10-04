@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Copy, ExternalLink, RefreshCw } from 'lucide-react';
-import { toast } from 'sonner';
-import { WalletAccount } from './types';
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Copy, ExternalLink, RefreshCw } from "lucide-react";
+import { toast } from "sonner";
+import { WalletAccount } from "./types";
 
 interface WalletBalanceProps {
   account: WalletAccount;
@@ -17,7 +17,7 @@ interface WalletBalanceProps {
 export function WalletBalance({ account, balance, isLoadingBalance, onRefresh }: WalletBalanceProps) {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success('Copied to clipboard!');
+    toast.success("Copied to clipboard!");
   };
 
   return (
@@ -25,7 +25,7 @@ export function WalletBalance({ account, balance, isLoadingBalance, onRefresh }:
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Balance</h2>
         <Button variant="ghost" size="sm" onClick={onRefresh} disabled={isLoadingBalance}>
-          <RefreshCw className={`w-4 h-4 ${isLoadingBalance ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-4 h-4 ${isLoadingBalance ? "animate-spin" : ""}`} />
         </Button>
       </div>
 
@@ -51,11 +51,7 @@ export function WalletBalance({ account, balance, isLoadingBalance, onRefresh }:
               <div className="text-sm font-mono break-all">{account.address}</div>
             </div>
             <div className="flex gap-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => copyToClipboard(account.address)}
-              >
+              <Button variant="ghost" size="sm" onClick={() => copyToClipboard(account.address)}>
                 <Copy className="w-4 h-4" />
               </Button>
               <Button variant="ghost" size="sm" asChild>

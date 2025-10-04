@@ -46,8 +46,7 @@ const Agent = () => {
     <div className="h-full w-full flex gap-2 sm:gap-4 p-2 sm:p-4 relative">
       {/* Left Panel - History */}
       <div
-        className={`flex-shrink-0 transition-all duration-300 ${isPanelOpen ? "w-64 sm:w-80" : "w-0 overflow-hidden"
-          }`}
+        className={`flex-shrink-0 transition-all duration-300 ${isPanelOpen ? "w-64 sm:w-80" : "w-0 overflow-hidden"}`}
       >
         <PanelHistory
           className="h-full"
@@ -63,18 +62,20 @@ const Agent = () => {
         variant="outline"
         size="icon"
         onClick={() => setIsPanelOpen(!isPanelOpen)}
-        className={`absolute top-1/2 -translate-y-1/2 z-10 h-8 w-8 sm:h-10 sm:w-10 rounded-full shadow-md transition-all duration-300 ${isPanelOpen ? "left-[16.5rem] sm:left-[21rem]" : "left-2 sm:left-4"
-          }`}
+        className={`absolute top-1/2 -translate-y-1/2 z-10 h-8 w-8 sm:h-10 sm:w-10 rounded-full shadow-md transition-all duration-300 ${
+          isPanelOpen ? "left-[16.5rem] sm:left-[21rem]" : "left-2 sm:left-4"
+        }`}
       >
-        {isPanelOpen ? <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" /> : <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />}
+        {isPanelOpen ? (
+          <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+        ) : (
+          <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+        )}
       </Button>
 
       {/* Right Panel - Chat */}
       <div className="flex-1 min-w-0">
-        <ChatPanel
-          className="h-full"
-          selectedConversationId={selectedConversation}
-        />
+        <ChatPanel className="h-full" selectedConversationId={selectedConversation} />
       </div>
     </div>
   );

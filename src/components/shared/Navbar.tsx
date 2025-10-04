@@ -36,10 +36,7 @@ export function Navbar() {
             style={{ minWidth: "fit-content" }}
             aria-label="Main navigation"
           >
-            <div
-              className="relative flex items-center space-x-3"
-              style={{ minWidth: "fit-content" }}
-            >
+            <div className="relative flex items-center space-x-3" style={{ minWidth: "fit-content" }}>
               {NAV_LINKS.map(({ href, label }) => {
                 const isActive = isActiveNav(href, pathname);
                 return (

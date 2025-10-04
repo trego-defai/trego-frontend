@@ -1,12 +1,6 @@
 import { IconProps } from "@/types/icon";
 
-export function XIcon({
-  width = 24,
-  height = 24,
-  color = "currentColor",
-  className = "w-6 h-6",
-  ...props
-}: IconProps) {
+export function XIcon({ width = 24, height = 24, color = "currentColor", className = "w-6 h-6", ...props }: IconProps) {
   return (
     <svg
       className={className}
@@ -62,12 +56,7 @@ export function MenuIcon({
       aria-hidden="true"
       {...props}
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M4 6h16M4 12h16M4 18h16"
-      />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   );
 }
@@ -122,8 +111,7 @@ export const RetweetIcon = ({
   </svg>
 );
 
-
-export const Loader2Icon = ({ 
+export const Loader2Icon = ({
   width = 24,
   height = 24,
   color = "currentColor",
@@ -150,11 +138,18 @@ export const ArrowUpRightIcon = ({
   className = "w-6 h-6",
   ...props
 }: IconProps) => (
-  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
     <path d="M12 2L2 22h20L12 2z" />
   </svg>
 );
-
 
 export const ArrowDownRightIcon = ({
   width = 24,
@@ -163,7 +158,15 @@ export const ArrowDownRightIcon = ({
   className = "w-6 h-6",
   ...props
 }: IconProps) => (
-  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
     <path d="M12 2L2 22h20L12 2z" />
   </svg>
 );
@@ -175,7 +178,15 @@ export const BTCIcon = ({
   className = "w-6 h-6",
   ...props
 }: IconProps) => (
-  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
     <path d="M12 2L2 22h20L12 2z" />
   </svg>
 );
@@ -187,7 +198,15 @@ export const ETHIcon = ({
   className = "w-6 h-6",
   ...props
 }: IconProps) => (
-  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
     <path d="M12 2L2 22h20L12 2z" />
   </svg>
 );
@@ -199,7 +218,15 @@ export const GoogleIcon = ({
   className = "w-6 h-6",
   ...props
 }: IconProps) => (
-  <svg className={className} fill={color} width={width} height={height} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
     <path d="M12 2L2 22h20L12 2z" />
   </svg>
 );

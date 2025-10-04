@@ -1,10 +1,5 @@
 import { BaseService } from "./baseService";
-import {
-  SwapEstimateRequest,
-  SwapEstimateResponse,
-  SwapExecuteRequest,
-  SwapExecuteResponse,
-} from "@/types/swap";
+import { SwapEstimateRequest, SwapEstimateResponse, SwapExecuteRequest, SwapExecuteResponse } from "@/types/swap";
 
 class DefiService extends BaseService {
   async swapEstimate(request: SwapEstimateRequest): Promise<SwapEstimateResponse> {

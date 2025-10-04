@@ -25,7 +25,7 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
       description: DEFAULT_ASSISTANT.description,
       capabilities: DEFAULT_ASSISTANT.capabilities,
       color: DEFAULT_ASSISTANT.color,
-    }
+    },
   );
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -145,20 +145,18 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
         setIsWaitingForResponse(false);
       }
     },
-    [conversationId, isWaitingForResponse]
+    [conversationId, isWaitingForResponse],
   );
 
   return (
     <div
       className={cn(
         "flex flex-col h-full bg-gradient-to-br from-slate-900/50 to-slate-950/50 backdrop-blur-sm border border-slate-700/50 rounded-lg overflow-hidden",
-        className
+        className,
       )}
     >
       {/* Chat Header */}
-      <div className="flex items-center justify-between p-4 border-b border-slate-700/50 bg-slate-800/30">
-        Ai agent
-      </div>
+      <div className="flex items-center justify-between p-4 border-b border-slate-700/50 bg-slate-800/30">Ai agent</div>
 
       {/* Error Display */}
       {error && (
@@ -166,10 +164,7 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
           <div className="flex items-center gap-2 text-red-500 text-sm">
             <span>⚠️</span>
             <span>{error}</span>
-            <button
-              onClick={() => setError(null)}
-              className="ml-auto text-red-500 hover:text-red-400"
-            >
+            <button onClick={() => setError(null)} className="ml-auto text-red-500 hover:text-red-400">
               ✕
             </button>
           </div>
@@ -189,14 +184,10 @@ const ChatPanel = ({ className, assistantInfo, selectedConversationId }: ChatPan
             </div>
             <h3 className="text-lg font-semibold text-white mb-2">Start your DeFi AI chat</h3>
             <p className="text-slate-400 max-w-md">
-              Ask about swap, staking, unstaking, on-chain analytics, or get AI-powered insights for
-              your crypto portfolio.
+              Ask about swap, staking, unstaking, on-chain analytics, or get AI-powered insights for your crypto
+              portfolio.
             </p>
-            {!conversationId && (
-              <p className="text-sm text-slate-400 mt-2">
-                Connecting to your DeFi AI assistant...
-              </p>
-            )}
+            {!conversationId && <p className="text-sm text-slate-400 mt-2">Connecting to your DeFi AI assistant...</p>}
           </div>
         ) : (
           <ChatContainer

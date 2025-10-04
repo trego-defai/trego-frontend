@@ -7,7 +7,16 @@ import { usePathname } from "next/navigation";
 import { GoogleIcon, XIcon } from "../ui/icons";
 
 const ConnectIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
     <circle cx="9" cy="7" r="4" />
     <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -16,7 +25,17 @@ const ConnectIcon = () => (
 );
 
 const LoadingIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="animate-spin"
+  >
     <path d="M21 12a9 9 0 1 1-6.219-8.56" />
   </svg>
 );
@@ -27,11 +46,7 @@ interface AuthButtonProps {
   showOAuthOptions?: boolean;
 }
 
-export default function AuthButton({
-  variant = "default",
-  className = "",
-  showOAuthOptions = false,
-}: AuthButtonProps) {
+export default function AuthButton({ variant = "default", className = "", showOAuthOptions = false }: AuthButtonProps) {
   const { isLoaded, isSignedIn, user } = useUser();
   const [showDropdown, setShowDropdown] = useState(false);
   const pathname = usePathname();
@@ -79,22 +94,14 @@ export default function AuthButton({
         {showDropdown && (
           <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-card ring-1 ring-border/50">
             <div className="py-1">
-              <SignInButton
-                mode="modal"
-                forceRedirectUrl={getCurrentUrl()}
-                signUpForceRedirectUrl={getCurrentUrl()}
-              >
+              <SignInButton mode="modal" forceRedirectUrl={getCurrentUrl()} signUpForceRedirectUrl={getCurrentUrl()}>
                 <button className="flex items-center w-full px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
                   <GoogleIcon className="mr-3" />
                   Continue with Google
                 </button>
               </SignInButton>
 
-              <SignInButton
-                mode="modal"
-                forceRedirectUrl={getCurrentUrl()}
-                signUpForceRedirectUrl={getCurrentUrl()}
-              >
+              <SignInButton mode="modal" forceRedirectUrl={getCurrentUrl()} signUpForceRedirectUrl={getCurrentUrl()}>
                 <button className="flex items-center w-full px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
                   <XIcon className="mr-3" />
                   Continue with X
@@ -110,16 +117,8 @@ export default function AuthButton({
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <SignInButton
-        mode="modal"
-        forceRedirectUrl={getCurrentUrl()}
-        signUpForceRedirectUrl={getCurrentUrl()}
-      >
+    <div className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <SignInButton mode="modal" forceRedirectUrl={getCurrentUrl()} signUpForceRedirectUrl={getCurrentUrl()}>
         <button
           className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground shadow-lg shadow-brand/50 hover:shadow-brand/70 transition-all"
           aria-label="Connect"

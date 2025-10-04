@@ -44,15 +44,11 @@ export abstract class BaseService {
           }
         }
         return Promise.reject(error);
-      }
+      },
     );
   }
 
-  protected async get<T>(
-    url: string,
-    params?: Record<string, unknown>,
-    config?: AxiosRequestConfig
-  ): Promise<T> {
+  protected async get<T>(url: string, params?: Record<string, unknown>, config?: AxiosRequestConfig): Promise<T> {
     const response = await this.api.get(url, {
       ...config,
       params,
@@ -64,7 +60,7 @@ export abstract class BaseService {
     url: string,
     data?: unknown,
     params?: Record<string, unknown>,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     const response = await this.api.post(url, data, {
       ...config,
@@ -77,7 +73,7 @@ export abstract class BaseService {
     url: string,
     data?: unknown,
     params?: Record<string, unknown>,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     const response = await this.api.put(url, data, {
       ...config,
@@ -86,11 +82,7 @@ export abstract class BaseService {
     return response.data;
   }
 
-  protected async delete<T>(
-    url: string,
-    params?: Record<string, unknown>,
-    config?: AxiosRequestConfig
-  ): Promise<T> {
+  protected async delete<T>(url: string, params?: Record<string, unknown>, config?: AxiosRequestConfig): Promise<T> {
     const response = await this.api.delete(url, {
       ...config,
       params,
@@ -102,7 +94,7 @@ export abstract class BaseService {
     url: string,
     data?: unknown,
     params?: Record<string, unknown>,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     const response = await this.api.patch(url, data, {
       ...config,

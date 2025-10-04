@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Card } from '@/components/ui/card';
-import { ArrowDownLeft, ArrowUpRight, Clock } from 'lucide-react';
-import { toast } from 'sonner';
-import { Transaction } from './types';
+import { Card } from "@/components/ui/card";
+import { ArrowDownLeft, ArrowUpRight, Clock } from "lucide-react";
+import { toast } from "sonner";
+import { Transaction } from "./types";
 
 interface TransactionHistoryProps {
   transactions: Transaction[];
@@ -12,7 +12,7 @@ interface TransactionHistoryProps {
 export function TransactionHistory({ transactions }: TransactionHistoryProps) {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success('Copied to clipboard!');
+    toast.success("Copied to clipboard!");
   };
 
   const formatTimestamp = (timestamp: number) => {
@@ -50,10 +50,10 @@ export function TransactionHistory({ transactions }: TransactionHistoryProps) {
               <div className="flex items-center gap-3">
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                    tx.type === 'received' ? 'bg-green-500/10' : 'bg-red-500/10'
+                    tx.type === "received" ? "bg-green-500/10" : "bg-red-500/10"
                   }`}
                 >
-                  {tx.type === 'received' ? (
+                  {tx.type === "received" ? (
                     <ArrowDownLeft className="w-5 h-5 text-green-500" />
                   ) : (
                     <ArrowUpRight className="w-5 h-5 text-red-500" />
@@ -61,18 +61,12 @@ export function TransactionHistory({ transactions }: TransactionHistoryProps) {
                 </div>
                 <div>
                   <div className="font-semibold capitalize">{tx.type}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {formatTimestamp(tx.timestamp)}
-                  </div>
+                  <div className="text-xs text-muted-foreground">{formatTimestamp(tx.timestamp)}</div>
                 </div>
               </div>
               <div className="text-right">
-                <div
-                  className={`font-semibold ${
-                    tx.type === 'received' ? 'text-green-500' : 'text-red-500'
-                  }`}
-                >
-                  {tx.type === 'received' ? '+' : '-'}
+                <div className={`font-semibold ${tx.type === "received" ? "text-green-500" : "text-red-500"}`}>
+                  {tx.type === "received" ? "+" : "-"}
                   {tx.amount} {tx.token}
                 </div>
                 <button

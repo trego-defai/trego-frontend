@@ -76,21 +76,16 @@ interface OrderItemProps {
 function OrderItem({ order, onCancel }: OrderItemProps) {
   const isCancellable = order.status === "open" || order.status === "waiting";
   const isBuy = order.side === "buy";
-  const hasPnl =
-    order.status === "close long" ||
-    order.status === "close short" ||
-    typeof order.pnl === "number";
+  const hasPnl = order.status === "close long" || order.status === "close short" || typeof order.pnl === "number";
 
   return (
     <div
       className={cn(
         "bg-gradient-to-br m-1 from-gray-900/80 to-gray-800/60 border border-gray-800 rounded-2xl p-4 flex flex-col gap-4 shadow-lg hover:shadow-xl transition-shadow focus-within:ring-2 focus-within:ring-blue-500/40 group",
-        order.status === "cancel" && "opacity-60"
+        order.status === "cancel" && "opacity-60",
       )}
       tabIndex={0}
-      aria-label={`Order ${order.pair} ${order.side} ${order.type} ${
-        STATUS_LABEL_MAP[order.status]
-      }`}
+      aria-label={`Order ${order.pair} ${order.side} ${order.type} ${STATUS_LABEL_MAP[order.status]}`}
     >
       <div>
         <div className="flex items-center gap-2 ">
@@ -99,7 +94,7 @@ function OrderItem({ order, onCancel }: OrderItemProps) {
             variant="outline"
             className={cn(
               "px-2 py-0.5 rounded text-xs font-semibold border uppercase tracking-wide",
-              SIDE_CLASS_MAP[order.side]
+              SIDE_CLASS_MAP[order.side],
             )}
           >
             {order.side}
@@ -115,7 +110,7 @@ function OrderItem({ order, onCancel }: OrderItemProps) {
           <span
             className={cn(
               "inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold border",
-              STATUS_CLASS_MAP[order.status]
+              STATUS_CLASS_MAP[order.status],
             )}
           >
             {STATUS_ICON_MAP[order.status]}
@@ -127,7 +122,7 @@ function OrderItem({ order, onCancel }: OrderItemProps) {
             size="sm"
             className={cn(
               "text-red-400 hover:text-red-300 hover:bg-red-600/10 text-xs px-2 py-1 font-semibold transition-colors",
-              !isCancellable && "opacity-50 pointer-events-none"
+              !isCancellable && "opacity-50 pointer-events-none",
             )}
             disabled={!isCancellable}
             aria-disabled={!isCancellable}
@@ -145,7 +140,7 @@ function OrderItem({ order, onCancel }: OrderItemProps) {
             <span
               className={cn(
                 "text-[10px] px-1 py-0.5 rounded bg-gray-700/40 text-gray-300 font-medium",
-                isBuy ? "bg-green-700/20 text-green-300" : "bg-red-700/20 text-red-300"
+                isBuy ? "bg-green-700/20 text-green-300" : "bg-red-700/20 text-red-300",
               )}
             >
               {isBuy ? "Buy" : "Sell"}
@@ -165,9 +160,9 @@ function OrderItem({ order, onCancel }: OrderItemProps) {
                 ? order.pnl > 0
                   ? "text-green-400"
                   : order.pnl < 0
-                  ? "text-red-400"
-                  : "text-gray-300"
-                : "text-gray-400"
+                    ? "text-red-400"
+                    : "text-gray-300"
+                : "text-gray-400",
             )}
           >
             {hasPnl ? formatPnl(order.pnl) : "--"}
@@ -241,8 +236,8 @@ export function OrdersTab({ className }: OrdersTabProps) {
         prev.map((order) =>
           order.id === orderId && (order.status === "open" || order.status === "waiting")
             ? { ...order, status: "cancel" }
-            : order
-        )
+            : order,
+        ),
       );
       setIsCancelling(null);
     }, 800);

@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { WalletAccount } from '@/types/wallet';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { WalletAccount } from "@/types/wallet";
 
 interface WalletState {
   account: WalletAccount | null;
@@ -14,7 +14,7 @@ export const useWalletStore = create<WalletState>()(
       setAccount: (account: WalletAccount | null) => set({ account }),
     }),
     {
-      name: 'wallet-storage',
-    }
-  )
+      name: "wallet-storage",
+    },
+  ),
 );

@@ -1,6 +1,5 @@
-export { default as useBodyScrollLock } from "./useBodyScrollLock"; 
+export { default as useBodyScrollLock } from "./useBodyScrollLock";
 export { default as useClickOutside } from "./useClickOutside";
 export { default as useDebounce } from "./useDebounce";
-export { default as useHotKey } from "./useHotKey"; 
-export { default as useResponsive } from "./useResponsive"; 
-
+export { default as useHotKey } from "./useHotKey";
+export { default as useResponsive } from "./useResponsive";

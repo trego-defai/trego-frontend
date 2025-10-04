@@ -32,8 +32,5 @@ export function MessageType({ message, isLoading, isLatestMessage }: MessageType
     // [ACTION_TYPE.HELP]: <BotMessage message={message} isLoading={isLoading} />,
   };
 
-  return (
-    messageComponents[message.type as keyof typeof messageComponents] ||
-    messageComponents[ACTION_TYPE.UNKNOWN]
-  );
+  return messageComponents[message.type as keyof typeof messageComponents] || messageComponents[ACTION_TYPE.UNKNOWN];
 }

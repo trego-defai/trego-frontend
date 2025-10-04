@@ -56,7 +56,7 @@ const PanelHistory = ({
 
     if (window.confirm("Are you sure you want to delete this conversation? This action cannot be undone.")) {
       // Remove conversation from local state
-      setConversations(prev => prev.filter(conv => conv.id !== conversationId));
+      setConversations((prev) => prev.filter((conv) => conv.id !== conversationId));
       // Notify parent component
       onDeleteConversation?.(conversationId);
     }
@@ -66,7 +66,7 @@ const PanelHistory = ({
     <div
       className={cn(
         "flex flex-col h-full bg-gradient-to-br from-slate-900/50 to-slate-950/50 backdrop-blur-sm border border-slate-700/50 rounded-lg overflow-hidden",
-        className
+        className,
       )}
     >
       {/* Header */}
@@ -99,35 +99,27 @@ const PanelHistory = ({
                   "p-3 rounded-lg cursor-pointer border transition-colors hover:bg-slate-800/50 mb-2 group",
                   selectedConversationId === conversation.id
                     ? "bg-slate-800/60 border-slate-700/50"
-                    : "!border-transparent"
+                    : "!border-transparent",
                 )}
               >
                 <div className="mb-2">
                   <div className="flex items-start justify-between mb-1">
-                    <h4 className="font-medium text-white text-sm truncate pr-2">
-                      {conversation.title}
-                    </h4>
+                    <h4 className="font-medium text-white text-sm truncate pr-2">{conversation.title}</h4>
                     <button
                       onClick={(e) => handleDeleteConversation(e, conversation.id)}
                       className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 transition-all duration-200 flex-shrink-0 p-1 hover:bg-red-500/10 rounded"
                       title="Delete conversation"
                     >
                       <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c0 1 1 2 2 2v2M10 11v6M14 11v6"/>
+                        <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c0 1 1 2 2 2v2M10 11v6M14 11v6" />
                       </svg>
                     </button>
                   </div>
-                  <p className="text-slate-400 text-xs mt-1 line-clamp-2">
-                    {conversation.lastMessage}
-                  </p>
+                  <p className="text-slate-400 text-xs mt-1 line-clamp-2">{conversation.lastMessage}</p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-500">
-                    {conversation.timestamp.toLocaleDateString()}
-                  </span>
-                  {selectedConversationId === conversation.id && (
-                    <div className="w-2 h-2 bg-brand rounded-full"></div>
-                  )}
+                  <span className="text-xs text-slate-500">{conversation.timestamp.toLocaleDateString()}</span>
+                  {selectedConversationId === conversation.id && <div className="w-2 h-2 bg-brand rounded-full"></div>}
                 </div>
               </div>
             ))}

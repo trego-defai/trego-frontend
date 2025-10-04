@@ -9,10 +9,7 @@ interface RequireAuthProps {
   message?: string;
 }
 
-export default function RequireAuth({
-  children,
-  message = "Please sign in to use this feature",
-}: RequireAuthProps) {
+export default function RequireAuth({ children, message = "Please sign in to use this feature" }: RequireAuthProps) {
   const { isLoaded, isSignedIn } = useUser();
   const router = useRouter();
 
@@ -36,11 +33,7 @@ export default function RequireAuth({
     return (
       <div className="text-center p-6 bg-gray-900/50 border border-gray-800 rounded-lg">
         <p className="text-gray-300 mb-4">{message}</p>
-        <SignInButton
-          mode="modal"
-          forceRedirectUrl={getCurrentUrl()}
-          signUpForceRedirectUrl={getCurrentUrl()}
-        >
+        <SignInButton mode="modal" forceRedirectUrl={getCurrentUrl()} signUpForceRedirectUrl={getCurrentUrl()}>
           <Button className="bg-blue-600 hover:bg-blue-700">Sign In to Continue</Button>
         </SignInButton>
       </div>

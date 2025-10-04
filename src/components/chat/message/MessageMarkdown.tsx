@@ -15,19 +15,11 @@ export function MessageMarkdown({ children }: MessageMarkdownProps) {
         rehypePlugins={[rehypeRaw]}
         components={{
           p: ({ children }) => (
-            <p className="mb-2 last:mb-0 break-words whitespace-pre-line leading-relaxed">
-              {children}
-            </p>
+            <p className="mb-2 last:mb-0 break-words whitespace-pre-line leading-relaxed">{children}</p>
           ),
-          ul: ({ children }) => (
-            <ul className="my-2 pl-4 whitespace-pre-line leading-relaxed">{children}</ul>
-          ),
-          ol: ({ children }) => (
-            <ol className="my-2 pl-4 whitespace-pre-line leading-relaxed">{children}</ol>
-          ),
-          li: ({ children }) => (
-            <li className="mb-1 whitespace-pre-line leading-relaxed ">{children}</li>
-          ),
+          ul: ({ children }) => <ul className="my-2 pl-4 whitespace-pre-line leading-relaxed">{children}</ul>,
+          ol: ({ children }) => <ol className="my-2 pl-4 whitespace-pre-line leading-relaxed">{children}</ol>,
+          li: ({ children }) => <li className="mb-1 whitespace-pre-line leading-relaxed ">{children}</li>,
           code: ({ children, className }) => {
             const isInline = !className;
             return isInline ? (

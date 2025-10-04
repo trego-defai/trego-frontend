@@ -22,10 +22,7 @@ const AT_TOP_THRESHOLD = 200;
 const SAFE_START = 100_000;
 const BOT_THINKING = { type: "bot-thinking" };
 
-function getDisplayMessages(
-  messages: IMessage[],
-  isWaitingForResponse: boolean
-): (IMessage | typeof BOT_THINKING)[] {
+function getDisplayMessages(messages: IMessage[], isWaitingForResponse: boolean): (IMessage | typeof BOT_THINKING)[] {
   return isWaitingForResponse ? [...messages, BOT_THINKING] : messages;
 }
 
@@ -122,11 +119,7 @@ export function ChatContainer({
       )}
       <Virtuoso
         ref={virtuosoRef}
-        className={cn(
-          "h-full",
-          messages?.length > 0 && "pb-10",
-          isBotTyping && "pointer-events-none"
-        )}
+        className={cn("h-full", messages?.length > 0 && "pb-10", isBotTyping && "pointer-events-none")}
         data={displayMessages}
         computeItemKey={(_, item) => getItemKey(item)}
         itemContent={(_, item) => renderMessageItem(item, messages)}

@@ -1,4 +1,4 @@
-import { proxyRequest } from '@/lib/gateway/proxy';
+import { proxyRequest } from "@/lib/gateway/proxy";
 
 export const GET = proxyRequest;
 export const POST = proxyRequest;

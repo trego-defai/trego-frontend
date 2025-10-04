@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useWalletStore } from '@/store/useWalletStore';
-import { Button } from '@/components/ui/button';
-import { Wallet } from 'lucide-react';
+import { useWalletStore } from "@/store/useWalletStore";
+import { Button } from "@/components/ui/button";
+import { Wallet } from "lucide-react";
 
 export default function TregoWallet() {
   const { account } = useWalletStore();

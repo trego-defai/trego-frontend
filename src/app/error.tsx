@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -9,7 +9,7 @@ interface ErrorProps {
 
 export default function Error({ error, reset }: ErrorProps) {
   useEffect(() => {
-    console.error('Application error:', error);
+    console.error("Application error:", error);
   }, [error]);
 
   return (
@@ -17,13 +17,7 @@ export default function Error({ error, reset }: ErrorProps) {
       <div className="text-center space-y-7 p-8 max-w-md w-full bg-card/80 rounded-2xl shadow-2xl border border-border/40">
         <div className="flex flex-col items-center gap-2">
           <div className="w-16 h-16 flex items-center justify-center rounded-full bg-destructive/10 mb-2">
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="text-destructive"
-            >
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="text-destructive">
               <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
               <path d="M12 8v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               <circle cx="12" cy="16" r="1" fill="currentColor" />
@@ -51,7 +45,7 @@ export default function Error({ error, reset }: ErrorProps) {
             Try Again
           </button>
           <button
-            onClick={() => (window.location.href = '/')}
+            onClick={() => (window.location.href = "/")}
             className="w-full px-6 py-3 bg-muted text-foreground font-medium rounded-lg transition-colors hover:bg-muted/80 focus:outline-none focus:ring-2 focus:ring-border/40"
           >
             Go Home
@@ -59,7 +53,7 @@ export default function Error({ error, reset }: ErrorProps) {
         </div>
 
         <div className="text-xs text-muted-foreground mt-2">
-          If the problem persists, please{' '}
+          If the problem persists, please{" "}
           <a href="mailto:support@trego.app" className="underline hover:text-brand">
             contact support
           </a>

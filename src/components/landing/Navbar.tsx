@@ -27,8 +27,9 @@ function NavigationLinks() {
             )}
             <Link
               href={href}
-              className={`transition-colors duration-200 font-medium ${isActive ? "text-white" : "text-gray-300 hover:text-[#1FFFA9]"
-                }`}
+              className={`transition-colors duration-200 font-medium ${
+                isActive ? "text-white" : "text-gray-300 hover:text-[#1FFFA9]"
+              }`}
             >
               {label}
             </Link>
@@ -47,7 +48,14 @@ function LeftIconButton() {
       className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-brand text-black hover:bg-brand/90 shrink-0"
       aria-label="Open menu"
     >
-      <svg width="14" height="14" className="sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <svg
+        width="14"
+        height="14"
+        className="sm:w-[18px] sm:h-[18px]"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
         <rect x="3" y="3" width="8" height="8" rx="2" />
         <rect x="13" y="3" width="8" height="8" rx="2" />
         <rect x="3" y="13" width="8" height="8" rx="2" />
@@ -66,7 +74,18 @@ function RightArrowButton() {
       className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-brand text-black hover:bg-brand/90 shrink-0"
       aria-label="Go"
     >
-      <svg width="14" height="14" className="sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg
+        width="14"
+        height="14"
+        className="sm:w-[18px] sm:h-[18px]"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
         <circle cx="12" cy="12" r="0" />
         <path d="M5 12h14" />
         <path d="M13 5l7 7-7 7" />
@@ -100,7 +119,10 @@ export function Navbar() {
 
           {/* Auth Button */}
           <div className="hidden md:flex flex-1 items-center justify-end">
-            <AuthButton variant="default" className="bg-brand text-black hover:bg-brand/90 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-sm" />
+            <AuthButton
+              variant="default"
+              className="bg-brand text-black hover:bg-brand/90 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-sm"
+            />
           </div>
         </div>
       </div>

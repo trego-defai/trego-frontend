@@ -8,11 +8,11 @@ export default function Loading() {
       <div className="absolute inset-0">
         <div
           className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-3xl animate-pulse"
-          style={{ background: 'rgba(var(--color-primary), 0.05)' }}
+          style={{ background: "rgba(var(--color-primary), 0.05)" }}
         ></div>
         <div
           className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse delay-1000"
-          style={{ background: 'rgba(var(--color-primary), 0.03)' }}
+          style={{ background: "rgba(var(--color-primary), 0.03)" }}
         ></div>
       </div>
 
@@ -22,8 +22,7 @@ export default function Loading() {
           <h1
             className="text-4xl font-bold bg-clip-text text-transparent"
             style={{
-              backgroundImage:
-                'linear-gradient(to right, var(--color-primary), var(--color-primary), #6ee7b7)',
+              backgroundImage: "linear-gradient(to right, var(--color-primary), var(--color-primary), #6ee7b7)",
             }}
           >
             Trego
@@ -33,22 +32,19 @@ export default function Loading() {
 
         {/* Enhanced spinner */}
         <div className="relative flex items-center justify-center">
-          <div
-            className="w-20 h-20 border-2 rounded-full"
-            style={{ borderColor: 'var(--color-border)' }}
-          ></div>
+          <div className="w-20 h-20 border-2 rounded-full" style={{ borderColor: "var(--color-border)" }}></div>
           <div
             className="w-20 h-20 border-2 border-transparent rounded-full animate-spin absolute"
             style={{
-              borderTopColor: 'var(--color-primary)',
-              borderRightColor: '#6ee7b7',
+              borderTopColor: "var(--color-primary)",
+              borderRightColor: "#6ee7b7",
             }}
           ></div>
           <div
             className="w-16 h-16 border-2 border-transparent rounded-full animate-spin absolute animate-reverse"
             style={{
-              borderTopColor: '#bbf7d0',
-              borderLeftColor: 'var(--color-primary)',
+              borderTopColor: "#bbf7d0",
+              borderLeftColor: "var(--color-primary)",
             }}
           ></div>
 
@@ -56,12 +52,12 @@ export default function Loading() {
           <div
             className="w-8 h-8 rounded-full absolute animate-pulse blur-sm"
             style={{
-              background: 'linear-gradient(to right, var(--color-primary), #34d399)',
+              background: "linear-gradient(to right, var(--color-primary), #34d399)",
             }}
           ></div>
           <div
             className="w-4 h-4 rounded-full absolute animate-pulse"
-            style={{ background: 'var(--color-card)' }}
+            style={{ background: "var(--color-card)" }}
           ></div>
         </div>
 
@@ -75,21 +71,21 @@ export default function Loading() {
 
         {/* Progress dots */}
         <div className="flex space-x-2 justify-center">
+          <div className="w-2 h-2 rounded-full animate-bounce" style={{ background: "var(--color-primary)" }}></div>
           <div
             className="w-2 h-2 rounded-full animate-bounce"
-            style={{ background: 'var(--color-primary)' }}
+            style={{ background: "#34d399", animationDelay: "0.1s" }}
           ></div>
           <div
             className="w-2 h-2 rounded-full animate-bounce"
-            style={{ background: '#34d399', animationDelay: '0.1s' }}
+            style={{
+              background: "var(--color-primary)",
+              animationDelay: "0.2s",
+            }}
           ></div>
           <div
             className="w-2 h-2 rounded-full animate-bounce"
-            style={{ background: 'var(--color-primary)', animationDelay: '0.2s' }}
-          ></div>
-          <div
-            className="w-2 h-2 rounded-full animate-bounce"
-            style={{ background: '#bbf7d0', animationDelay: '0.3s' }}
+            style={{ background: "#bbf7d0", animationDelay: "0.3s" }}
           ></div>
         </div>
       </div>

@@ -40,16 +40,14 @@ export const TOKENS: Record<string, TokenInfo> = {
   StakedThalaAPT: {
     name: "Staked Thala APT",
     symbol: "stAPT",
-    moveAddress:
-      "0x111ae3e5bc816a5e63c2da97d0aa3886519e0cd5e4b046659fa35796bd11542a::stapt_token::StakedApt",
+    moveAddress: "0x111ae3e5bc816a5e63c2da97d0aa3886519e0cd5e4b046659fa35796bd11542a::stapt_token::StakedApt",
     image: "https://assets.panora.exchange/tokens/aptos/STHAPT.png",
     decimals: 6,
   },
   ThalaAPT: {
     name: "Thala",
     symbol: "THALA",
-    moveAddress:
-      "0xfaf4e633ae9eb31366c9ca24214231760926576c7b625313b3688b5e900731f6::staking::ThalaAPT",
+    moveAddress: "0xfaf4e633ae9eb31366c9ca24214231760926576c7b625313b3688b5e900731f6::staking::ThalaAPT",
     image: "https://assets.panora.exchange/tokens/aptos/THAPT.png",
     decimals: 8,
   },
@@ -70,8 +68,7 @@ export const TOKENS: Record<string, TokenInfo> = {
   HAIR: {
     name: "HAIR",
     symbol: "HAIR",
-    moveAddress:
-      "0x96baeee6d7a4a8cd712144d1225cfcb6c26d0c6fefd463bd77a878e4526c7411::hair_coin::HairCoin",
+    moveAddress: "0x96baeee6d7a4a8cd712144d1225cfcb6c26d0c6fefd463bd77a878e4526c7411::hair_coin::HairCoin",
     image: "https://assets.panora.exchange/tokens/aptos/HAIR.png",
     decimals: 8,
   },

@@ -7,7 +7,7 @@ export interface Token {
 
 export interface Transaction {
   hash: string;
-  type: 'sent' | 'received';
+  type: "sent" | "received";
   amount: string;
   token: string;
   timestamp: number;

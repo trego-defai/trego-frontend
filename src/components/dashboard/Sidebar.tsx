@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { AuthButton } from '../auth';
-import { useRouter, usePathname } from 'next/navigation';
+import React, { useState } from "react";
+import Image from "next/image";
+import { AuthButton } from "../auth";
+import { useRouter, usePathname } from "next/navigation";
 
 // Icons
 const DashboardIcon = () => (
@@ -20,8 +20,8 @@ const TradingIcon = () => (
 
 const AIAssistantIcon = () => (
   <svg width="35" height="35" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.753 14a2.25 2.25 0 0 1-2.006 1.996L15.5 16h-7a2.25 2.25 0 0 1-2.25-2.25v-6.5A2.25 2.25 0 0 1 8.5 5h7a2.25 2.25 0 0 1 2.25 2.25V14zM8.5 6.5a.75.75 0 0 0-.75.75v6.5c0 .414.336.75.75.75h7a.75.75 0 0 0 .75-.75v-6.5a.75.75 0 0 0-.75-.75h-7zm2.25 2a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm2.5 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zM9 11.5h6v1H9v-1z"/>
-    <path d="M12 2.5a.75.75 0 0 1 .75.75v1h-1.5v-1A.75.75 0 0 1 12 2.5zM5.25 12a.75.75 0 0 1-.75-.75v-1h1.5v1a.75.75 0 0 1-.75.75zM18.75 12a.75.75 0 0 1-.75-.75v-1h1.5v1a.75.75 0 0 1-.75.75z"/>
+    <path d="M17.753 14a2.25 2.25 0 0 1-2.006 1.996L15.5 16h-7a2.25 2.25 0 0 1-2.25-2.25v-6.5A2.25 2.25 0 0 1 8.5 5h7a2.25 2.25 0 0 1 2.25 2.25V14zM8.5 6.5a.75.75 0 0 0-.75.75v6.5c0 .414.336.75.75.75h7a.75.75 0 0 0 .75-.75v-6.5a.75.75 0 0 0-.75-.75h-7zm2.25 2a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm2.5 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zM9 11.5h6v1H9v-1z" />
+    <path d="M12 2.5a.75.75 0 0 1 .75.75v1h-1.5v-1A.75.75 0 0 1 12 2.5zM5.25 12a.75.75 0 0 1-.75-.75v-1h1.5v1a.75.75 0 0 1-.75.75zM18.75 12a.75.75 0 0 1-.75-.75v-1h1.5v1a.75.75 0 0 1-.75.75z" />
   </svg>
 );
 
@@ -56,27 +56,27 @@ interface SidebarProps {
 // Navigation configuration
 const NAV_ITEMS: NavItem[] = [
   {
-    id: 'dashboard',
-    label: 'Dashboard',
-    href: '/welcome',
+    id: "dashboard",
+    label: "Dashboard",
+    href: "/welcome",
     icon: <DashboardIcon />,
   },
   {
-    id: 'trading',
-    label: 'Trading',
-    href: '/trading',
+    id: "trading",
+    label: "Trading",
+    href: "/trading",
     icon: <TradingIcon />,
   },
   {
-    id: 'agent',
-    label: 'AI Assistant',
-    href: '/agent',
+    id: "agent",
+    label: "AI Assistant",
+    href: "/agent",
     icon: <AIAssistantIcon />,
   },
   {
-    id: 'wallet',
-    label: 'Wallet',
-    href: '/wallet',
+    id: "wallet",
+    label: "Wallet",
+    href: "/wallet",
     icon: <WalletIcon />,
   },
 ];
@@ -85,15 +85,11 @@ function SidebarItem({ icon, label, isActive, onClick }: SidebarItemProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const buttonClasses = isActive
-    ? 'bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground shadow-lg shadow-brand/50'
-    : 'hover:bg-muted text-muted-foreground hover:text-foreground hover:shadow-md';
+    ? "bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground shadow-lg shadow-brand/50"
+    : "hover:bg-muted text-muted-foreground hover:text-foreground hover:shadow-md";
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <button
         onClick={onClick}
         className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 ${buttonClasses}`}
@@ -150,7 +146,7 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
 
       <div className="mt-auto pt-4 border-t border-border/40">
         <div className="hover:scale-105 transition-transform duration-200 drop-shadow-2xl">
-          <AuthButton variant="default"/>
+          <AuthButton variant="default" />
         </div>
       </div>
     </div>

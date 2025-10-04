@@ -25,7 +25,10 @@ function getSymbolIcon(symbol: string) {
 }
 
 function formatCurrency(value: number) {
-  return value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return value.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }
 
 function formatPnl(pnl: number) {
@@ -66,15 +69,9 @@ function PositionRow({ position }: { position: Position }) {
       </div>
       <div className="flex flex-col items-end w-full sm:w-auto">
         <span
-          className={`flex items-center gap-1 text-sm font-semibold ${
-            isProfit ? "text-green-400" : "text-red-400"
-          }`}
+          className={`flex items-center gap-1 text-sm font-semibold ${isProfit ? "text-green-400" : "text-red-400"}`}
         >
-          {isProfit ? (
-            <ArrowUpRightIcon className="w-4 h-4" />
-          ) : (
-            <ArrowDownRightIcon className="w-4 h-4" />
-          )}
+          {isProfit ? <ArrowUpRightIcon className="w-4 h-4" /> : <ArrowDownRightIcon className="w-4 h-4" />}
           {formatPnl(position.pnl)}
         </span>
         <span className={`text-xs ${isProfit ? "text-green-300" : "text-red-300"} font-medium`}>
@@ -103,7 +100,13 @@ export function AssetsPanel({ className }: AssetsPanelProps) {
   // Mock data
   const positions: Position[] = [
     { symbol: "BTC", size: 0.25, value: 10812.5, pnl: 850.3, pnlPercent: 8.54 },
-    { symbol: "ETH", size: 0.75, value: 1638.17, pnl: 384.26, pnlPercent: 30.66 },
+    {
+      symbol: "ETH",
+      size: 0.75,
+      value: 1638.17,
+      pnl: 384.26,
+      pnlPercent: 30.66,
+    },
   ];
 
   const portfolioValue = getPortfolioValue(positions);
@@ -130,41 +133,25 @@ export function AssetsPanel({ className }: AssetsPanelProps) {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 sm:gap-4">
           <div className="flex flex-col items-center sm:items-start">
-            <span className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">
-              Total Value
-            </span>
-            <span className="text-white font-bold text-base sm:text-lg">
-              ${formatCurrency(portfolioValue)}
-            </span>
+            <span className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">Total Value</span>
+            <span className="text-white font-bold text-base sm:text-lg">${formatCurrency(portfolioValue)}</span>
           </div>
           <div className="flex flex-col items-center sm:items-start">
             <span className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">Total P&L</span>
-            <span
-              className={`font-bold text-base sm:text-lg ${
-                isProfit ? "text-green-400" : "text-red-400"
-              }`}
-            >
+            <span className={`font-bold text-base sm:text-lg ${isProfit ? "text-green-400" : "text-red-400"}`}>
               {isProfit ? "+" : ""}${formatCurrency(totalPnl)}
             </span>
           </div>
           <div className="flex flex-col items-center sm:items-start">
             <span className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">P&L %</span>
-            <span
-              className={`font-bold text-base sm:text-lg ${
-                isProfitPercent ? "text-green-400" : "text-red-400"
-              }`}
-            >
+            <span className={`font-bold text-base sm:text-lg ${isProfitPercent ? "text-green-400" : "text-red-400"}`}>
               {isProfitPercent ? "+" : ""}
               {totalPnlPercent.toFixed(2)}%
             </span>
           </div>
           <div className="flex flex-col items-center sm:items-start">
             <span className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">P&L (USD)</span>
-            <span
-              className={`font-bold text-base sm:text-lg ${
-                isProfit ? "text-green-400" : "text-red-400"
-              }`}
-            >
+            <span className={`font-bold text-base sm:text-lg ${isProfit ? "text-green-400" : "text-red-400"}`}>
               {formatPnl(totalPnl)}
             </span>
           </div>

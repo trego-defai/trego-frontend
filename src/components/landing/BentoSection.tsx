@@ -1,32 +1,16 @@
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { PATH } from "@/lib/constants";
-import { Wallet01Icon } from "@hugeicons/core-free-icons";
 import Image from "next/image";
 
 // Icons for the cards
 const TradingIcon = () => (
-  <svg
-    className="h-12 w-12"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-    />
+  <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
   </svg>
 );
 
 const BotIcon = () => (
-  <svg
-    className="h-12 w-12"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
+  <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -37,12 +21,7 @@ const BotIcon = () => (
 );
 
 const AIIcon = () => (
-  <svg
-    className="h-12 w-12"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
+  <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -53,12 +32,7 @@ const AIIcon = () => (
 );
 
 const SecurityIcon = () => (
-  <svg
-    className="h-12 w-12"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
+  <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -69,12 +43,7 @@ const SecurityIcon = () => (
 );
 
 const AnalyticsIcon = () => (
-  <svg
-    className="h-12 w-12"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
+  <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -85,12 +54,7 @@ const AnalyticsIcon = () => (
 );
 
 const PortfolioIcon = () => (
-  <svg
-    className="h-12 w-12"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
+  <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -115,8 +79,8 @@ export default function BentoSection() {
             Your Crypto Wallet, Reimagined.
           </h2>
           <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-4">
-            Experience the future of crypto wallets with advanced security,
-            seamless trading, and intelligent portfolio management
+            Experience the future of crypto wallets with advanced security, seamless trading, and intelligent portfolio
+            management
           </p>
         </div>
 
@@ -141,24 +105,8 @@ export default function BentoSection() {
                     strokeOpacity="0.6"
                     strokeWidth="2"
                   />
-                  <circle
-                    cx="120"
-                    cy="100"
-                    r="70"
-                    fill="none"
-                    stroke="#1FFFA9"
-                    strokeOpacity="0.4"
-                    strokeWidth="2"
-                  />
-                  <circle
-                    cx="140"
-                    cy="100"
-                    r="70"
-                    fill="none"
-                    stroke="#1FFFA9"
-                    strokeOpacity="0.25"
-                    strokeWidth="2"
-                  />
+                  <circle cx="120" cy="100" r="70" fill="none" stroke="#1FFFA9" strokeOpacity="0.4" strokeWidth="2" />
+                  <circle cx="140" cy="100" r="70" fill="none" stroke="#1FFFA9" strokeOpacity="0.25" strokeWidth="2" />
                   <g transform="translate(70,70)" fill="#1FFFA9">
                     <rect x="0" y="20" width="18" height="28" rx="2" />
                     <rect x="22" y="12" width="18" height="36" rx="2" />
@@ -182,12 +130,7 @@ export default function BentoSection() {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1FFFA9]/10 via-transparent to-transparent" />
                 <div className="absolute left-3 sm:left-6 bottom-3 sm:bottom-6 h-40 w-48 sm:h-48 sm:w-60 md:h-56 md:w-72 rotate-[-12deg] rounded-2xl bg-black/60 ring-1 ring-[#1FFFA9]/15 shadow-[0_0_80px_-20px_#1FFFA9] p-2 flex items-center justify-center">
                   <div className="relative w-[90%] h-[90%]">
-                    <Image
-                      src="/aiAgentweb3.svg"
-                      alt="AI Agent Web3"
-                      fill
-                      className="object-contain scale-[3]"
-                    />
+                    <Image src="/aiAgentweb3.svg" alt="AI Agent Web3" fill className="object-contain scale-[3]" />
                   </div>
                 </div>
                 <div className="absolute inset-0 rounded-xl ring-1 ring-[#1FFFA9]/20" />
@@ -207,12 +150,7 @@ export default function BentoSection() {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1FFFA9]/10 via-transparent to-transparent" />
                 <div className="absolute right-3 sm:right-6 bottom-3 sm:bottom-6 h-40 w-48 sm:h-48 sm:w-60 md:h-56 md:w-72 rotate-[8deg] rounded-2xl bg-black/60 ring-1 ring-[#1FFFA9]/15 shadow-[0_0_80px_-20px_#1FFFA9] p-2 flex items-center justify-center">
                   <div className="relative w-[90%] h-[90%]">
-                    <Image
-                      src="/tradingweb3.svg"
-                      alt="Trading Web3"
-                      fill
-                      className="object-contain scale-200"
-                    />
+                    <Image src="/tradingweb3.svg" alt="Trading Web3" fill className="object-contain scale-200" />
                   </div>
                 </div>
                 <div className="absolute inset-0 rounded-xl ring-1 ring-[#1FFFA9]/20" />

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { ChevronDown, Coins, RefreshCw, Send } from 'lucide-react';
-import { useState } from 'react';
-import { Token } from './types';
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { ChevronDown, Coins, RefreshCw, Send } from "lucide-react";
+import { useState } from "react";
+import { Token } from "./types";
 
 interface SendTokenProps {
   tokens: Token[];
@@ -55,17 +55,13 @@ export function SendToken({
                   </div>
                   <div className="text-left">
                     <div className="font-semibold text-sm">{selectedToken.symbol}</div>
-                    <div className="text-xs text-muted-foreground">
-                      Balance: {selectedToken.balance}
-                    </div>
+                    <div className="text-xs text-muted-foreground">Balance: {selectedToken.balance}</div>
                   </div>
                 </div>
               ) : (
                 <span className="text-muted-foreground">Select a token</span>
               )}
-              <ChevronDown
-                className={`w-4 h-4 transition-transform ${isTokenDropdownOpen ? 'rotate-180' : ''}`}
-              />
+              <ChevronDown className={`w-4 h-4 transition-transform ${isTokenDropdownOpen ? "rotate-180" : ""}`} />
             </button>
 
             {isTokenDropdownOpen && (
@@ -79,7 +75,7 @@ export function SendToken({
                       setIsTokenDropdownOpen(false);
                     }}
                     className={`w-full flex items-center justify-between p-3 hover:bg-muted/50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
-                      selectedToken?.symbol === token.symbol ? 'bg-primary/10' : ''
+                      selectedToken?.symbol === token.symbol ? "bg-primary/10" : ""
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -103,11 +99,7 @@ export function SendToken({
 
         <div>
           <label className="text-sm mb-2 block">Recipient</label>
-          <Input
-            placeholder="0x..."
-            value={recipient}
-            onChange={(e) => onRecipientChange(e.target.value)}
-          />
+          <Input placeholder="0x..." value={recipient} onChange={(e) => onRecipientChange(e.target.value)} />
         </div>
 
         <div>
@@ -122,11 +114,7 @@ export function SendToken({
           />
         </div>
 
-        <Button
-          onClick={onSend}
-          disabled={isLoading || !recipient || !amount || !selectedToken}
-          className="w-full"
-        >
+        <Button onClick={onSend} disabled={isLoading || !recipient || !amount || !selectedToken} className="w-full">
           {isLoading ? (
             <>
               <RefreshCw className="w-4 h-4 mr-2 animate-spin" />

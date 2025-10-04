@@ -17,15 +17,22 @@ function FeatureCard({ item }: { item: FeatureItem }) {
         </div>
         <div className="flex-1">
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white mb-1">{item.title}</h3>
-          <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-            {item.description}
-          </p>
+          <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">{item.description}</p>
         </div>
       </div>
       <div className="mt-6">
         <Button variant="ghost" className="px-0 text-emerald-300 hover:text-emerald-200 text-xs sm:text-sm">
           {item.cta}
-          <svg className="ml-2 h-3 w-3 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            className="ml-2 h-3 w-3 sm:h-4 sm:w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <path d="M5 12h14" />
             <path d="M13 5l7 7-7 7" />
           </svg>
@@ -43,7 +50,15 @@ function Features() {
         "Leverage advanced AI algorithms to analyze market trends and execute trades automatically with intelligent decision-making.",
       cta: "Start ChatBot",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-300">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="text-emerald-300"
+        >
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
           <circle cx="9" cy="10" r="1" />
           <circle cx="15" cy="10" r="1" />
@@ -57,7 +72,15 @@ function Features() {
         "Sophisticated trading automation that works 24/7 to maximize your profits across multiple cryptocurrency exchanges.",
       cta: "Start Trading",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-300">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="text-emerald-300"
+        >
           <rect x="3" y="3" width="7" height="7" rx="2" />
           <rect x="14" y="3" width="7" height="7" rx="2" />
           <rect x="3" y="14" width="7" height="7" rx="2" />
@@ -71,7 +94,15 @@ function Features() {
         "Get instant market insights and analytics powered by AI to make informed trading decisions in volatile crypto markets.",
       cta: "View Markets",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-300">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="text-emerald-300"
+        >
           <path d="M3 3h18v6H3z" />
           <path d="M7 13h3v8H7zM14 10h3v11h-3z" />
         </svg>
@@ -83,7 +114,15 @@ function Features() {
         "Experience lightning-fast trade execution with bank-level security protocols protecting your digital assets.",
       cta: "Learn More",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-300">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="text-emerald-300"
+        >
           <path d="M9 12l2 2 4-4" />
           <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" />
           <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" />
@@ -110,9 +149,11 @@ function Features() {
 
       <div className="relative rounded-2xl sm:rounded-3xl border border-emerald-400/10 bg-gradient-to-b from-emerald-400/5 to-transparent p-3 sm:p-4 md:p-6 overflow-hidden">
         <div className="pointer-events-none absolute inset-0 -z-10 rounded-2xl sm:rounded-3xl opacity-60 [background:radial-gradient(1200px_500px_at_50%_-10%,rgba(16,185,129,0.18),transparent_60%)]" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-2 lg:gap-3
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-2 lg:gap-3
         sm:[&>*:not(:nth-child(2n+1))]:border-l sm:[&>*:not(:nth-child(2n+1))]:border-emerald-400/15
-        lg:[&>*:not(:nth-child(4n+1))]:border-l lg:[&>*:not(:nth-child(4n+1))]:border-emerald-400/15">
+        lg:[&>*:not(:nth-child(4n+1))]:border-l lg:[&>*:not(:nth-child(4n+1))]:border-emerald-400/15"
+        >
           {items.map((item) => (
             <FeatureCard key={item.title} item={item} />
           ))}
@@ -130,5 +171,3 @@ function Features() {
 }
 
 export { Features as default };
-
-

@@ -4,15 +4,8 @@ export const AVAILABLE_ASSISTANTS: AvailableAssistant[] = [
   {
     id: "defi-expert",
     name: "DeFi Expert",
-    description:
-      "Specialized in DeFi protocols, token swaps, yield farming, and liquidity management",
-    capabilities: [
-      "Token Swaps",
-      "Yield Farming",
-      "Liquidity Provision",
-      "Portfolio Analysis",
-      "Risk Assessment",
-    ],
+    description: "Specialized in DeFi protocols, token swaps, yield farming, and liquidity management",
+    capabilities: ["Token Swaps", "Yield Farming", "Liquidity Provision", "Portfolio Analysis", "Risk Assessment"],
     color: "bg-blue-500",
     icon: "💱",
   },

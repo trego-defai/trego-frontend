@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { RefreshCw, Wallet } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { RefreshCw, Wallet } from "lucide-react";
 
 interface NoWalletProps {
   onCreateWallet: () => void;
@@ -18,22 +18,16 @@ export function NoWallet({ onCreateWallet, isLoading }: NoWalletProps) {
             <Wallet className="w-16 h-16 text-primary" />
             <div>
               <h2 className="text-2xl font-bold mb-2">No Wallet Found</h2>
-              <p className="text-muted-foreground text-sm">
-                Create a wallet to manage your APT tokens
-              </p>
+              <p className="text-muted-foreground text-sm">Create a wallet to manage your APT tokens</p>
             </div>
-            <Button
-              onClick={onCreateWallet}
-              disabled={isLoading}
-              className="w-full"
-            >
+            <Button onClick={onCreateWallet} disabled={isLoading} className="w-full">
               {isLoading ? (
                 <>
                   <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
                   Creating...
                 </>
               ) : (
-                'Create Wallet'
+                "Create Wallet"
               )}
             </Button>
           </div>

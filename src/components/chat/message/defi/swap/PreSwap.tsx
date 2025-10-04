@@ -40,7 +40,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
           ? `1 ${fromToken} = ${(Number(toAmount) / Number(fromAmount)).toFixed(6)} ${toToken}`
           : "",
     }),
-    [fromAmount, toAmount, fromAmountUsd, toAmountUsd, fromToken, toToken]
+    [fromAmount, toAmount, fromAmountUsd, toAmountUsd, fromToken, toToken],
   );
 
   const isSwapDisabled = useMemo(
@@ -53,22 +53,12 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
       !fromAmount ||
       (!toAmount && !isPolling) ||
       permanentFailure,
-    [
-      isLoading,
-      isSwapping,
-      hasSwapped,
-      fromToken,
-      toToken,
-      fromAmount,
-      toAmount,
-      isPolling,
-      permanentFailure,
-    ]
+    [isLoading, isSwapping, hasSwapped, fromToken, toToken, fromAmount, toAmount, isPolling, permanentFailure],
   );
 
   const isRetryDisabled = useMemo(
     () => isRetrying || isPolling || hasSwapped || !fromToken || !toToken || !fromAmount,
-    [isRetrying, isPolling, hasSwapped, fromToken, toToken, fromAmount]
+    [isRetrying, isPolling, hasSwapped, fromToken, toToken, fromAmount],
   );
 
   // API handlers
@@ -217,7 +207,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
         </Button>
       </div>
     ),
-    [hasError, isRetryDisabled, handleRetry, isRetrying, isPolling]
+    [hasError, isRetryDisabled, handleRetry, isRetrying, isPolling],
   );
 
   const SuccessState = useCallback(
@@ -236,7 +226,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
         )}
       </div>
     ),
-    [messageSuccess]
+    [messageSuccess],
   );
 
   return (
@@ -252,9 +242,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <h3 className="font-medium text-card-foreground uppercase tracking-wide">
-            {swapData?.provider
-              ? `${swapData.provider.replace(/_/g, " ")} Swap`.toUpperCase()
-              : "TOKEN SWAP"}
+            {swapData?.provider ? `${swapData.provider.replace(/_/g, " ")} Swap`.toUpperCase() : "TOKEN SWAP"}
           </h3>
           {isPolling && (
             <div className="flex items-center gap-1 text-xs text-muted-foreground">

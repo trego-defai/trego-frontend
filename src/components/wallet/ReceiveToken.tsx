@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Card } from '@/components/ui/card';
-import { Download } from 'lucide-react';
-import { QRCodeSVG } from 'qrcode.react';
+import { Card } from "@/components/ui/card";
+import { Download } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 
 interface ReceiveTokenProps {
   address: string;
@@ -20,9 +20,7 @@ export function ReceiveToken({ address }: ReceiveTokenProps) {
         <div className="p-4 bg-muted/30 rounded-lg flex items-center justify-center">
           <QRCodeSVG value={address} size={140} />
         </div>
-        <p className="text-xs text-center text-muted-foreground">
-          Scan to receive tokens
-        </p>
+        <p className="text-xs text-center text-muted-foreground">Scan to receive tokens</p>
       </div>
     </Card>
   );
