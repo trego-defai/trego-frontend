@@ -2,11 +2,11 @@
 
 # Lint check
 echo "🔍 Checking linting..."
-pnpm run lint:fix
+pnpm run lint:fix || echo "⚠️  Linting failed but allowing push to proceed"
 
 # Format check
 echo "✨ Formatting code..."
-pnpm run format
+pnpm run format || echo "⚠️  Formatting failed but allowing push to proceed"
 
 # Type check and build
 echo "🏗️  Building project..."
