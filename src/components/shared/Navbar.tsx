@@ -27,7 +27,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 relative">
           {/* Left: Logo and Title */}
           <div className="flex items-center space-x-4">
-            <Link href={PATH.login} className="text-xl font-bold text-white">
+            <Link href={PATH.landing} className="text-xl font-bold text-white">
               Trego
             </Link>
           </div>
