@@ -28,7 +28,7 @@ function GenerateWalletButton() {
 
   return (
     <Button
-      variant="primary"
+      variant="default"
       size="icon"
       onClick={handleClick}
       disabled={isPending}

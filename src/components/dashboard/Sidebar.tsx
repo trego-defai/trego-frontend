@@ -136,9 +136,11 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       </div>
 
       {/* Account Info at Bottom */}
-      <div className="mt-auto pt-4 border-t border-slate-800/40">
-        <div className="flex items-center justify-center">
-          <AuthButton variant="default"/>
+      <div className="mt-auto pt-4 border-t border-slate-800/40 relative z-50">
+        <div className="flex items-center justify-center relative">
+          <div className="relative z-50 hover:scale-105 transition-transform duration-200 drop-shadow-2xl">
+            <AuthButton variant="default"/>
+          </div>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ const TregoWallet = () => {
 
   if (isLoading) {
     return (
-      <Button variant="primary" size="icon" disabled className="min-w-[200px]">
+      <Button variant="default" size="icon" disabled className="min-w-[200px]">
         Loading...
       </Button>
     );
@@ -32,7 +32,7 @@ const TregoWallet = () => {
 
   if (wallet?.data?.appAddress) {
     return (
-      <Button variant="primary" size="icon" className="min-w-[200px]">
+      <Button variant="default" size="icon" className="min-w-[200px]">
         {getShortAddress(wallet?.data?.appAddress)}
       </Button>
     );
