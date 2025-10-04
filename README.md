@@ -17,6 +17,7 @@ Next.js 15 frontend application for Trego DeFi platform with AI chatbot interfac
 - **Token Pair Selection**: Select trading pairs interface
 
 ### 🏠 Landing Page
+
 - **Navigation**: Navbar component
 - **Features**: Feature showcase sections
 - **Social Integration**: X (Twitter) | Google

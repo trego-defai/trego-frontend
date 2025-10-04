@@ -8,8 +8,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'media.aptosfoundation.org',
+        protocol: "https",
+        hostname: "media.aptosfoundation.org",
       },
     ],
     domains: ["assets.panora.exchange"],
