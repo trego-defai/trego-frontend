@@ -4,7 +4,7 @@ import { SwapEstimateRequest, SwapEstimateResponse, SwapExecuteRequest, SwapExec
 class DefiService extends BaseService {
   async swapEstimate(request: SwapEstimateRequest): Promise<SwapEstimateResponse> {
     try {
-      const response = await this.post<SwapEstimateResponse>("/api/hyperion/pre-swap", request);
+      const response = await this.post<SwapEstimateResponse>("/api/aggregator/pre-swap", request);
       return response;
     } catch (error) {
       console.error("Error sending message:", error);
@@ -13,7 +13,7 @@ class DefiService extends BaseService {
   }
   async swapExecute(request: SwapExecuteRequest): Promise<SwapExecuteResponse> {
     try {
-      const response = await this.post<SwapExecuteResponse>("/api/hyperion/swap", request);
+      const response = await this.post<SwapExecuteResponse>("/api/aggregator/swap", request);
       return response;
     } catch (error) {
       console.error("Error sending message:", error);

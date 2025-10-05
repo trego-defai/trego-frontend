@@ -5,42 +5,29 @@ import { useState, useEffect } from "react";
 import PanelHistory from "./PanelHistory";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import useResponsive from "@/hooks/useResponsive";
 
-const Agent = () => {
+function Agent() {
   const [selectedConversation, setSelectedConversation] = useState<string | undefined>("conversation_1");
   const [isPanelOpen, setIsPanelOpen] = useState(true);
+  const { isDesktop } = useResponsive();
 
-  // Auto-close panel on mobile
+  // Sync panel open state with responsive breakpoint
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setIsPanelOpen(false);
-      } else {
-        setIsPanelOpen(true);
-      }
-    };
+    setIsPanelOpen(isDesktop);
+  }, [isDesktop]);
 
-    // Set initial state
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const handleSelectConversation = (conversationId: string) => {
+  function handleSelectConversation(conversationId: string) {
     setSelectedConversation(conversationId);
-  };
+  }
 
-  const handleNewConversation = () => {
+  function handleNewConversation() {
     setSelectedConversation(undefined);
-  };
+  }
 
-  const handleDeleteConversation = (conversationId: string) => {
-    // If the deleted conversation is currently selected, clear selection
-    if (selectedConversation === conversationId) {
-      setSelectedConversation(undefined);
-    }
-  };
+  function handleDeleteConversation(conversationId: string) {
+    if (selectedConversation === conversationId) setSelectedConversation(undefined);
+  }
 
   return (
     <div className="h-full w-full flex gap-2 sm:gap-4 p-2 sm:p-4 relative">
@@ -61,10 +48,11 @@ const Agent = () => {
       <Button
         variant="outline"
         size="icon"
-        onClick={() => setIsPanelOpen(!isPanelOpen)}
+        onClick={() => setIsPanelOpen((open) => !open)}
         className={`absolute top-1/2 -translate-y-1/2 z-10 h-8 w-8 sm:h-10 sm:w-10 rounded-full shadow-md transition-all duration-300 ${
           isPanelOpen ? "left-[16.5rem] sm:left-[21rem]" : "left-2 sm:left-4"
         }`}
+        aria-label={isPanelOpen ? "Hide history panel" : "Show history panel"}
       >
         {isPanelOpen ? (
           <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -79,6 +67,6 @@ const Agent = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Agent;

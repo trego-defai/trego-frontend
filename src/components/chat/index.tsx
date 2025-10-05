@@ -85,7 +85,7 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
 
   const handleSendMessage = useCallback(
     async (message: string) => {
-      if (!message.trim() || isWaitingForResponse || !conversationId) return;
+      if (!message.trim() || isWaitingForResponse) return;
 
       setIsWaitingForResponse(true);
       setError(null);
@@ -135,15 +135,12 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
   // Auth not loaded yet
   if (!isLoaded) {
     return (
-      <div className={cn("flex flex-col h-full items-center justify-center bg-background", className)}>
-        <div className="flex flex-col gap-4 w-full max-w-md">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-muted animate-pulse" />
-            <div className="flex-1 h-4 bg-muted rounded animate-pulse" />
+      <div className={cn("flex flex-1 flex-col h-full w-full bg-background", className)}>
+        <div className="flex-1 flex flex-col items-center justify-center w-full">
+          <div className="w-12 h-12 rounded-full bg-muted animate-pulse flex items-center justify-center mb-4">
+            <span className="text-xl text-muted-foreground animate-pulse">⏳</span>
           </div>
-          <div className="h-4 bg-muted rounded w-3/4 animate-pulse" />
-          <div className="h-4 bg-muted rounded w-1/2 animate-pulse" />
-          <div className="h-4 bg-muted rounded w-2/3 animate-pulse" />
+          <div className="mt-4 text-sm text-muted-foreground animate-pulse">Waiting for authentication...</div>
         </div>
       </div>
     );
@@ -205,7 +202,7 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
           value={inputValue}
           setValue={setInputValue}
           isLoading={isWaitingForResponse}
-          disabled={isWaitingForResponse || !conversationId || !account}
+          disabled={isWaitingForResponse || !account}
         />
       </div>
     </div>

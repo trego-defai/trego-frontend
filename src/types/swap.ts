@@ -1,10 +1,12 @@
+import { TokenMappingProp } from "./token";
+
 export interface SwapEstimateItem {
   fromAmount: string;
   fromAmountUsd: number;
-  fromToken: string;
+  fromToken: TokenMappingProp;
   toAmount: string;
   toAmountUsd: number;
-  toToken: string;
+  toToken: TokenMappingProp;
   provider: string;
   slippage: number;
   timestamp: string;
@@ -12,8 +14,7 @@ export interface SwapEstimateItem {
 }
 
 export interface SwapEstimateRequest {
-  user_address: string;
-  content: string;
+  [key: string]: any;
 }
 
 export interface SwapEstimateResponse {
@@ -22,23 +23,9 @@ export interface SwapEstimateResponse {
   success?: boolean;
 }
 
-interface TokenInfo {
-  tokenAddress: string;
-  faAddress: string;
-  name: string;
-  symbol: string;
-  decimals: number;
-}
-
 export interface SwapExecuteRequest {
+  [key: string]: any;
   userAddress: string;
-  fromToken: TokenInfo;
-  toToken: TokenInfo;
-  amountOut: string;
-  amountIn: string;
-  path: string[];
-  slippage: number;
-  recipient: string;
 }
 
 export interface SwapExecuteResponse {
