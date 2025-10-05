@@ -22,7 +22,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Trego" }],
   robots: "index, follow",
   icons: {
-    icon: "/logo.svg",
+    icon: [{ url: "/icon.png", sizes: "32x32", type: "image/png" }],
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
 };
 
