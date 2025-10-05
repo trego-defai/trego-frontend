@@ -10,6 +10,7 @@ import { useUser } from "@clerk/nextjs";
 import { useCallback, useEffect, useState } from "react";
 import { NoWallet } from "../wallet/NoWallet";
 import ChatInput from "./ChatInput";
+import ChatSuggestions from "./ChatSuggestions";
 import ChatContainer from "./message/ChatContainer";
 
 interface ChatPanelProps {
@@ -177,13 +178,17 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
               <span className="text-2xl">💬</span>
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">Start your DeFi AI chat</h3>
-            <p className="text-muted-foreground max-w-md">
+            <p className="text-muted-foreground max-w-md mb-6">
               Ask about swap, staking, unstaking, on-chain analytics, or get AI-powered insights for your crypto
               portfolio.
             </p>
-            {!conversationId && (
-              <p className="text-sm text-muted-foreground mt-2">Connecting to your DeFi AI assistant...</p>
-            )}
+            <ChatSuggestions
+              onSuggestionClick={(suggestion) => {
+                setInputValue(suggestion);
+                handleSendMessage(suggestion);
+              }}
+              disabled={isWaitingForResponse}
+            />
           </div>
         ) : (
           <ChatContainer
