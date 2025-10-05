@@ -12,13 +12,13 @@ interface TokensListProps {
 
 export function TokensList({ tokens, isLoading }: TokensListProps) {
   return (
-    <Card className="p-6 flex flex-col min-h-0">
+    <Card className="p-6 flex flex-col min-h-0 h-full">
       <div className="flex items-center gap-2 mb-4 flex-shrink-0">
         <Coins className="w-5 h-5 text-primary" />
         <h3 className="text-lg font-semibold">Tokens</h3>
       </div>
 
-      <div className="space-y-2 overflow-y-auto flex-1 pr-2">
+      <div className="space-y-2 flex-1 pr-2 overflow-auto">
         {isLoading ? (
           <>
             <Skeleton className="h-16 w-full" />

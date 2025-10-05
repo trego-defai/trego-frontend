@@ -20,15 +20,27 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+type TabType = "history" | "tokens" | "send-receive";
+
+const TABS = [
+  { id: "tokens" as const, label: "List Token" },
+  { id: "history" as const, label: "History" },
+  { id: "send-receive" as const, label: "Send & Receive" },
+];
+
+const REFETCH_INTERVAL = 20000;
+const DEFAULT_DECIMALS = 8;
+
 export default function WalletPage() {
   const { user } = useUser();
   const { account } = useWalletStore();
   const queryClient = useQueryClient();
+
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
   const [selectedToken, setSelectedToken] = useState<Token | null>(null);
+  const [activeTab, setActiveTab] = useState<TabType>("tokens");
 
-  // Query to get balance (only if not already in wallet data)
   const { data: walletDetailsData, isLoading: isLoadingWalletDetails } = useQuery({
     queryKey: ["balance", account?.address],
     queryFn: async () => {
@@ -37,10 +49,9 @@ export default function WalletPage() {
       return response.data;
     },
     enabled: !!account?.address,
-    refetchInterval: 20000, // Refetch every 20 seconds
+    refetchInterval: REFETCH_INTERVAL,
   });
 
-  // Mutation to send token
   const sendTokenMutation = useMutation({
     mutationFn: async (data: { id: string; recipient: string; amount: number }) => {
       const response = await walletService.sendToken(data);
@@ -48,11 +59,8 @@ export default function WalletPage() {
     },
     onSuccess: () => {
       toast.success("Transaction sent successfully!");
-      setRecipient("");
-      setAmount("");
-      // Invalidate wallet data to refresh balance, tokens, and history
-      queryClient.invalidateQueries({ queryKey: ["wallet"] });
-      queryClient.invalidateQueries({ queryKey: ["balance"] });
+      resetSendForm();
+      invalidateWalletQueries();
     },
     onError: (error) => {
       toast.error("Failed to send transaction");
@@ -60,69 +68,84 @@ export default function WalletPage() {
     },
   });
 
+  const resetSendForm = () => {
+    setRecipient("");
+    setAmount("");
+  };
+
+  const invalidateWalletQueries = () => {
+    queryClient.invalidateQueries({ queryKey: ["wallet"] });
+    queryClient.invalidateQueries({ queryKey: ["balance"] });
+  };
+
   const handleSendToken = async () => {
+    if (!validateSendTransaction()) return;
+
+    sendTokenMutation.mutate({
+      id: user!.id,
+      recipient,
+      amount: parseFloat(amount) * 10 ** selectedToken!.decimals,
+    });
+  };
+
+  const validateSendTransaction = (): boolean => {
     if (!account || !recipient || !amount) {
       toast.error("Please fill in all fields");
-      return;
+      return false;
     }
 
     if (!user?.id) {
       toast.error("User not authenticated");
-      return;
+      return false;
     }
 
     if (!selectedToken) {
       toast.error("Please select a token");
-      return;
+      return false;
     }
 
-    sendTokenMutation.mutate({
-      id: user.id,
-      recipient,
-      amount: parseFloat(amount) * 10 ** selectedToken.decimals,
-    });
+    return true;
   };
 
   const refreshBalance = () => {
-    // Invalidate and refetch wallet data to get updated balance, tokens, and history
-    queryClient.invalidateQueries({ queryKey: ["wallet"] });
-    queryClient.invalidateQueries({ queryKey: ["balance"] });
+    invalidateWalletQueries();
     toast.success("Balance refreshed!");
   };
 
-  // Use balance from wallet data if available, otherwise fallback to balance query
-  const balance = walletDetailsData?.balance ? (parseFloat(walletDetailsData.balance) / 10 ** 8).toString() : "0";
+  const balance = walletDetailsData?.balance
+    ? (parseFloat(walletDetailsData.balance) / 10 ** DEFAULT_DECIMALS).toString()
+    : "0";
 
   const isLoading = sendTokenMutation.isPending || isLoadingWalletDetails;
 
-  // Convert API tokens to component tokens format
   const tokens: Token[] = walletDetailsData?.tokens?.map((token: TokenBalance) => ({
     symbol: token.symbol || "Unknown",
     name: token.name || "Unknown Token",
     balance: (parseFloat(token.amount) / 10 ** token.decimals).toString(),
     decimals: token.decimals,
   })) || [
-    // Fallback to APT token if no tokens from API
     {
       symbol: "APT",
       name: "Aptos Coin",
       balance: balance,
-      decimals: 8,
+      decimals: DEFAULT_DECIMALS,
     },
   ];
 
-  // Convert API transactions to component transactions format
   const transactions: Transaction[] =
-    walletDetailsData?.history?.map((tx: WalletTransaction) => ({
-      hash: tx.hash,
-      type: tx.success ? "received" : "sent", // Map failed transactions as 'sent' for now
-      amount: "0", // Amount not directly available in transaction data
-      token: "APT", // Default to APT for now
-      timestamp: new Date(tx.timestamp).getTime(),
-      from: tx.sender,
-    })) || [];
+    walletDetailsData?.history?.map((tx: WalletTransaction) => {
+      const gasFee = ((parseFloat(tx.gasUsed) * parseFloat(tx.gasUnitPrice)) / 10 ** DEFAULT_DECIMALS).toFixed(8);
+      return {
+        hash: tx.hash,
+        type: tx.success ? "received" : "sent",
+        amount: "0",
+        token: "APT",
+        timestamp: new Date(tx.timestamp).getTime(),
+        from: tx.sender,
+        gasFee,
+      };
+    }) || [];
 
-  // Set default selected token to first available token
   useEffect(() => {
     if (tokens.length > 0 && !selectedToken) {
       setSelectedToken(tokens[0]);
@@ -155,28 +178,45 @@ export default function WalletPage() {
           onRefresh={refreshBalance}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 overflow-hidden">
-          <div className="lg:col-span-2 flex flex-col gap-6 overflow-hidden">
-            <TokensList tokens={tokens} isLoading={isLoadingWalletDetails} />
-            <TransactionHistory transactions={transactions} />
-          </div>
+        <div className="flex gap-2 border-b">
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 font-medium transition-colors ${
+                activeTab === tab.id
+                  ? "border-b-2 border-primary text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-          <div className="flex flex-col gap-6 overflow-y-auto">
-            {tokens?.length > 0 && (
-              <SendToken
-                tokens={tokens}
-                selectedToken={selectedToken}
-                onSelectToken={setSelectedToken}
-                recipient={recipient}
-                amount={amount}
-                onRecipientChange={setRecipient}
-                onAmountChange={setAmount}
-                onSend={handleSendToken}
-                isLoading={isLoading}
-              />
-            )}
-            <ReceiveToken address={account.address} />
-          </div>
+        <div className="flex-1 overflow-hidden">
+          {activeTab === "tokens" && <TokensList tokens={tokens} isLoading={isLoadingWalletDetails} />}
+
+          {activeTab === "history" && <TransactionHistory transactions={transactions} />}
+
+          {activeTab === "send-receive" && (
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
+              {tokens?.length > 0 && (
+                <SendToken
+                  tokens={tokens}
+                  selectedToken={selectedToken}
+                  onSelectToken={setSelectedToken}
+                  recipient={recipient}
+                  amount={amount}
+                  onRecipientChange={setRecipient}
+                  onAmountChange={setAmount}
+                  onSend={handleSendToken}
+                  isLoading={isLoading}
+                />
+              )}
+              <ReceiveToken address={account.address} />
+            </div>
+          )}
         </div>
       </div>
     </main>
