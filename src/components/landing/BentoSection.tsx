@@ -150,7 +150,7 @@ export default function BentoSection() {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1FFFA9]/10 via-transparent to-transparent" />
                 <div className="absolute right-3 sm:right-6 bottom-3 sm:bottom-6 h-40 w-48 sm:h-48 sm:w-60 md:h-56 md:w-72 rotate-[8deg] rounded-2xl bg-black/60 ring-1 ring-[#1FFFA9]/15 shadow-[0_0_80px_-20px_#1FFFA9] p-2 flex items-center justify-center">
                   <div className="relative w-[90%] h-[90%]">
-                    <Image src="/tradingweb3.svg" alt="Trading Web3" fill className="object-contain scale-200" />
+                    <Image src="/trading.svg" alt="Trading Web3" fill className="object-contain scale-200" />
                   </div>
                 </div>
                 <div className="absolute inset-0 rounded-xl ring-1 ring-[#1FFFA9]/20" />
