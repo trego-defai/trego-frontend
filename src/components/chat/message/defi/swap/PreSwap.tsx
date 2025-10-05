@@ -8,6 +8,7 @@ import { Button } from "../../../../ui/button";
 import { Card, CardContent, CardHeader } from "../../../../ui/card";
 import { MessageMarkdown } from "../../MessageMarkdown";
 import { TokenDisplay } from "./TokenDisplay";
+import { useUser } from "@clerk/nextjs";
 
 const POLL_INTERVAL = 20000; // 20 seconds
 
@@ -26,6 +27,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [permanentFailure, setPermanentFailure] = useState(false);
+  const { user } = useUser();
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const { fromToken, toToken, fromAmount, toAmount, fromAmountUsd, toAmountUsd } = swapData || {};
@@ -61,7 +63,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
   }, [fromToken, toToken, fromAmount]);
 
   const handleSwap = useCallback(async () => {
-    if (isSwapDisabled || !account?.address) return;
+    if (isSwapDisabled || !account?.address || !user?.id) return;
 
     setStatus("swapping");
     setErrorMessage(null);
@@ -70,7 +72,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
     try {
       await defiService.swapExecute({
         ...swapData,
-        userAddress: account.address,
+        userAddress: user?.id,
       });
       setStatus("success");
       setSuccessMessage("Swap completed successfully");
