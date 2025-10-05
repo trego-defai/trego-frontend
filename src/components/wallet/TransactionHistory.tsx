@@ -1,8 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { ArrowDownLeft, ArrowUpRight, Clock } from "lucide-react";
-import { toast } from "sonner";
+import { ArrowDownLeft, ArrowUpRight, Clock, ExternalLink } from "lucide-react";
 import { Transaction } from "./types";
 
 interface TransactionHistoryProps {
@@ -10,23 +9,9 @@ interface TransactionHistoryProps {
 }
 
 export function TransactionHistory({ transactions }: TransactionHistoryProps) {
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    toast.success("Copied to clipboard!");
-  };
-
-  const formatTimestamp = (timestamp: number) => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-
-    if (minutes < 60) return `${minutes}m ago`;
-    if (hours < 24) return `${hours}h ago`;
-    return `${days}d ago`;
-  };
+  function openInAptosScan(hash: string) {
+    window.open(`https://explorer.aptoslabs.com/txn/${hash}?network=mainnet`, "_blank");
+  }
 
   return (
     <Card className="p-6 flex flex-col min-h-0 flex-1">
@@ -35,49 +20,73 @@ export function TransactionHistory({ transactions }: TransactionHistoryProps) {
         <h3 className="text-lg font-semibold">Recent Transactions</h3>
       </div>
 
-      <div className="space-y-2 overflow-y-auto flex-1 pr-2">
+      <div className="flex-1 overflow-x-auto">
         {transactions.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <Clock className="w-12 h-12 mx-auto mb-2 opacity-20" />
             <p className="text-sm">No transactions yet</p>
           </div>
         ) : (
-          transactions.map((tx) => (
-            <div
-              key={tx.hash}
-              className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                    tx.type === "received" ? "bg-green-500/10" : "bg-red-500/10"
-                  }`}
-                >
-                  {tx.type === "received" ? (
-                    <ArrowDownLeft className="w-5 h-5 text-green-500" />
-                  ) : (
-                    <ArrowUpRight className="w-5 h-5 text-red-500" />
-                  )}
-                </div>
-                <div>
-                  <div className="font-semibold capitalize">{tx.type}</div>
-                  <div className="text-xs text-muted-foreground">{formatTimestamp(tx.timestamp)}</div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className={`font-semibold ${tx.type === "received" ? "text-green-500" : "text-red-500"}`}>
-                  {tx.type === "received" ? "+" : "-"}
-                  {tx.amount} {tx.token}
-                </div>
-                <button
-                  onClick={() => copyToClipboard(tx.hash)}
-                  className="text-xs text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {tx.hash}
-                </button>
-              </div>
-            </div>
-          ))
+          <div className="w-full min-w-[600px] max-h-[calc(100vh-500px)] overflow-y-auto">
+            <table className="w-full">
+              <thead className="border-b sticky top-0 bg-background z-10">
+                <tr className="text-sm text-muted-foreground">
+                  <th className="text-left py-3 px-2 font-medium">Type</th>
+                  <th className="text-left py-3 px-2 font-medium">Function Type</th>
+                  <th className="text-right py-3 px-2 font-medium">Amount</th>
+                  <th className="text-center py-3 px-2 font-medium">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((tx) => (
+                  <tr
+                    key={tx.hash}
+                    className="border-b hover:bg-muted/30 transition-colors cursor-pointer"
+                    onClick={() => openInAptosScan(tx.hash)}
+                  >
+                    <td className="py-3 px-2">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                            tx.type === "received" ? "bg-green-500/10" : "bg-red-500/10"
+                          }`}
+                        >
+                          {tx.type === "received" ? (
+                            <ArrowDownLeft className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <ArrowUpRight className="w-4 h-4 text-red-500" />
+                          )}
+                        </div>
+                        <span className="capitalize text-sm font-medium">{tx.type}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-2">
+                      <span className="text-xs text-muted-foreground">Transfer</span>
+                    </td>
+                    <td className="py-3 px-2 text-right">
+                      <div className={`font-semibold ${tx.type === "received" ? "text-green-500" : "text-red-500"}`}>
+                        {tx.type === "received" ? "+" : "-"}
+                        {tx.amount} {tx.token}
+                      </div>
+                      {tx.gasFee && <div className="text-xs text-muted-foreground mt-1">Gas -{tx.gasFee} APT</div>}
+                    </td>
+                    <td className="py-3 px-2 text-center">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openInAptosScan(tx.hash);
+                        }}
+                        className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </Card>

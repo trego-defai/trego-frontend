@@ -13,6 +13,7 @@ export interface Transaction {
   timestamp: number;
   from?: string;
   to?: string;
+  gasFee?: string;
 }
 
 export interface WalletAccount {

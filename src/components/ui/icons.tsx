@@ -230,3 +230,84 @@ export const GoogleIcon = ({
     <path d="M12 2L2 22h20L12 2z" />
   </svg>
 );
+
+export const DashboardIcon = ({
+  width = 20,
+  height = 20,
+  color = "currentColor",
+  className = "",
+  ...props
+}: IconProps) => (
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z" />
+  </svg>
+);
+
+export const TradingIcon = ({
+  width = 20,
+  height = 20,
+  color = "currentColor",
+  className = "",
+  ...props
+}: IconProps) => (
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
+  </svg>
+);
+
+export const AIAssistantIcon = ({
+  width = 35,
+  height = 35,
+  color = "currentColor",
+  className = "",
+  ...props
+}: IconProps) => (
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M17.753 14a2.25 2.25 0 0 1-2.006 1.996L15.5 16h-7a2.25 2.25 0 0 1-2.25-2.25v-6.5A2.25 2.25 0 0 1 8.5 5h7a2.25 2.25 0 0 1 2.25 2.25V14zM8.5 6.5a.75.75 0 0 0-.75.75v6.5c0 .414.336.75.75.75h7a.75.75 0 0 0 .75-.75v-6.5a.75.75 0 0 0-.75-.75h-7zm2.25 2a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm2.5 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zM9 11.5h6v1H9v-1z" />
+    <path d="M12 2.5a.75.75 0 0 1 .75.75v1h-1.5v-1A.75.75 0 0 1 12 2.5zM5.25 12a.75.75 0 0 1-.75-.75v-1h1.5v1a.75.75 0 0 1-.75.75zM18.75 12a.75.75 0 0 1-.75-.75v-1h1.5v1a.75.75 0 0 1-.75.75z" />
+  </svg>
+);
+
+export const WalletIcon = ({
+  width = 20,
+  height = 20,
+  color = "currentColor",
+  className = "",
+  ...props
+}: IconProps) => (
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+  </svg>
+);
