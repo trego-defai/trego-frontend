@@ -23,15 +23,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Welcome to Trego - AI Agents for DeFi Trading",
-    description:
-      "Get started with Trego's AI agents for automated trading and DeFi management across multiple chains.",
+    description: "Get started with Trego's AI agents for automated trading and DeFi management across multiple chains.",
   },
 };
 
-export default function WelcomeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function WelcomeLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

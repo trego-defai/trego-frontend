@@ -312,13 +312,7 @@ export const WalletIcon = ({
   </svg>
 );
 
-export const GridIcon = ({
-  width = 24,
-  height = 24,
-  color = "currentColor",
-  className = "",
-  ...props
-}: IconProps) => (
+export const GridIcon = ({ width = 24, height = 24, color = "currentColor", className = "", ...props }: IconProps) => (
   <svg
     className={className}
     fill={color}
