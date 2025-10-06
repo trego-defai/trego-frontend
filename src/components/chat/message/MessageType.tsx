@@ -2,6 +2,7 @@ import { ACTION_TYPE, IMessage } from "@/types/chat";
 import BotMessage from "./BotMessage";
 import UserMessage from "./UserMessage";
 import BotPreSwap from "./defi/swap/BotPreSwap";
+import BotBridge from "./defi/bridge/BotBridge";
 
 interface MessageTypeProps {
   message: IMessage;
@@ -16,10 +17,7 @@ export function MessageType({ message, isLoading: _isLoading, isLatestMessage }:
     [ACTION_TYPE.STAKING]: <BotMessage content={message.content} />,
     [ACTION_TYPE.UNSTAKING]: <BotMessage content={message.content} />,
     [ACTION_TYPE.SWAP]: <BotPreSwap message={message} isLatestMessage={isLatestMessage} />,
-
-    // [ACTION_TYPE.BRIDGE]: (
-    //   <BotBridge message={message} isLoading={isLoading} isLatestMessage={isLatestMessage} />
-    // ),
+    [ACTION_TYPE.BRIDGE]: <BotBridge message={message} isLatestMessage={isLatestMessage} />,
     // [ACTION_TYPE.LIQUIDITY]: <BotMessage message={message} isLoading={isLoading} />,
     // [ACTION_TYPE.BORROW]: <BotMessage message={message} isLoading={isLoading} />,
     // [ACTION_TYPE.SUPPLY]: <BotMessage message={message} isLoading={isLoading} />,

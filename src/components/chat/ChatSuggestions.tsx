@@ -3,7 +3,7 @@ interface ChatSuggestionsProps {
   disabled?: boolean;
 }
 
-const SUGGESTIONS = ["Stake 0.001 APT", "Unstake 0.001 APT", "Swap 0.01 APT to USDT"];
+const SUGGESTIONS = ["Swap 0.01 APT to USDT", "Swap 0.01 APT to USDC"];
 
 function ChatSuggestions({ onSuggestionClick, disabled }: ChatSuggestionsProps) {
   return (
