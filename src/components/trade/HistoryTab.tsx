@@ -130,12 +130,7 @@ export function HistoryTab({ className }: HistoryTabProps) {
           </div>
         </div>
 
-        <Button
-          onClick={clearFilters}
-          variant="ghost"
-          size="sm"
-          className="text-gray-400 hover:text-white text-xs"
-        >
+        <Button onClick={clearFilters} variant="ghost" size="sm" className="text-gray-400 hover:text-white text-xs">
           Clear Filters
         </Button>
       </div>
@@ -149,9 +144,7 @@ export function HistoryTab({ className }: HistoryTabProps) {
                 <span className="text-white font-medium text-sm">{item.pair}</span>
                 <span
                   className={`px-2 py-1 rounded text-xs font-medium ${
-                    item.side === "buy"
-                      ? "bg-green-600/20 text-green-400"
-                      : "bg-red-600/20 text-red-400"
+                    item.side === "buy" ? "bg-green-600/20 text-green-400" : "bg-red-600/20 text-red-400"
                   }`}
                 >
                   {item.side.toUpperCase()}

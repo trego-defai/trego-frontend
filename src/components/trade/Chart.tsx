@@ -23,7 +23,7 @@ function ChartToolbar() {
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-3 py-2 border-b border-gray-800 gap-2 sm:gap-3">
       <div className="flex items-center space-x-2 sm:space-x-3">
-        <h3 className="text-sm sm:text-base font-semibold text-white">  </h3>
+        <h3 className="text-sm sm:text-base font-semibold text-white"> </h3>
         <span className="text-green-400 text-xs">$43,250.00</span>
         <span className="text-green-400 text-xs">+2.34%</span>
       </div>
@@ -34,9 +34,7 @@ function ChartToolbar() {
             variant="ghost"
             size="sm"
             className={`text-xs px-2 py-0.5 sm:px-2 sm:py-1 ${
-              selectedTimeframe === value
-                ? "text-white bg-blue-600/20"
-                : "text-gray-400 hover:text-white"
+              selectedTimeframe === value ? "text-white bg-blue-600/20" : "text-gray-400 hover:text-white"
             }`}
             onClick={() => setSelectedTimeframe(value)}
             aria-pressed={selectedTimeframe === value}

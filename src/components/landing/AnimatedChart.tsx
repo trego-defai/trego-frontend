@@ -44,7 +44,7 @@ function AnimatedChart() {
 
         // Create smooth curves using quadratic bezier
         const cpx = (prev.x + curr.x) / 2;
-        const cpy = (prev.y + curr.y) / 2;
+        const _cpy = (prev.y + curr.y) / 2;
 
         path += ` Q ${cpx} ${prev.y} ${curr.x} ${curr.y}`;
       }
@@ -101,12 +101,7 @@ function AnimatedChart() {
 
   return (
     <div className="w-full h-full">
-      <svg
-        ref={svgRef}
-        className="w-full h-full opacity-20"
-        viewBox="0 0 800 400"
-        preserveAspectRatio="none"
-      >
+      <svg ref={svgRef} className="w-full h-full opacity-20" viewBox="0 0 800 400" preserveAspectRatio="none">
         <defs>
           <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="rgb(16, 185, 129)" stopOpacity="0.3" />
@@ -132,23 +127,13 @@ function AnimatedChart() {
         {/* Grid lines */}
         <defs>
           <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path
-              d="M 40 0 L 0 0 0 40"
-              fill="none"
-              stroke="rgb(16, 185, 129)"
-              strokeWidth="0.5"
-              strokeOpacity="0.1"
-            />
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgb(16, 185, 129)" strokeWidth="0.5" strokeOpacity="0.1" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
 
         {/* Fill area under the line */}
-        <path
-          id="fill-area"
-          fill="url(#chartGradient)"
-          className="transition-all duration-1000 ease-in-out"
-        />
+        <path id="fill-area" fill="url(#chartGradient)" className="transition-all duration-1000 ease-in-out" />
 
         {/* Main chart line */}
         <path

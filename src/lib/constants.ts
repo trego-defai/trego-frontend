@@ -1,5 +1,5 @@
 export const PATH = {
-  login: "/",
+  landing: "/",
   welcome: "/welcome",
   agent: "/agent",
   trade: "/trading",

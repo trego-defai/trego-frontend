@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface HistoryItem {
   time: string;
@@ -13,67 +13,67 @@ interface HistoryItem {
 
 const historyData: HistoryItem[] = [
   {
-    time: '15 May 2020 5:00 pm',
-    currency: 'USD',
-    amount: '$219.78',
-    rate: '$219.78',
-    type: 'In',
-    usdAmount: '$219.78'
+    time: "15 May 2020 5:00 pm",
+    currency: "USD",
+    amount: "$219.78",
+    rate: "$219.78",
+    type: "In",
+    usdAmount: "$219.78",
   },
   {
-    time: '15 May 2020 5:00 pm',
-    currency: 'USD',
-    amount: '$219.78',
-    rate: '$219.78',
-    type: 'In',
-    usdAmount: '$219.78'
+    time: "15 May 2020 5:00 pm",
+    currency: "USD",
+    amount: "$219.78",
+    rate: "$219.78",
+    type: "In",
+    usdAmount: "$219.78",
   },
   {
-    time: '15 May 2020 5:00 pm',
-    currency: 'USD',
-    amount: '$219.78',
-    rate: '$219.78',
-    type: 'In',
-    usdAmount: '$219.78'
+    time: "15 May 2020 5:00 pm",
+    currency: "USD",
+    amount: "$219.78",
+    rate: "$219.78",
+    type: "In",
+    usdAmount: "$219.78",
   },
   {
-    time: '15 May 2020 5:00 pm',
-    currency: 'USD',
-    amount: '$219.78',
-    rate: '$219.78',
-    type: 'In',
-    usdAmount: '$219.78'
+    time: "15 May 2020 5:00 pm",
+    currency: "USD",
+    amount: "$219.78",
+    rate: "$219.78",
+    type: "In",
+    usdAmount: "$219.78",
   },
   {
-    time: '15 May 2020 5:00 pm',
-    currency: 'USD',
-    amount: '$219.78',
-    rate: '$219.78',
-    type: 'In',
-    usdAmount: '$219.78'
+    time: "15 May 2020 5:00 pm",
+    currency: "USD",
+    amount: "$219.78",
+    rate: "$219.78",
+    type: "In",
+    usdAmount: "$219.78",
   },
   {
-    time: '15 May 2020 5:00 pm',
-    currency: 'USD',
-    amount: '$219.78',
-    rate: '$219.78',
-    type: 'In',
-    usdAmount: '$219.78'
+    time: "15 May 2020 5:00 pm",
+    currency: "USD",
+    amount: "$219.78",
+    rate: "$219.78",
+    type: "In",
+    usdAmount: "$219.78",
   },
   {
-    time: '15 May 2020 5:00 pm',
-    currency: 'USD',
-    amount: '$219.78',
-    rate: '$219.78',
-    type: 'In',
-    usdAmount: '$219.78'
-  }
+    time: "15 May 2020 5:00 pm",
+    currency: "USD",
+    amount: "$219.78",
+    rate: "$219.78",
+    type: "In",
+    usdAmount: "$219.78",
+  },
 ];
 
 export function BalanceHistorySection() {
-  const [activeTab, setActiveTab] = useState('All');
+  const [activeTab, setActiveTab] = useState("All");
 
-  const tabs = ['All', 'In', 'Out', 'Trading'];
+  const tabs = ["All", "In", "Out", "Trading"];
 
   return (
     <div className="bg-gradient-to-br from-slate-900/20 via-[#1a1b1e] to-gray-900/30 border border-slate-500/20 rounded-xl p-6 shadow-lg shadow-slate-500/10">
@@ -86,9 +86,7 @@ export function BalanceHistorySection() {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
-              activeTab === tab
-                ? 'bg-brand text-brand-foreground'
-                : 'text-gray-400 hover:text-white hover:bg-gray-800'
+              activeTab === tab ? "bg-brand text-brand-foreground" : "text-gray-400 hover:text-white hover:bg-gray-800"
             }`}
           >
             {tab}
@@ -111,37 +109,24 @@ export function BalanceHistorySection() {
         {/* Table Body */}
         <div className="space-y-3 max-h-[350px] overflow-y-auto scrollbar-hide">
           {historyData.map((item, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-6 gap-4 py-2 hover:bg-gray-800/30 rounded-lg transition-colors"
-            >
+            <div key={index} className="grid grid-cols-6 gap-4 py-2 hover:bg-gray-800/30 rounded-lg transition-colors">
               {/* Time */}
-              <div className="text-gray-300 text-sm">
-                {item.time}
-              </div>
+              <div className="text-gray-300 text-sm">{item.time}</div>
 
               {/* Currency */}
-              <div className="text-white text-sm font-medium">
-                {item.currency}
-              </div>
+              <div className="text-white text-sm font-medium">{item.currency}</div>
 
               {/* Amount */}
-              <div className="text-white text-sm">
-                {item.amount}
-              </div>
+              <div className="text-white text-sm">{item.amount}</div>
 
               {/* Rate */}
-              <div className="text-white text-sm">
-                {item.rate}
-              </div>
+              <div className="text-white text-sm">{item.rate}</div>
 
               {/* Type */}
               <div className="flex items-center">
                 <span
-                  className={`text-sm px-2 py-1 rounded-full text-xs font-medium ${
-                    item.type === 'In'
-                      ? 'bg-green-500/20 text-green-400'
-                      : 'bg-red-500/20 text-red-400'
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    item.type === "In" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
                   }`}
                 >
                   {item.type}
@@ -150,9 +135,7 @@ export function BalanceHistorySection() {
 
               {/* USD Amount */}
               <div className="text-right">
-                <span className="text-white text-sm font-medium">
-                  {item.usdAmount}
-                </span>
+                <span className="text-white text-sm font-medium">{item.usdAmount}</span>
               </div>
             </div>
           ))}

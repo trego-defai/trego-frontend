@@ -16,7 +16,7 @@ const BotPreSwap = ({ message, isLoading }: BotPreSwapProps) => (
     <div className="rounded-2xl rounded-tl-md py-3 px-4 max-w-[80%]">
       <MessageMarkdown>{message.content}</MessageMarkdown>
     </div>
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
       {message?.data?.map((item: SwapEstimateItem, index: number) => (
         <div key={`estimate-${index}`}>
           <PreSwap item={item} isLoading={isLoading} isBestOption={index === 0} />

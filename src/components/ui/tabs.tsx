@@ -34,12 +34,7 @@ interface TabsListProps {
 export function TabsList({ children, className }: TabsListProps) {
   // Add a subtle background and rounded corners for the tab list
   return (
-    <div
-      className={cn(
-        "flex border-b mb-3 border-gray-800 bg-gray-900/60 rounded-t-lg overflow-x-auto",
-        className
-      )}
-    >
+    <div className={cn("flex border-b mb-3 border-gray-800 bg-gray-900/60 rounded-t-lg overflow-x-auto", className)}>
       {children}
     </div>
   );
@@ -67,11 +62,9 @@ export function TabsTrigger({ value, children, className }: TabsTriggerProps) {
       className={cn(
         "relative px-4 py-2 text-sm font-medium transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-500/70",
         "border-b-2",
-        isActive
-          ? "text-white bg-gray-800/50 shadow-sm"
-          : "text-gray-400 border-transparent hover:text-white",
+        isActive ? "text-white bg-gray-800/50 shadow-sm" : "text-gray-400 border-transparent hover:text-white",
         "duration-200",
-        className
+        className,
       )}
       style={{
         zIndex: isActive ? 1 : 0,

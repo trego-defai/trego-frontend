@@ -28,41 +28,30 @@ const tradesData: TradeData[] = [
 export function AlgosOneTradesTable() {
   return (
     <div className="bg-gradient-to-br from-purple-900/20 via-[#1a1b1e] to-indigo-900/30 border border-purple-500/20 rounded-xl p-6 shadow-lg shadow-purple-500/10">
-      <h3 className="text-white text-lg font-semibold mb-6">
-        Latest AlgosOne Trades
-      </h3>
+      <h3 className="text-white text-lg font-semibold mb-6">Latest AlgosOne Trades</h3>
 
       <div className="overflow-hidden">
         {/* Table Header */}
         <div className="grid grid-cols-3 gap-4 pb-4 mb-4 border-b border-gray-800">
           <div className="text-gray-400 text-sm font-medium">Pair</div>
           <div className="text-gray-400 text-sm font-medium">Type</div>
-          <div className="text-gray-400 text-sm font-medium text-right">
-            Amount
-          </div>
+          <div className="text-gray-400 text-sm font-medium text-right">Amount</div>
         </div>
 
         {/* Table Body */}
         <div className="space-y-3 max-h-[400px] overflow-y-auto scrollbar-hide">
           {tradesData.map((trade, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-3 gap-4 py-2 hover:bg-gray-800/30 rounded-lg transition-colors"
-            >
+            <div key={index} className="grid grid-cols-3 gap-4 py-2 hover:bg-gray-800/30 rounded-lg transition-colors">
               {/* Pair */}
               <div className="flex items-center space-x-2">
-                <span className="text-white text-sm font-medium">
-                  {trade.pair}
-                </span>
+                <span className="text-white text-sm font-medium">{trade.pair}</span>
               </div>
 
               {/* Type */}
               <div className="flex items-center">
                 <span
                   className={`text-sm px-2 py-1 rounded-full font-medium ${
-                    trade.type === "Long"
-                      ? "bg-green-500/20 text-green-400"
-                      : "bg-red-500/20 text-red-400"
+                    trade.type === "Long" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
                   }`}
                 >
                   {trade.type}
@@ -71,11 +60,7 @@ export function AlgosOneTradesTable() {
 
               {/* Amount */}
               <div className="text-right">
-                <span
-                  className={`text-sm font-medium ${
-                    trade.isPositive ? "text-green-400" : "text-red-400"
-                  }`}
-                >
+                <span className={`text-sm font-medium ${trade.isPositive ? "text-green-400" : "text-red-400"}`}>
                   {trade.amount}
                 </span>
               </div>

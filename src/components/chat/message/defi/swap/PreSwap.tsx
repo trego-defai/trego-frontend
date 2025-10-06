@@ -1,15 +1,18 @@
-import { TOKENS } from "@/lib/constants/token";
+import { defiService } from "@/service/defiService";
+import { useWalletStore } from "@/store/useWalletStore";
 import { SwapEstimateItem } from "@/types/swap";
 import { ChevronDown, Loader2, Sparkles } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Badge } from "../../../../ui/badge";
 import { Button } from "../../../../ui/button";
 import { Card, CardContent, CardHeader } from "../../../../ui/card";
-import { Badge } from "../../../../ui/badge";
 import { MessageMarkdown } from "../../MessageMarkdown";
 import { TokenDisplay } from "./TokenDisplay";
-import { defiService } from "@/service/defiService";
+import { useUser } from "@clerk/nextjs";
 
-const POLL_INTERVAL = 12000; // 12 seconds
+const POLL_INTERVAL = 20000; // 20 seconds
+
+type SwapStatus = "idle" | "swapping" | "success" | "error" | "retrying" | "updating";
 
 export interface PreSwapProps {
   item: SwapEstimateItem;
@@ -18,17 +21,15 @@ export interface PreSwapProps {
 }
 
 export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps) => {
-  const [swapData, setSwapData] = useState<SwapEstimateItem>(item);
-  const [hasSwapped, setHasSwapped] = useState(false);
-  const [isSwapping, setIsSwapping] = useState(false);
-  const [isPolling, setIsPolling] = useState(false);
-  const [isRetrying, setIsRetrying] = useState(false);
-  const [hasError, setHasError] = useState<string | null>(null);
+  const { account } = useWalletStore();
+  const [swapData, setSwapData] = useState<SwapEstimateItem | null>(item);
+  const [status, setStatus] = useState<SwapStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [permanentFailure, setPermanentFailure] = useState(false);
-  const [messageSuccess, setMessageSuccess] = useState<string | null>(null);
+  const { user } = useUser();
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
   const { fromToken, toToken, fromAmount, toAmount, fromAmountUsd, toAmountUsd } = swapData || {};
 
   const formattedValues = useMemo(
@@ -37,108 +38,75 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
       buyFiat: toAmountUsd ? `$${toAmountUsd.toFixed(2)}` : "",
       exchangeRate:
         toAmount && fromAmount && Number(fromAmount) > 0
-          ? `1 ${fromToken} = ${(Number(toAmount) / Number(fromAmount)).toFixed(6)} ${toToken}`
+          ? `1 ${fromToken?.symbol} = ${(Number(toAmount) / Number(fromAmount)).toFixed(6)} ${toToken?.symbol}`
           : "",
     }),
-    [fromAmount, toAmount, fromAmountUsd, toAmountUsd, fromToken, toToken]
+    [fromAmount, toAmount, fromAmountUsd, toAmountUsd, fromToken, toToken],
   );
 
-  const isSwapDisabled = useMemo(
-    () =>
-      isLoading ||
-      isSwapping ||
-      hasSwapped ||
-      !fromToken ||
-      !toToken ||
-      !fromAmount ||
-      (!toAmount && !isPolling) ||
-      permanentFailure,
-    [
-      isLoading,
-      isSwapping,
-      hasSwapped,
-      fromToken,
-      toToken,
-      fromAmount,
-      toAmount,
-      isPolling,
-      permanentFailure,
-    ]
-  );
+  const isProcessing = status === "swapping" || status === "retrying" || status === "updating";
+  const hasSwapped = status === "success";
+  const hasError = status === "error";
 
-  const isRetryDisabled = useMemo(
-    () => isRetrying || isPolling || hasSwapped || !fromToken || !toToken || !fromAmount,
-    [isRetrying, isPolling, hasSwapped, fromToken, toToken, fromAmount]
-  );
+  const isSwapDisabled =
+    isLoading || isProcessing || hasSwapped || !fromToken || !toToken || !fromAmount || !toAmount || permanentFailure;
 
-  // API handlers
-  const fetchLatestSwapData = useCallback(async () => {
-    // TODO: Implement API call to fetch latest swap data
-    // Example: return await swapService.getEstimate({ fromToken, toToken, fromAmount });
-    return undefined;
-  }, []);
+  const isRetryDisabled = isProcessing || hasSwapped || !fromToken || !toToken || !fromAmount;
+
+  const fetchLatestSwapData = useCallback(async (): Promise<SwapEstimateItem | undefined> => {
+    if (!fromToken || !toToken || !fromAmount) return undefined;
+
+    const response = await defiService.swapEstimate({
+      ...swapData,
+    });
+    return response.data;
+  }, [fromToken, toToken, fromAmount]);
 
   const handleSwap = useCallback(async () => {
-    if (isSwapDisabled) return;
+    if (isSwapDisabled || !account?.address || !user?.id) return;
 
-    setIsSwapping(true);
-    setHasError(null);
+    setStatus("swapping");
+    setErrorMessage(null);
+    setPermanentFailure(false);
 
     try {
       await defiService.swapExecute({
-        userAddress: "0x0000000000000000000000000000000000000000",
-        fromToken: {
-          tokenAddress: fromToken,
-          faAddress: fromToken,
-          name: fromToken,
-          symbol: fromToken,
-          decimals: 18,
-        },
-        toToken: {
-          tokenAddress: toToken,
-          faAddress: toToken,
-          name: toToken,
-          symbol: toToken,
-          decimals: 18,
-        },
-        amountIn: fromAmount || "0",
-        amountOut: toAmount || "0",
-        path: swapData?.path || [],
-        slippage: 0.5,
-        recipient: "0x0000000000000000000000000000000000000000",
+        ...swapData,
+        userAddress: user?.id,
       });
-      setHasSwapped(true);
-      setMessageSuccess("Swap completed successfully");
+      setStatus("success");
+      setSuccessMessage("Swap completed successfully");
     } catch (error) {
-      setHasError(error instanceof Error ? error.message : "Swap failed");
-      setPermanentFailure(true);
-    } finally {
-      setIsSwapping(false);
+      const message = error instanceof Error ? error.message : "Swap failed";
+      setErrorMessage(message);
+      setStatus("error");
     }
-  }, [isSwapDisabled]);
+  }, [isSwapDisabled, account?.address, swapData]);
 
   const handleRetry = useCallback(async () => {
     if (isRetryDisabled) return;
 
-    setIsRetrying(true);
-    setHasError(null);
+    setStatus("retrying");
+    setErrorMessage(null);
     setPermanentFailure(false);
 
     try {
       const newData = await fetchLatestSwapData();
       if (newData) {
         setSwapData(newData);
+        setStatus("idle");
       } else {
         throw new Error("Failed to get swap data");
       }
     } catch (error) {
-      setHasError(error instanceof Error ? error.message : "Failed to update swap data");
+      const message = error instanceof Error ? error.message : "Failed to update swap data";
+      setErrorMessage(message);
+      setStatus("error");
       setPermanentFailure(true);
-    } finally {
-      setIsRetrying(false);
     }
   }, [isRetryDisabled, fetchLatestSwapData]);
 
+  // Polling for price updates
   useEffect(() => {
     if (hasSwapped || permanentFailure) return;
 
@@ -146,20 +114,25 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
 
     const updatePrice = async () => {
       try {
+        setStatus("updating");
         const newData = await fetchLatestSwapData();
         if (isMounted && newData) {
           setSwapData(newData);
+          setStatus("idle");
+        } else if (isMounted) {
+          setStatus("idle");
         }
       } catch (error) {
         if (isMounted) {
-          setHasError("Failed to update swap data");
+          const message = "Failed to update swap data";
+          setErrorMessage(message);
+          setStatus("error");
           setPermanentFailure(true);
           console.error("Price update failed:", error);
         }
       }
     };
 
-    updatePrice();
     intervalRef.current = setInterval(updatePrice, POLL_INTERVAL);
 
     return () => {
@@ -172,44 +145,49 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
   }, [fetchLatestSwapData, hasSwapped, permanentFailure]);
 
   const SwapButton = useCallback(() => {
-    const isProcessing = isLoading || isSwapping || isPolling;
+    const isButtonProcessing = isLoading || isProcessing;
 
     return (
       <Button
-        aria-busy={isProcessing}
-        className="w-full h-10 hover:bg-primary/50 text-primary font-medium rounded-lg transition-opacity"
+        aria-busy={isButtonProcessing}
+        className="w-full h-10 sm:h-11 hover:bg-primary/50 text-primary font-medium rounded-lg transition-opacity text-sm sm:text-base"
         disabled={isSwapDisabled}
         onClick={handleSwap}
         variant="outline"
       >
-        {isProcessing ? (
+        {isButtonProcessing ? (
           <div className="flex items-center justify-center gap-2">
             <Loader2 className="animate-spin w-4 h-4" />
-            <span>Processing...</span>
+            <span className="hidden sm:inline">Processing...</span>
+            <span className="sm:hidden">Processing</span>
           </div>
         ) : (
-          "Swap Tokens"
+          <>
+            <span className="hidden sm:inline">Swap Tokens</span>
+            <span className="sm:hidden">Swap</span>
+          </>
         )}
       </Button>
     );
-  }, [isLoading, isSwapping, isPolling, isSwapDisabled, handleSwap]);
+  }, [isLoading, isProcessing, isSwapDisabled, handleSwap]);
 
   const ErrorState = useCallback(
     () => (
       <div className="space-y-2">
-        <div className="w-full p-2.5 rounded-lg bg-destructive/10 border border-destructive/20">
-          <p className="text-sm text-destructive text-center">{hasError}</p>
+        <div className="w-full p-2 sm:p-2.5 rounded-lg bg-destructive/10 border border-destructive/20">
+          <p className="text-xs sm:text-sm text-destructive text-center break-words">{errorMessage}</p>
         </div>
         <Button
-          className="w-full h-10 bg-destructive hover:opacity-90 text-destructive-foreground font-medium rounded-lg transition-opacity"
+          className="w-full h-10 sm:h-11 bg-destructive hover:opacity-90 text-destructive-foreground font-medium rounded-lg transition-opacity text-sm sm:text-base"
           disabled={isRetryDisabled}
           onClick={handleRetry}
           variant="destructive"
         >
-          {isRetrying || isPolling ? (
+          {status === "retrying" ? (
             <div className="flex items-center justify-center gap-2">
               <Loader2 className="animate-spin w-4 h-4" />
-              <span>Retrying...</span>
+              <span className="hidden sm:inline">Retrying...</span>
+              <span className="sm:hidden">Retrying</span>
             </div>
           ) : (
             "Try Again"
@@ -217,70 +195,69 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
         </Button>
       </div>
     ),
-    [hasError, isRetryDisabled, handleRetry, isRetrying, isPolling]
+    [errorMessage, isRetryDisabled, handleRetry, status],
   );
 
   const SuccessState = useCallback(
     () => (
-      <div className="w-full text-center p-3 rounded-lg bg-primary/10 border border-primary/20">
-        <div className="flex items-center justify-center gap-2 text-primary font-medium mb-2">
+      <div className="w-full text-center p-2 sm:p-3 rounded-lg bg-primary/10 border border-primary/20">
+        <div className="flex items-center justify-center gap-2 text-primary font-medium mb-1 sm:mb-2">
           <div className="w-2 h-2 bg-primary rounded-full" />
-          Swap Completed
+          <span className="text-sm sm:text-base">Swap Completed</span>
         </div>
-        {messageSuccess && (
-          <div className="text-sm text-foreground">
+        {successMessage && (
+          <div className="text-xs sm:text-sm text-foreground break-words">
             <MessageMarkdown>
-              {typeof messageSuccess === "string" ? messageSuccess : JSON.stringify(messageSuccess)}
+              {typeof successMessage === "string" ? successMessage : JSON.stringify(successMessage)}
             </MessageMarkdown>
           </div>
         )}
       </div>
     ),
-    [messageSuccess]
+    [successMessage],
   );
 
   return (
     <Card className="w-full bg-card border border-border shadow-sm relative overflow-hidden">
       {isBestOption && (
         <div className="absolute top-0 right-0 z-20">
-          <Badge className="bg-gradient-to-br from-amber-500 to-orange-500 text-white border-0 rounded-none rounded-bl-lg px-3 py-1 shadow-lg">
+          <Badge className="bg-gradient-to-br from-amber-500 to-orange-500 text-white border-0 rounded-none rounded-bl-lg px-2 py-1 sm:px-3 shadow-lg">
             <Sparkles className="w-3 h-3 mr-1" />
-            Best Option
+            <span className="hidden sm:inline">Best Option</span>
+            <span className="sm:hidden">Best</span>
           </Badge>
         </div>
       )}
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-2 sm:pb-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-card-foreground uppercase tracking-wide">
-            {swapData?.provider
-              ? `${swapData.provider.replace(/_/g, " ")} Swap`.toUpperCase()
-              : "TOKEN SWAP"}
+          <h3 className="font-medium text-card-foreground uppercase tracking-wide text-sm sm:text-base">
+            {swapData?.provider ? `${swapData.provider.replace(/_/g, " ")} Swap`.toUpperCase() : "TOKEN SWAP"}
           </h3>
-          {isPolling && (
+          {status === "updating" && (
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
               <Loader2 className="animate-spin w-3 h-3" />
-              <span>Updating...</span>
+              <span className="hidden sm:inline">Updating...</span>
             </div>
           )}
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-2 sm:space-y-3 px-3 sm:px-6">
         {/* Token swap display */}
-        <div className="relative space-y-2">
+        <div className="relative space-y-1 sm:space-y-2">
           <TokenDisplay
-            tokenInfo={TOKENS?.[fromToken]}
+            tokenInfo={fromToken}
             tokenAmount={fromAmount}
             usdValue={formattedValues.sellFiat}
             displayLabel="Sell"
           />
           <div className="flex justify-center">
-            <div className="absolute z-10 bg-background border border-border rounded-full p-1.5">
-              <ChevronDown className="w-4 h-4 text-muted-foreground" />
+            <div className="absolute z-10 bg-background border border-border rounded-full p-1 sm:p-1.5">
+              <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" />
             </div>
           </div>
           <TokenDisplay
-            tokenInfo={TOKENS?.[toToken]}
+            tokenInfo={toToken}
             tokenAmount={toAmount}
             usdValue={formattedValues.buyFiat}
             displayLabel="Buy"
@@ -288,9 +265,9 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
         </div>
 
         {/* Exchange rate */}
-        {!isPolling && formattedValues.exchangeRate && !hasSwapped && (
-          <div className="text-xs text-muted-foreground text-center flex items-center justify-center gap-1">
-            <span>
+        {status !== "updating" && formattedValues.exchangeRate && !hasSwapped && (
+          <div className="text-xs text-muted-foreground text-center flex items-center justify-center gap-1 px-2">
+            <span className="break-words">
               {formattedValues.exchangeRate.split("=")[0]} ={" "}
               <span className="font-medium">{formattedValues.exchangeRate.split("=")[1]}</span>
             </span>
@@ -298,7 +275,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
         )}
 
         {/* Action buttons and states */}
-        <div className="space-y-2 pt-2">
+        <div className="space-y-2 pt-1 sm:pt-2">
           {!hasSwapped && !hasError && <SwapButton />}
           {!hasSwapped && hasError && <ErrorState />}
           {hasSwapped && <SuccessState />}

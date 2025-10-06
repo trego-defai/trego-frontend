@@ -27,8 +27,7 @@ export async function getProxyBody(req: NextRequest): Promise<BodyInit | undefin
 
   const contentType = req.headers.get("content-type") || "";
 
-  const hasBody =
-    req.headers.get("content-length") !== "0" && req.headers.get("content-length") !== null;
+  const hasBody = req.headers.get("content-length") !== "0" && req.headers.get("content-length") !== null;
 
   if (!hasBody && (req.method === "DELETE" || req.method === "OPTIONS")) {
     return undefined;

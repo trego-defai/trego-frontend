@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   keywords: ["DeFi", "AI", "trading", "cryptocurrency", "assistant", "blockchain", "analysis"],
   authors: [{ name: "Trego" }],
   robots: "index, follow",
+  icons: {
+    icon: [{ url: "/icon.png", sizes: "32x32", type: "image/png" }],
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export const viewport: Viewport = {

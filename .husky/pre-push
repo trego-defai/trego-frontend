@@ -1,13 +1,20 @@
 #!/bin/sh
 
-# Lint check
-echo "🔍 Checking linting..."
-pnpm run lint:fix || echo "⚠️  Linting failed but allowing push to proceed"
+# Auto-fix linting issues
+echo "🔍 Auto-fixing linting issues..."
+pnpm run lint:fix || echo "⚠️  Some linting issues remain but continuing..."
 
-# Format check
-echo "✨ Formatting code..."
-pnpm run format || echo "⚠️  Formatting failed but allowing push to proceed"
+# Auto-format code
+echo "✨ Auto-formatting code..."
+pnpm run format || echo "⚠️  Formatting failed but continuing..."
+
+# Add the fixed files to git
+echo "📝 Adding formatted files to git..."
+git add .
 
 # Type check and build
 echo "🏗️  Building project..."
-pnpm run build
+if ! pnpm run build; then
+  echo "❌ Build failed - please fix errors before pushing"
+  exit 1
+fi

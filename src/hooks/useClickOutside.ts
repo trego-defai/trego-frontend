@@ -1,4 +1,4 @@
-import { useEffect, RefObject } from 'react';
+import { useEffect, RefObject } from "react";
 
 interface UseClickOutsideProps {
   ref: RefObject<HTMLElement | null>;
@@ -11,18 +11,13 @@ interface UseClickOutsideProps {
   excludeRefs?: Array<RefObject<HTMLElement | null>>;
 }
 
-const useClickOutside = ({
-  ref,
-  callback,
-  excludeRefs = [],
-}: UseClickOutsideProps) => {
+const useClickOutside = ({ ref, callback, excludeRefs = [] }: UseClickOutsideProps) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const targetNode = event.target as Node | null;
       if (!targetNode) return;
 
-      const clickedInsideModal =
-        !!ref.current && ref.current.contains(targetNode);
+      const clickedInsideModal = !!ref.current && ref.current.contains(targetNode);
       if (clickedInsideModal) return;
 
       const clickedInsideExcludes = excludeRefs.some((excludeRef) => {
@@ -35,10 +30,10 @@ const useClickOutside = ({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [ref, callback, excludeRefs]);
 };

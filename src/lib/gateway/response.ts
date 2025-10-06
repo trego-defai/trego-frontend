@@ -16,12 +16,7 @@ export function SuccessResponse<T>(data: T): NextResponse<T> {
  * @param code - Error code from ErrorCode enum
  * @param details - Additional error details
  */
-export function ErrorResponse(
-  message: string,
-  status = 500,
-  code?: ErrorCode,
-  details?: any
-): NextResponse<ApiError> {
+export function ErrorResponse(message: string, status = 500, code?: ErrorCode, details?: any): NextResponse<ApiError> {
   const error: ApiError["error"] = { message };
   if (code) error.code = code;
   if (details) error.details = details;

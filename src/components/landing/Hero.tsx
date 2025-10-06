@@ -49,15 +49,9 @@ function Hero() {
           </Button>
         </Link>
       </div>
-        <div className="w-full h-64 md:h-80">
-          <Image
-            src="/chart.svg"
-            alt="chart"
-            fill
-            className="object-cover object-bottom"
-            priority
-          />
-        </div>
+      <div className="w-full h-64 md:h-80">
+        <Image src="/chart.svg" alt="chart" fill className="object-cover object-bottom" priority />
+      </div>
     </section>
   );
 }
