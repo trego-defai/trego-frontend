@@ -311,3 +311,224 @@ export const WalletIcon = ({
     <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
   </svg>
 );
+
+export const GridIcon = ({
+  width = 24,
+  height = 24,
+  color = "currentColor",
+  className = "",
+  ...props
+}: IconProps) => (
+  <svg
+    className={className}
+    fill={color}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
+    <rect x="3" y="3" width="8" height="8" rx="2" />
+    <rect x="13" y="3" width="8" height="8" rx="2" />
+    <rect x="3" y="13" width="8" height="8" rx="2" />
+    <rect x="13" y="13" width="8" height="8" rx="2" />
+  </svg>
+);
+
+export const ArrowRightIcon = ({
+  width = 24,
+  height = 24,
+  color = "currentColor",
+  className = "",
+  ...props
+}: IconProps) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    {...props}
+  >
+    <circle cx="12" cy="12" r="0" />
+    <path d="M5 12h14" />
+    <path d="M13 5l7 7-7 7" />
+  </svg>
+);
+
+export const BentoTradingIcon = ({
+  width = 48,
+  height = 48,
+  color = "currentColor",
+  className = "h-12 w-12",
+  ...props
+}: IconProps) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke={color}
+    width={width}
+    height={height}
+    aria-hidden="true"
+    {...props}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+  </svg>
+);
+
+export const BentoAIIcon = ({
+  width = 48,
+  height = 48,
+  color = "currentColor",
+  className = "h-12 w-12",
+  ...props
+}: IconProps) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke={color}
+    width={width}
+    height={height}
+    aria-hidden="true"
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+    />
+  </svg>
+);
+
+export const BentoPortfolioIcon = ({
+  width = 48,
+  height = 48,
+  color = "currentColor",
+  className = "h-12 w-12",
+  ...props
+}: IconProps) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke={color}
+    width={width}
+    height={height}
+    aria-hidden="true"
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+    />
+  </svg>
+);
+
+export const ChatBotIcon = ({
+  width = 20,
+  height = 20,
+  color = "currentColor",
+  className = "text-emerald-300",
+  ...props
+}: IconProps) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    className={className}
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    <circle cx="9" cy="10" r="1" />
+    <circle cx="15" cy="10" r="1" />
+    <path d="M9 14s1 1 3 1 3-1 3-1" />
+  </svg>
+);
+
+export const AutomationIcon = ({
+  width = 20,
+  height = 20,
+  color = "currentColor",
+  className = "text-emerald-300",
+  ...props
+}: IconProps) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    className={className}
+    aria-hidden="true"
+    {...props}
+  >
+    <rect x="3" y="3" width="7" height="7" rx="2" />
+    <rect x="14" y="3" width="7" height="7" rx="2" />
+    <rect x="3" y="14" width="7" height="7" rx="2" />
+    <rect x="14" y="14" width="7" height="7" rx="2" />
+  </svg>
+);
+
+export const MarketAnalysisIcon = ({
+  width = 20,
+  height = 20,
+  color = "currentColor",
+  className = "text-emerald-300",
+  ...props
+}: IconProps) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    className={className}
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M3 3h18v6H3z" />
+    <path d="M7 13h3v8H7zM14 10h3v11h-3z" />
+  </svg>
+);
+
+export const SecureIcon = ({
+  width = 20,
+  height = 20,
+  color = "currentColor",
+  className = "text-emerald-300",
+  ...props
+}: IconProps) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    className={className}
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M9 12l2 2 4-4" />
+    <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" />
+    <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" />
+    <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3" />
+    <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3" />
+  </svg>
+);

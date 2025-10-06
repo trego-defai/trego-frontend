@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "../shared/Logo";
 import AuthButton from "@/components/auth/AuthButton";
+import { GridIcon, ArrowRightIcon } from "@/components/ui/icons";
 
 const NAVIGATION_LINKS = [
   { href: PATH.agent, label: "AI Agent" },
@@ -48,19 +49,7 @@ function LeftIconButton() {
       className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-brand text-black hover:bg-brand/90 shrink-0"
       aria-label="Open menu"
     >
-      <svg
-        width="14"
-        height="14"
-        className="sm:w-[18px] sm:h-[18px]"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <rect x="3" y="3" width="8" height="8" rx="2" />
-        <rect x="13" y="3" width="8" height="8" rx="2" />
-        <rect x="3" y="13" width="8" height="8" rx="2" />
-        <rect x="13" y="13" width="8" height="8" rx="2" />
-      </svg>
+      <GridIcon width={14} height={14} className="sm:w-[18px] sm:h-[18px]" />
     </Button>
   );
 }
@@ -74,22 +63,7 @@ function RightArrowButton() {
       className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-brand text-black hover:bg-brand/90 shrink-0"
       aria-label="Go"
     >
-      <svg
-        width="14"
-        height="14"
-        className="sm:w-[18px] sm:h-[18px]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="0" />
-        <path d="M5 12h14" />
-        <path d="M13 5l7 7-7 7" />
-      </svg>
+      <ArrowRightIcon width={14} height={14} className="sm:w-[18px] sm:h-[18px]" />
     </Button>
   );
 }

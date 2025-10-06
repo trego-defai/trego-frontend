@@ -70,7 +70,7 @@ function SidebarItem({ icon, label, id, href, isActive, onTabChange }: SidebarIt
 
   return (
     <div className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-      <Link href={href} scroll={false} tabIndex={-1} aria-label={label}>
+      <Link href={href} scroll={false} tabIndex={-1} aria-label={label} rel="noopener noreferrer">
         <button
           type="button"
           onClick={handleClick}
