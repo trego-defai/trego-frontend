@@ -1,10 +1,5 @@
 import { ApiSuccessResponse } from "@/types/api-response";
-import {
-  BridgeQuoteRequest,
-  BridgeQuoteResponse,
-  BridgeExecuteRequest,
-  BridgeExecuteResponse,
-} from "@/types/bridge";
+import { BridgeQuoteRequest, BridgeQuoteResponse, BridgeExecuteRequest, BridgeExecuteResponse } from "@/types/bridge";
 import { BaseService } from "./baseService";
 
 class BridgeService extends BaseService {
@@ -20,10 +15,7 @@ class BridgeService extends BaseService {
 
   async executeBridge(data: BridgeExecuteRequest) {
     try {
-      const response = await this.post<ApiSuccessResponse<BridgeExecuteResponse>>(
-        `/api/bridge/stargate-quote`,
-        data,
-      );
+      const response = await this.post<ApiSuccessResponse<BridgeExecuteResponse>>(`/api/bridge/stargate-quote`, data);
       return response;
     } catch (error) {
       console.error("Error executing bridge:", error);
