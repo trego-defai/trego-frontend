@@ -33,7 +33,7 @@ const DEFAULT_DECIMALS = 8;
 
 export default function WalletPage() {
   const { user } = useUser();
-  const { account } = useWalletStore();
+  const { account, isLoadingAccount } = useWalletStore();
   const queryClient = useQueryClient();
 
   const [recipient, setRecipient] = useState("");
@@ -116,7 +116,8 @@ export default function WalletPage() {
     ? (parseFloat(walletDetailsData.balance) / 10 ** DEFAULT_DECIMALS).toString()
     : "0";
 
-  const isLoading = sendTokenMutation.isPending || isLoadingWalletDetails;
+  const isLoading =
+    sendTokenMutation.isPending || isLoadingWalletDetails || isLoadingAccount || sendTokenMutation.isPending;
 
   const tokens: Token[] = walletDetailsData?.tokens?.map((token: TokenBalance) => ({
     symbol: token.symbol || "Unknown",
@@ -152,7 +153,7 @@ export default function WalletPage() {
     }
   }, [tokens, selectedToken]);
 
-  if (isLoadingWalletDetails) {
+  if (isLoadingWalletDetails || isLoadingAccount) {
     return <WalletLoading />;
   }
 
