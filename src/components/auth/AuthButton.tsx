@@ -53,7 +53,7 @@ export function AuthButton({
     return title ? (
       <Button
         variant={variant}
-        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground shadow-lg shadow-brand/50 cursor-not-allowed opacity-70 ${className} text-foreground`}
+        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium bg-gradient-to-br from-brand via-brand to-brand/90 text-brand-foreground shadow-lg shadow-brand/50 cursor-not-allowed opacity-70 ${className}`}
         disabled
         aria-label={title}
       >
@@ -107,7 +107,7 @@ export function AuthButton({
           onClick={() => setShowDropdown((prev) => !prev)}
         >
           {title ? (
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 ">
               <HugeiconsIcon icon={ConnectIcon} />
               <span>{title}</span>
             </span>
