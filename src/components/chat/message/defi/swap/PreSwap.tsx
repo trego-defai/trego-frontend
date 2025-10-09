@@ -1,14 +1,15 @@
+import { getShortAddress, goToExplorer } from "@/lib/utils";
 import { defiService } from "@/service/defiService";
 import { useWalletStore } from "@/store/useWalletStore";
 import { SwapEstimateItem } from "@/types/swap";
-import { ChevronDown, Loader2, Sparkles } from "lucide-react";
+import { useUser } from "@clerk/nextjs";
+import { ChevronDown, ExternalLink, Loader2, Sparkles } from "lucide-react";
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Badge } from "../../../../ui/badge";
 import { Button } from "../../../../ui/button";
 import { Card, CardContent, CardHeader } from "../../../../ui/card";
-import { MessageMarkdown } from "../../MessageMarkdown";
 import { TokenDisplay } from "./TokenDisplay";
-import { useUser } from "@clerk/nextjs";
 
 const POLL_INTERVAL = 20000; // 20 seconds
 
@@ -25,7 +26,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
   const [swapData, setSwapData] = useState<SwapEstimateItem | null>(item);
   const [status, setStatus] = useState<SwapStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [transactionHash, setTransactionHash] = useState<string | null>(null);
   const [permanentFailure, setPermanentFailure] = useState(false);
   const { user } = useUser();
 
@@ -60,28 +61,39 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
       ...swapData,
     });
     return response.data;
-  }, [fromToken, toToken, fromAmount]);
+  }, [fromToken, toToken, fromAmount, swapData]);
 
   const handleSwap = useCallback(async () => {
     if (isSwapDisabled || !account?.address || !user?.id) return;
 
     setStatus("swapping");
     setErrorMessage(null);
+    setTransactionHash(null);
     setPermanentFailure(false);
 
     try {
-      await defiService.swapExecute({
+      const response = await defiService.swapExecute({
         ...swapData,
-        userAddress: user?.id,
+        userAddress: user.id,
       });
-      setStatus("success");
-      setSuccessMessage("Swap completed successfully");
+
+      // Lưu transaction hash nếu có
+      if (response.data?.hash) {
+        setTransactionHash(response.data.hash);
+      }
+
+      if (response.data?.success) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+        setErrorMessage(response.message || "Swap failed");
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : "Swap failed";
       setErrorMessage(message);
       setStatus("error");
     }
-  }, [isSwapDisabled, account?.address, swapData]);
+  }, [isSwapDisabled, account?.address, swapData, user?.id]);
 
   const handleRetry = useCallback(async () => {
     if (isRetryDisabled) return;
@@ -146,6 +158,9 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
 
   const SwapButton = useCallback(() => {
     const isButtonProcessing = isLoading || isProcessing;
+    const buttonText = isButtonProcessing
+      ? { full: "Processing...", short: "Processing" }
+      : { full: "Swap Tokens", short: "Swap" };
 
     return (
       <Button
@@ -155,27 +170,22 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
         onClick={handleSwap}
         variant="outline"
       >
-        {isButtonProcessing ? (
-          <div className="flex items-center justify-center gap-2">
-            <Loader2 className="animate-spin w-4 h-4" />
-            <span className="hidden sm:inline">Processing...</span>
-            <span className="sm:hidden">Processing</span>
-          </div>
-        ) : (
-          <>
-            <span className="hidden sm:inline">Swap Tokens</span>
-            <span className="sm:hidden">Swap</span>
-          </>
-        )}
+        {isButtonProcessing && <Loader2 className="animate-spin w-4 h-4 mr-2" />}
+        <span className="hidden sm:inline">{buttonText.full}</span>
+        <span className="sm:hidden">{buttonText.short}</span>
       </Button>
     );
   }, [isLoading, isProcessing, isSwapDisabled, handleSwap]);
 
-  const ErrorState = useCallback(
-    () => (
+  const ErrorState = useCallback(() => {
+    const isRetrying = status === "retrying";
+
+    return (
       <div className="space-y-2">
         <div className="w-full p-2 sm:p-2.5 rounded-lg bg-destructive/10 border border-destructive/20">
-          <p className="text-xs sm:text-sm text-destructive text-center break-words">{errorMessage}</p>
+          <p className="text-xs sm:text-sm text-destructive text-center break-words">
+            {errorMessage || "An error occurred"}
+          </p>
         </div>
         <Button
           className="w-full h-10 sm:h-11 bg-destructive hover:opacity-90 text-destructive-foreground font-medium rounded-lg transition-opacity text-sm sm:text-base"
@@ -183,7 +193,7 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
           onClick={handleRetry}
           variant="destructive"
         >
-          {status === "retrying" ? (
+          {isRetrying ? (
             <div className="flex items-center justify-center gap-2">
               <Loader2 className="animate-spin w-4 h-4" />
               <span className="hidden sm:inline">Retrying...</span>
@@ -194,27 +204,34 @@ export const PreSwap = ({ item, isLoading, isBestOption = false }: PreSwapProps)
           )}
         </Button>
       </div>
-    ),
-    [errorMessage, isRetryDisabled, handleRetry, status],
-  );
+    );
+  }, [errorMessage, isRetryDisabled, handleRetry, status]);
 
   const SuccessState = useCallback(
     () => (
-      <div className="w-full text-center p-2 sm:p-3 rounded-lg bg-primary/10 border border-primary/20">
-        <div className="flex items-center justify-center gap-2 text-primary font-medium mb-1 sm:mb-2">
-          <div className="w-2 h-2 bg-primary rounded-full" />
-          <span className="text-sm sm:text-base">Swap Completed</span>
-        </div>
-        {successMessage && (
-          <div className="text-xs sm:text-sm text-foreground break-words">
-            <MessageMarkdown>
-              {typeof successMessage === "string" ? successMessage : JSON.stringify(successMessage)}
-            </MessageMarkdown>
+      <div className="w-full space-y-2 bg-primary/5 border border-primary/20 rounded-lg ">
+        <div className="text-center p-2 pb-0 sm:p-3 ">
+          <div className="flex items-center justify-center gap-2  font-medium">
+            <div className="w-2 h-2 bg-primary  rounded-full animate-pulse" />
+            <span className="text-sm sm:text-base">Swap Completed</span>
           </div>
+        </div>
+
+        {transactionHash && (
+          <Link
+            href={goToExplorer(transactionHash)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full p-2 sm:p-2.5 "
+          >
+            <span className="text-xs sm:text-sm text-muted-foreground">Transaction:</span>
+            <span className="text-xs sm:text-sm font-mono text-primary">{getShortAddress(transactionHash)}</span>
+            <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
+          </Link>
         )}
       </div>
     ),
-    [successMessage],
+    [transactionHash],
   );
 
   return (

@@ -74,7 +74,7 @@ function SidebarItem({ icon, label, id, href, isActive, onTabChange }: SidebarIt
         <button
           type="button"
           onClick={handleClick}
-          className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 ${buttonClasses}`}
+          className={`flex items-center justify-center cursor-pointer w-10 h-10 rounded-lg transition-all duration-200 ${buttonClasses}`}
           aria-label={label}
         >
           {icon}

@@ -20,8 +20,8 @@ interface ChatPanelProps {
 
 export function ChatPanel({ className, selectedConversationId }: ChatPanelProps) {
   const { user, isLoaded } = useUser();
-  const { account } = useWalletStore();
-  const [inputValue, setInputValue] = useState("");
+  const { account, isLoadingAccount } = useWalletStore();
+  const [inputValue, setInputValue] = useState<string>("");
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [conversationId, setConversationId] = useState<string | undefined>();
   const [isLoading] = useState(false);
@@ -106,7 +106,7 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
           data,
           intent,
         } = await chatService.sendMessage({
-          user_address: account?.address ?? "0x1",
+          user_address: user?.id ?? "0x1",
           content: message.trim(),
         });
 
@@ -152,7 +152,7 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
       <div className="flex items-center justify-between p-4 border-b border-border bg-muted/30">Ai agent</div>
 
       {error && (
-        <div className="p-4 bg-destructive/10 border-b border-destructive/20">
+        <div className="p-4 bg-destructive/20 border-b border-destructive/20">
           <div className="flex items-center gap-2 text-destructive text-sm">
             <span>⚠️</span>
             <span>{error}</span>
@@ -168,6 +168,15 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
           <div className="flex h-full w-full items-center justify-center">
             <AuthContent />
           </div>
+        ) : isLoadingAccount ? (
+          <div className="flex h-full w-full items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-muted animate-pulse flex items-center justify-center">
+                <span className="text-xl text-muted-foreground">🔄</span>
+              </div>
+              <div className="text-sm text-muted-foreground animate-pulse">Connecting wallet...</div>
+            </div>
+          </div>
         ) : !account ? (
           <div className="flex h-full w-full items-center justify-center">
             <NoWallet />
@@ -179,8 +188,7 @@ export function ChatPanel({ className, selectedConversationId }: ChatPanelProps)
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">Start your DeFi AI chat</h3>
             <p className="text-muted-foreground max-w-md mb-6">
-              Ask about swap, staking, unstaking, on-chain analytics, or get AI-powered insights for your crypto
-              portfolio.
+              Ask about swap, on-chain analytics, or get AI-powered insights for your crypto portfolio.
             </p>
             <ChatSuggestions
               onSuggestionClick={(suggestion) => {

@@ -2,13 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { PATH } from "@/lib/constants";
-import { walletService } from "@/service/walletService";
-import { useWalletStore } from "@/store/useWalletStore";
-import { WalletAccount } from "@/types/wallet";
+import { useWalletSync } from "@/hooks";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { ConnectIcon, Loading03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { GoogleIcon, XIcon } from "../ui/icons";
@@ -30,40 +28,18 @@ export function AuthButton({
   const pathname = usePathname();
   const [showDropdown, setShowDropdown] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const { setAccount } = useWalletStore();
   const queryClient = useQueryClient();
+
+  useWalletSync(user?.id);
 
   const getCurrentUrl = useCallback(() => {
     if (typeof window !== "undefined") return window.location.href;
     return PATH.landing;
   }, []);
 
-  // Query to get wallet with details
-  const { data: walletData } = useQuery({
-    queryKey: ["wallet"],
-    queryFn: async () => {
-      const response = await walletService.getWallet();
-      return response.data;
-    },
-    enabled: !!user,
-  });
-
-  // Set account when wallet data is loaded
-  useEffect(() => {
-    if (walletData && walletData.appAddress) {
-      const walletAccount: WalletAccount = {
-        address: walletData.appAddress,
-      };
-      setAccount(walletAccount);
-    } else if (walletData === null) {
-      setAccount(null);
-    }
-  }, [walletData, setAccount]);
-
   // Refetch data when account is disconnected
   useEffect(() => {
     if (!user) {
-      setAccount(null);
       // Invalidate all wallet-related queries when account is disconnected
       queryClient.invalidateQueries({ queryKey: ["wallet"] });
       queryClient.invalidateQueries({ queryKey: ["balance"] });
@@ -71,7 +47,7 @@ export function AuthButton({
       queryClient.removeQueries({ queryKey: ["wallet"] });
       queryClient.removeQueries({ queryKey: ["balance"] });
     }
-  }, [user, queryClient, setAccount]);
+  }, [user, queryClient]);
 
   if (!isLoaded)
     return title ? (
