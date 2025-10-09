@@ -1,169 +1,197 @@
 # Trego Web - AI-Powered DeFi Frontend
 
-Next.js 15 frontend application for Trego DeFi platform with AI chatbot interface and trading dashboard.
-
 ## 🌟 Current Features
 
 ### 🤖 DeFi Agent Page
 
-- **AI Chat Interface**: Chat-bot UI with message components that render different action types from backend
-- **Backend Integration**: API connections to interact with AI backend services
+- **AI Chat Interface**: Interactive chat-bot UI with streaming responses
+- **DeFi Actions**: Swap and bridge operations with confirmation UI
+- **Message Rendering**: Bot messages with markdown support, typewriter effect, and thinking indicators
+- **Chat History**: Conversation history panel with saved interactions
+- **Smart Suggestions**: Context-aware chat suggestions
 
 ### 📊 Trading Dashboard
 
-- **TradingView Integration**: Trading-view UI for chart analysis
-- **Trade History**: Transaction history display
-- **P&L Tracking**: Profit/loss monitoring interface
-- **Token Pair Selection**: Select trading pairs interface
+- **Lightweight Charts**: Real-time price charts with candlestick visualization
+- **Assets Panel**: Portfolio overview with token balances
+- **Order Management**: Active orders tracking and history
+- **Trade History**: Comprehensive transaction history with filtering
+- **Balance Analytics**: Historical balance tracking and P&L analysis
 
-### 🏠 Landing Page
+### 💼 Wallet Management
 
-- **Navigation**: Navbar component
-- **Features**: Feature showcase sections
-- **Social Integration**: X (Twitter) | Google
+- **Integrated Wallet**: Built-in crypto wallet with token management
+- **Token Operations**: Send and receive tokens with QR code support
+- **Balance Tracking**: Real-time balance updates across multiple tokens
+- **Transaction History**: Complete transaction log with status tracking
+- **Wallet Sync**: Automatic synchronization with backend services
 
-## 🏗️ Detailed Project Structure
+## 🏗️ Project Structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx               # Root layout with providers
-│   ├── page.tsx                 # Landing page (navbar, features, X integration)
-│   ├── globals.css              # Global Tailwind styles
-│   ├── agent/
-│   │   ├── page.tsx             # Agent chat page
-│   │   └── layout.tsx           # Agent layout
-│   ├── dashboard/
-│   │   ├── page.tsx             # Trading dashboard page
-│   │   └── layout.tsx           # Dashboard layout
+│   ├── layout.tsx                   # Root layout with providers
+│   ├── globals.css                  # Global Tailwind styles
+│   ├── error.tsx                    # Error boundary page
+│   ├── loading.tsx                  # Global loading state
+│   ├── not-found.tsx                # 404 page
+│   ├── (landing-page)/
+│   │   └── page.tsx                 # Landing page
+│   ├── (protect)/                   # Protected routes (auth required)
+│   │   ├── layout.tsx               # Protected layout with sidebar
+│   │   ├── agent/
+│   │   │   ├── page.tsx             # AI chat agent page
+│   │   │   └── layout.tsx           # Agent layout
+│   │   ├── trading/
+│   │   │   ├── page.tsx             # Trading dashboard
+│   │   │   └── layout.tsx           # Trading layout
+│   │   ├── wallet/
+│   │   │   ├── page.tsx             # Wallet management page
+│   │   │   └── layout.tsx           # Wallet layout
+│   │   └── welcome/                 # Onboarding page
 │   └── api/
-│       ├── chat/
-│       │   └── route.ts         # Chat API endpoint with SSE streaming
-│       ├── trading/
-│       │   ├── pairs/route.ts   # Trading pairs API gateway
-│       │   ├── history/route.ts # Trade history API gateway
-│       │   └── pnl/route.ts     # P&L data API gateway
-│       ├── gateway/
-│       │   ├── route.ts         # Main API gateway router
-│       │   └── middleware.ts    # Gateway middleware (auth, rate limiting)
-│       └── health/route.ts      # Health check endpoint
+│       └── [...all]/
+│           └── route.ts             # API gateway proxy (all HTTP methods)
 ├── components/
-│   ├── landing/
-│   │   ├── Navbar.tsx           # Navigation with auth buttons
-│   │   ├── Hero.tsx             # Hero section
-│   │   ├── Features.tsx         # Features showcase
-│   │   ├── TwitterSection.tsx   # X (Twitter) integration
-│   │   └── Footer.tsx           # Landing footer
 │   ├── agent/
-│   │   ├── ChatInterface.tsx    # Main chat UI container
-│   │   ├── MessageList.tsx      # Chat messages display
-│   │   ├── MessageItem.tsx      # Individual message component
-│   │   ├── ActionRenderer.tsx   # Renders different action types from backend
-│   │   ├── ChatInput.tsx        # Message input field
-│   │   └── TypingIndicator.tsx  # Loading/typing indicator
+│   │   ├── index.tsx                # Main agent component
+│   │   └── PanelHistory.tsx         # Chat history panel
+│   ├── auth/                        # Authentication components
+│   ├── chat/
+│   │   ├── index.tsx                # Main chat interface
+│   │   ├── ChatInput.tsx            # Message input field
+│   │   ├── ChatSuggestions.tsx      # Suggestion chips
+│   │   └── message/
+│   │       ├── BotMessage.tsx       # Bot message bubble
+│   │       ├── UserMessage.tsx      # User message bubble
+│   │       ├── BotThinking.tsx      # Thinking indicator
+│   │       ├── ChatContainer.tsx    # Messages container
+│   │       ├── ChatMessageSkeleton.tsx
+│   │       ├── MessageMarkdown.tsx  # Markdown renderer
+│   │       ├── MessageType.tsx      # Message type handler
+│   │       ├── TypewriterText.tsx   # Typewriter effect
+│   │       └── defi/
+│   │           ├── swap/
+│   │           │   ├── BotPreSwap.tsx
+│   │           │   ├── PreSwap.tsx
+│   │           │   └── TokenDisplay.tsx
+│   │           └── bridge/
+│   │               ├── BotBridge.tsx
+│   │               └── BridgeConfirmation.tsx
 │   ├── dashboard/
-│   │   ├── TradingView.tsx      # TradingView chart integration
-│   │   ├── PairSelector.tsx     # Token pair selection dropdown
-│   │   ├── TradeHistory.tsx     # Transaction history table
-│   │   ├── PnlCards.tsx         # P&L summary cards
-│   │   ├── PnlTable.tsx         # Detailed P&L breakdown
-│   │   ├── OrderBook.tsx        # Market order book display
-│   │   └── TradingPanel.tsx     # Main trading controls
+│   │   ├── Sidebar.tsx              # Main navigation sidebar
+│   │   ├── Header.tsx               # Dashboard header
+│   │   ├── BalanceCards.tsx         # Balance overview cards
+│   │   ├── BalanceHistorySection.tsx # Balance chart
+│   │   └── AlgosOneTradesTable.tsx  # Algo trades table
+│   ├── landing/
+│   │   ├── Navbar.tsx               # Landing navbar with auth
+│   │   ├── Hero.tsx                 # Hero section
+│   │   ├── Features.tsx             # Features showcase
+│   │   ├── BentoSection.tsx         # Bento grid layout
+│   │   ├── Background.tsx           # Animated background
+│   │   └── Footer.tsx               # Landing footer
+│   ├── trade/
+│   │   ├── Chart.tsx                # Price chart component
+│   │   ├── ChartSkeleton.tsx        # Chart loading state
+│   │   ├── TradingView.tsx          # Trading view container
+│   │   ├── AssetsPanel.tsx          # Portfolio assets
+│   │   ├── OrdersTab.tsx            # Active orders
+│   │   └── HistoryTab.tsx           # Trade history
+│   ├── wallet/
+│   │   ├── index.ts                 # Wallet exports
+│   │   ├── TregoWallet.tsx          # Main wallet component
+│   │   ├── AuthContent.tsx          # Wallet auth wrapper
+│   │   ├── WalletBalance.tsx        # Balance display
+│   │   ├── TokensList.tsx           # Token list view
+│   │   ├── SendToken.tsx            # Send token form
+│   │   ├── ReceiveToken.tsx         # Receive with QR code
+│   │   ├── TransactionHistory.tsx   # Transaction log
+│   │   ├── WalletLoading.tsx        # Loading state
+│   │   ├── NoWallet.tsx             # Empty state
+│   │   └── types.ts                 # Wallet type definitions
 │   ├── shared/
-│   │   ├── Layout.tsx           # Common layout wrapper
-│   │   ├── LoadingSpinner.tsx   # Loading component
-│   │   ├── ErrorBoundary.tsx    # Error handling
-│   │   └── AuthGuard.tsx        # Route protection
-│   └── ui/
-│       ├── button.tsx           # Custom button component
-│       ├── card.tsx             # Card container
-│       ├── input.tsx            # Input field
-│       ├── select.tsx           # Dropdown select
-│       ├── table.tsx            # Data table
-│       ├── modal.tsx            # Modal dialog
-│       └── toast.tsx            # Notification toast
-├── lib/
-│   ├── utils.ts                 # Common utility functions
-│   ├── api/
-│   │   ├── client.ts            # API client configuration
-│   │   ├── gateway.ts           # API gateway utilities
-│   │   ├── endpoints.ts         # API endpoint definitions
-│   │   └── types.ts             # API request/response types
-│   ├── constants.ts             # App constants
-│   └── types.ts                 # TypeScript type definitions
+│   │   ├── Logo.tsx                 # Trego logo component
+│   │   └── Navbar.tsx               # Shared navbar
+│   └── ui/                          # shadcn/ui components
+│       ├── avatar.tsx
+│       ├── badge.tsx
+│       ├── bento-grid.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── dialog.tsx
+│       ├── icons.tsx
+│       ├── input.tsx
+│       ├── marquee.tsx
+│       ├── skeleton.tsx
+│       └── tabs.tsx
 ├── hooks/
-│   ├── useChat.ts               # Chat functionality hook
-│   ├── useTradingData.ts        # Trading data management
-│   ├── usePairSelection.ts      # Pair selector hook
-│   └── useSSE.ts                # Server-Sent Events connection hook
-└── middleware
-└── providers/
-    ├── ApiProvider.tsx          # API context provider
-    ├── ChatProvider.tsx         # Chat state management
-    └── TradingProvider.tsx      # Trading data context
+│   ├── index.ts                     # Hooks exports
+│   ├── useBodyScrollLock.ts         # Prevent scroll hook
+│   ├── useClickOutside.ts           # Outside click detection
+│   ├── useDebounce.ts               # Debounce hook
+│   ├── useHotKey.ts                 # Keyboard shortcuts
+│   ├── useResponsive.ts             # Responsive breakpoints
+│   └── useWalletSync.ts             # Wallet synchronization
+├── lib/
+│   ├── utils.ts                     # Common utility functions
+│   ├── constants.ts                 # App-wide constants
+│   ├── constants/
+│   │   └── token.ts                 # Token definitions
+│   └── gateway/
+│       ├── proxy.ts                 # API proxy handler
+│       ├── response.ts              # Response formatting
+│       └── utils.ts                 # Gateway utilities
+├── providers/
+│   ├── index.tsx                    # Providers composition
+│   ├── ClerkAuthProvider.tsx        # Clerk authentication
+│   └── ReactQueryProvider.tsx       # TanStack Query provider
+├── service/
+│   ├── baseService.ts               # Base API service
+│   ├── chatService.ts               # Chat API methods
+│   ├── defiService.ts               # DeFi operations API
+│   ├── walletService.ts             # Wallet API methods
+│   └── bridgeService.ts             # Bridge operations API
+├── store/
+│   └── useWalletStore.ts            # Zustand wallet state
+└── types/                           # TypeScript type definitions
 ```
-
-## 🔧 Technology Stack
-
-### Frontend
-
-- **Framework**: Next.js 15 with App Router
-- **Styling**: Tailwind CSS v4
-- **Package Manager**: pnpm
-- **Build Tool**: Turbopack
-
-## 🚀 Development
-
-### Available Commands
-
-- `pnpm dev` - Start development server with Turbopack
-- `pnpm build` - Build for production with Turbopack
-- `pnpm start` - Start production server
 
 ### Environment Variables
 
+Create a `.env` file in the root directory:
+
 ```env
-# Backend API Configuration
-NEXT_PUBLIC_API_URL=http://localhost:4000/api
-API_SECRET_KEY=your_backend_api_secret
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
-RATE_LIMIT_MAX_REQUESTS=100
-RATE_LIMIT_WINDOW_MS=900000
-
-# SSE Configuration
-SSE_ENDPOINT=/api/chat/stream
-SSE_HEARTBEAT_INTERVAL=30000
+BASE_API_URL=https://defai-server-aah6.onrender.com
 ```
 
-## 🔌 API Structure
+## 🔌 API Architecture
 
-### API Gateway Architecture
+### API Gateway Pattern
 
-The frontend uses a centralized API gateway pattern for backend communication:
+The frontend uses a centralized API gateway proxy pattern for backend communication:
 
 ```typescript
-// API Gateway Routes
-/api/gateway          # Main gateway router with middleware
-├── /chat             # Chat endpoints with SSE streaming
-├── /trading          # Trading data endpoints
-│   ├── /pairs        # Trading pairs data
-│   ├── /history      # Transaction history
-│   └── /pnl          # P&L calculations
-└── /health           # System health checks
+// Single entry point for all API requests
+/api/[...all] → proxyRequest() → Backend API
 
-// Gateway Middleware Stack
-1. Authentication validation
-2. Rate limiting & throttling
-3. Request/response logging
-4. Error handling & formatting
-5. CORS configuration
+// All HTTP methods supported:
+// GET, POST, PUT, DELETE, PATCH, OPTIONS
 ```
 
-### API Client Structure
+### Service Layer
+
+The application uses a service-based architecture for API calls:
 
 ```typescript
-// lib/api/client.ts - Main API client
-// lib/api/gateway.ts - Gateway utilities & middleware
-// lib/api/endpoints.ts - Endpoint definitions & URLs
-// lib/api/types.ts - Request/response type definitions
+// service/baseService.ts - Base HTTP client with axios
+// service/chatService.ts - Chat & agent endpoints
+// service/defiService.ts - DeFi operations (swap, liquidity)
+// service/walletService.ts - Wallet management
+// service/bridgeService.ts - Cross-chain bridge operations
 ```
